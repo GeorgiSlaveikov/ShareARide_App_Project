@@ -9,30 +9,28 @@ namespace DatabaseLayer
     {
         static async Task Main(string[] args)
         {
-            MainDatabaseController mdbc = new MainDatabaseController();
 
+            MainDatabaseController.InitializeDatabase();
 
-            mdbc.InitializeDatabase();
+            //DatabaseUser user = null;
 
-            DatabaseUser user = null;
+            //while (user == null)
+            //{
 
-            while (user == null)
-            {
-
-                Console.WriteLine("Username: ");
-                string username = Console.ReadLine();
-                Console.WriteLine("Password: ");
-                string password = Console.ReadLine();
-                user = await DatabaseUserController.LogIn(username, password);
-                if (user != null)
-                {
-                    Console.WriteLine(user);
-                }
-                else
-                {
-                    Console.WriteLine("Sorry! Wrong credentials!");
-                }
-            }
+            //    Console.WriteLine("Username: ");
+            //    string username = Console.ReadLine();
+            //    Console.WriteLine("Password: ");
+            //    string password = Console.ReadLine();
+            //    user = await DatabaseUserController.LogIn(username, password);
+            //    if (user != null)
+            //    {
+            //        Console.WriteLine(user);
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("Sorry! Wrong credentials!");
+            //    }
+            //}
         }
     }
 }

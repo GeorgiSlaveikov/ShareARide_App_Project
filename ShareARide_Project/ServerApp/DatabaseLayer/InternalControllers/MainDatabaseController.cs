@@ -9,9 +9,9 @@ using System.Xml.Serialization;
 
 namespace DatabaseLayer.InternalControllers
 {
-    public class MainDatabaseController
+    public static class MainDatabaseController
     {
-        public void DropDatabase()
+        public static void DropDatabase()
         {
             using (var context = new DatabaseContext())
             {
@@ -25,7 +25,7 @@ namespace DatabaseLayer.InternalControllers
                 }
             }
         }
-        public void InitializeDatabase()
+        public static void InitializeDatabase()
         {
             using (var context = new DatabaseContext())
             {
