@@ -6,7 +6,7 @@ namespace Main
     {
         static void Main(string[] args)
         {
-            MainController.StartServer(args);
+            //MainController.StartServer(args);
         }
     }
 }

@@ -6,6 +6,7 @@ using DatabaseLayer.DatabaseControllers;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using REST_API.Objects;
+using Core.Model;
 
 
 namespace REST_API.Controllers
@@ -61,9 +62,19 @@ namespace REST_API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<DatabaseUser>> CreateUser(DatabaseUser user)
+        public async Task<ActionResult<DatabaseUser>> CreateUser([FromBody] User user)
         {
-            _context.Users.Add(user);
+            DatabaseUser newUser = new DatabaseUser() { 
+                Username = user.Username,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Password = user.Password,
+                Age = user.Age,
+                Sex = user.Sex,
+            };
+
+            _context.Users.Add(newUser);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
         }

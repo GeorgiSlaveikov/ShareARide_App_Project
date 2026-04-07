@@ -15,6 +15,8 @@ namespace Core.Model
         private int passengersCount;
         private RideStatus status;
 
+        public Ride() { }
+
         public Ride(int id, Offer offer, List<Booking> bookings, int passengersCount)
         {
             Id = id;

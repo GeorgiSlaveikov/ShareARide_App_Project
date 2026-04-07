@@ -1,6 +1,7 @@
 ﻿using Core.Others;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace Core.Model
         private BookingStatus status;
         private DateTime createdAt;
 
+        public Booking() { }
+
         public Booking(Offer offer, User requester)
         {
             Offer = offer;
@@ -30,6 +33,8 @@ namespace Core.Model
         }
 
         public virtual int Id { get => id; set => id = value; }
+
+        [NotMapped]
         public Offer Offer
         {
             get => offer;

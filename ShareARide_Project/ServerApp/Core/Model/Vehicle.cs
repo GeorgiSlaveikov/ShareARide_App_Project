@@ -16,6 +16,8 @@ namespace Core.Model
         private int maxCapacity;
         private User owner;
 
+        public Vehicle() { }
+
         public Vehicle(int id, VehicleMake make, string model, int year, int maxCapacity, User owner)
         {
             Id = id;

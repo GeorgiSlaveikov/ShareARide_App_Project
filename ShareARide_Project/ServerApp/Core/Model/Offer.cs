@@ -20,6 +20,8 @@ namespace Core.Model
         private DateTime expiresOn;
         private OfferStatus status;
 
+        public Offer() { }
+
         public Offer(int id, User driver, Vehicle vehicle, DateTime departureTime, City departureCity,
             City destinationCity, double pricePerSeat, DateTime expiresOn)
         {

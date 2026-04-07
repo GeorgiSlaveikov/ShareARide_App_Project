@@ -1,4 +1,5 @@
 using REST_API.APIControllers;
+using DatabaseLayer.InternalControllers;
 
 namespace REST_API
 {
@@ -7,6 +8,8 @@ namespace REST_API
         public static void Main(string[] args)
         {
             //ApiMainController.InitializeApi(args);
+            MainDatabaseController.DropDatabase();
+            MainDatabaseController.InitializeDatabase();
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddApiServices("ShareARideDB.db");
             var app = builder.Build();
