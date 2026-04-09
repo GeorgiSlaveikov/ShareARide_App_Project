@@ -39,7 +39,6 @@ class User {
     };
   }
 
-  // Equivalent to your C# ToString() override
   @override
   String toString() {
     return 'Username: $username\nFirst Name: $firstName\nLast Name: $lastName\nEmail: $email';

@@ -61,8 +61,8 @@ namespace REST_API.Controllers
             return Ok(user); // Returns 200 OK with the User JSON
         }
 
-        [HttpPost]
-        public async Task<ActionResult<DatabaseUser>> CreateUser([FromBody] User user)
+        [HttpPost("register")]
+        public async Task<ActionResult<DatabaseUser>> RegisterUser([FromBody] User user)
         {
             DatabaseUser newUser = new DatabaseUser() { 
                 Username = user.Username,
@@ -70,8 +70,10 @@ namespace REST_API.Controllers
                 LastName = user.LastName,
                 Email = user.Email,
                 Password = user.Password,
-                Age = user.Age,
+                BirthDate = user.BirthDate,
+                Age = user.CalculateAge(),
                 Sex = user.Sex,
+                HomeCityId = user.HomeCity.Id
             };
 
             _context.Users.Add(newUser);

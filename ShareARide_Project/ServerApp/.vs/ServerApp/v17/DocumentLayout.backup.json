@@ -3,20 +3,40 @@
   "WorkspaceRootPath": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\sharearide_project\\serverapp\\rest_api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\sharearide_project\\serverapp\\rest_api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\sharearide_project\\serverapp\\rest_api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\sharearide_project\\serverapp\\rest_api\\apicontrollers\\apimaincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\apicontrollers\\apimaincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\sharearide_project\\serverapp\\rest_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F6AE7E2B-A51B-4370-8C29-1885105643E4}|Core\\Core.csproj|d:\\webdevelop\\sharearide_project\\serverapp\\core\\model\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F6AE7E2B-A51B-4370-8C29-1885105643E4}|Core\\Core.csproj|solutionrelative:core\\model\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|d:\\webdevelop\\sharearide_project\\serverapp\\databaselayer\\database\\databasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|solutionrelative:databaselayer\\database\\databasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|d:\\webdevelop\\sharearide_project\\serverapp\\databaselayer\\internalcontrollers\\maindatabasecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|solutionrelative:databaselayer\\internalcontrollers\\maindatabasecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\sharearide_project\\serverapp\\rest_api\\controllers\\citiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\controllers\\citiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|d:\\webdevelop\\sharearide_project\\serverapp\\databaselayer\\database\\databasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|solutionrelative:databaselayer\\database\\databasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|d:\\webdevelop\\sharearide_project\\serverapp\\databaselayer\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -30,24 +50,88 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "REST_API\\Properties\\launchSettings.json",
+              "ToolTip": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\Properties\\launchSettings.json",
+              "RelativeToolTip": "REST_API\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAgwB8AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-09T13:42:55.492Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\appsettings.json",
+              "RelativeDocumentMoniker": "REST_API\\appsettings.json",
+              "ToolTip": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\appsettings.json",
+              "RelativeToolTip": "REST_API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-09T13:42:43.782Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ApiMainController.cs",
+              "DocumentMoniker": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\APIControllers\\ApiMainController.cs",
+              "RelativeDocumentMoniker": "REST_API\\APIControllers\\ApiMainController.cs",
+              "ToolTip": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\APIControllers\\ApiMainController.cs",
+              "RelativeToolTip": "REST_API\\APIControllers\\ApiMainController.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAiwE0AAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T13:35:32.308Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CitiesController.cs",
+              "DocumentMoniker": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\Controllers\\CitiesController.cs",
+              "RelativeDocumentMoniker": "REST_API\\Controllers\\CitiesController.cs",
+              "ToolTip": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\Controllers\\CitiesController.cs",
+              "RelativeToolTip": "REST_API\\Controllers\\CitiesController.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAIwCAAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T23:15:18.08Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\Program.cs",
+              "RelativeDocumentMoniker": "REST_API\\Program.cs",
+              "ToolTip": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\Program.cs",
+              "RelativeToolTip": "REST_API\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T22:27:30.355Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "User.cs",
               "DocumentMoniker": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\Core\\Model\\User.cs",
               "RelativeDocumentMoniker": "Core\\Model\\User.cs",
               "ToolTip": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\Core\\Model\\User.cs",
               "RelativeToolTip": "Core\\Model\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAADsAAAAAAAAAAAAIwE8AAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-07T22:45:19.243Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "MainDatabaseController.cs",
               "DocumentMoniker": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\DatabaseLayer\\InternalControllers\\MainDatabaseController.cs",
               "RelativeDocumentMoniker": "DatabaseLayer\\InternalControllers\\MainDatabaseController.cs",
@@ -60,7 +144,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\DatabaseLayer\\Program.cs",
               "RelativeDocumentMoniker": "DatabaseLayer\\Program.cs",
@@ -68,31 +152,29 @@
               "RelativeToolTip": "DatabaseLayer\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-07T22:25:49.907Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-07T22:25:49.907Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 8,
               "Title": "DatabaseContext.cs",
               "DocumentMoniker": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\DatabaseLayer\\Database\\DatabaseContext.cs",
               "RelativeDocumentMoniker": "DatabaseLayer\\Database\\DatabaseContext.cs",
               "ToolTip": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\DatabaseLayer\\Database\\DatabaseContext.cs",
               "RelativeToolTip": "DatabaseLayer\\Database\\DatabaseContext.cs",
-              "ViewState": "AgIAAF0AAAAAAAAAAAAkwHcAAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAAHcAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-07T22:25:43.918Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-07T22:25:43.918Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "UsersController.cs",
               "DocumentMoniker": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\Controllers\\UsersController.cs",
               "RelativeDocumentMoniker": "REST_API\\Controllers\\UsersController.cs",
               "ToolTip": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\Controllers\\UsersController.cs",
               "RelativeToolTip": "REST_API\\Controllers\\UsersController.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAAAuwEIAAAA4AAAAAAAAAA==",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAUwGIAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-07T22:24:18.842Z",
               "EditorCaption": ""

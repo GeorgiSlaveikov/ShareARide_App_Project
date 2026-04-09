@@ -5,10 +5,12 @@ Widget TextFieldElement({
     required String label,
     required IconData icon,
     required Color color,
+    final VoidCallback? onTap,
     bool obscureText = false,
   }) {
     return TextField(
       controller: controller,
+      onTap: onTap,
       obscureText: obscureText,
       decoration: InputDecoration(
         labelText: label,

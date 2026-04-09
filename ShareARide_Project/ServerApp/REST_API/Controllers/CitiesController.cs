@@ -1,12 +1,11 @@
-﻿using DatabaseLayer.Database;
+﻿using Core.Model;
+using DatabaseLayer.Database;
+using DatabaseLayer.DatabaseControllers;
 using DatabaseLayer.DatabaseModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
-using DatabaseLayer.DatabaseControllers;
-
-using System.Linq;
 using REST_API.Objects;
+using System.Linq;
 
 namespace REST_API.Controllers
 {
@@ -32,6 +31,19 @@ namespace REST_API.Controllers
             var user = await _context.Cities.FindAsync(id);
             if (user == null) return NotFound();
             return Ok(user);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<DatabaseCity>> CreateCity([FromBody] City city)
+        {
+            DatabaseCity newCity = new DatabaseCity()
+            {
+                Name = city.Name,
+            };
+
+            _context.Cities.Add(newCity);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetUser), new { id = city.Id }, city);
         }
     }
 }

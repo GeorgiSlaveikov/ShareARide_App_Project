@@ -14,6 +14,7 @@ namespace Core.Model
         private string username;
         private string firstName;
         private string lastName;
+        private DateTime birthDate;
         private int age;
         private Sex sex;
         private string email;
@@ -44,14 +45,14 @@ namespace Core.Model
             LastName = lastName;
             Email = email;
             Password = password;
-            Age = age;
+            Age = CalculateAge();
             HomeCity = homeCity;
         }
 
 
         // main ctor
         public User(int id, string username, string firstName, string lastName, string email,
-            string password, int age, Sex sex, City homeCity)
+            string password, DateTime birthDate, Sex sex, City homeCity)
         {
             Id = id;
             Username = username;
@@ -59,6 +60,7 @@ namespace Core.Model
             LastName = lastName;
             Email = email;
             Password = password;
+            BirthDate = birthDate;
             Age = age;
             Sex = sex;
             HomeCity = homeCity;
@@ -71,8 +73,13 @@ namespace Core.Model
         public string Email { get => email; set => email = value; }
         public string Password { get => password; set => password = value; }
         public int Age { get => age; set => age = value; }
+        public DateTime BirthDate { get => birthDate; set => birthDate = value; }
         public Sex Sex { get => sex; set => sex = value; }
         public City HomeCity { get => homeCity; set => homeCity = value; }
+
+        public int CalculateAge() {
+            return (DateTime.Now.Year - BirthDate.Year);
+        }
 
         public override string ToString()
         {

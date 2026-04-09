@@ -1,3 +1,6 @@
+// import 'package:client_app/controllers/cityUtils.dart';
+import 'package:client_app/controllers/userUtils.dart';
+import 'package:client_app/pages/homePage.dart';
 import 'package:flutter/material.dart';
 import 'pages/loginPage.dart';
 
@@ -29,12 +32,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // CityUtils.getCities();
+  }
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: LoginForm()
+        child: Userutils.currentUser == null ?  LoginForm() : HomePage()
       ),
     );
   }

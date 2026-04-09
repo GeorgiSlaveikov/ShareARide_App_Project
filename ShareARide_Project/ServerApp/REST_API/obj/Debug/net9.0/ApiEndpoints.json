@@ -21,6 +21,32 @@
   },
   {
     "ContainingType": "REST_API.Controllers.CitiesController",
+    "Method": "CreateCity",
+    "RelativePath": "api/Cities",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "city",
+        "Type": "Core.Model.City",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DatabaseLayer.DatabaseModels.DatabaseCity",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "REST_API.Controllers.CitiesController",
     "Method": "GetUser",
     "RelativePath": "api/Cities/{id}",
     "HttpMethod": "GET",
@@ -56,32 +82,6 @@
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[DatabaseLayer.DatabaseModels.DatabaseUser, DatabaseLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "REST_API.Controllers.UsersController",
-    "Method": "CreateUser",
-    "RelativePath": "api/Users",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "user",
-        "Type": "Core.Model.User",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "DatabaseLayer.DatabaseModels.DatabaseUser",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -185,6 +185,32 @@
       {
         "Name": "loginData",
         "Type": "REST_API.Objects.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DatabaseLayer.DatabaseModels.DatabaseUser",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "REST_API.Controllers.UsersController",
+    "Method": "RegisterUser",
+    "RelativePath": "api/Users/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "Core.Model.User",
         "IsRequired": true
       }
     ],
