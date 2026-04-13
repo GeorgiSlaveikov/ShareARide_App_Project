@@ -35,7 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Sex? _selectedSex = Sex.Male; // Default to
 
   void _verifyConnection() async {
-    bool status = await Userutils.checkConnection();
+    bool status = await UserUtils.checkConnection();
     setState(() {
       _isConnected = status;
     });
@@ -334,7 +334,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void _handleRegister() async {
     setState(() => _isLoading = true);
-    bool response = await Userutils.Register(
+    bool response = await UserUtils.Register(
       _usernameController.text,
       _firstNameController.text,
       _lastNameController.text,

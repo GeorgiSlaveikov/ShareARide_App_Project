@@ -58,7 +58,7 @@ namespace Core.Model
         public DateTime ExpiresOn { get => expiresOn; set => expiresOn = value; }
         public OfferStatus OfferStatus { get => status; set => status = value; }
 
-        private DateTime CalculateExpirationTime()
+        public DateTime CalculateExpirationTime()
         {
             return DepartureTime.AddHours(-2);
         }

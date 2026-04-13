@@ -20,13 +20,13 @@ namespace REST_API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DatabaseCity>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<DatabaseCity>>> GetCities()
         {
             return await _context.Cities.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<DatabaseCity>> GetUser(int id)
+        public async Task<ActionResult<DatabaseCity>> GetCity(int id)
         {
             var user = await _context.Cities.FindAsync(id);
             if (user == null) return NotFound();
@@ -43,7 +43,7 @@ namespace REST_API.Controllers
 
             _context.Cities.Add(newCity);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetUser), new { id = city.Id }, city);
+            return CreatedAtAction(nameof(GetCity), new { id = city.Id }, city);
         }
     }
 }

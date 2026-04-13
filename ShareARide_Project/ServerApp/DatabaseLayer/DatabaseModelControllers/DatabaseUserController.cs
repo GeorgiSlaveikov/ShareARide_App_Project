@@ -23,5 +23,17 @@ namespace DatabaseLayer.DatabaseControllers
                 return user;
             }
         }
+
+        public static async Task<DatabaseUser> GetUser(DatabaseContext context, int id) {
+            using (context)
+            {
+                var users = context.Users;
+
+                var user = await context.Users
+                .SingleOrDefaultAsync(u => u.Id == id);
+
+                return user;
+            }
+        }
     }
 }

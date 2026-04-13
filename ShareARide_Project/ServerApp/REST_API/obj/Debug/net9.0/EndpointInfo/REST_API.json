@@ -129,6 +129,132 @@
         }
       }
     },
+    "/api/Offers": {
+      "get": {
+        "tags": [
+          "Offers"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DatabaseOffer"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DatabaseOffer"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DatabaseOffer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Offers/{id}": {
+      "get": {
+        "tags": [
+          "Offers"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatabaseOffer"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatabaseOffer"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatabaseOffer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Offers/create": {
+      "post": {
+        "tags": [
+          "Offers"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OfferApiObject"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OfferApiObject"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OfferApiObject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatabaseOffer"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatabaseOffer"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatabaseOffer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Users/check": {
       "get": {
         "tags": [
@@ -509,6 +635,72 @@
         },
         "additionalProperties": false
       },
+      "DatabaseOffer": {
+        "type": "object",
+        "properties": {
+          "driver": {
+            "$ref": "#/components/schemas/User"
+          },
+          "vehicle": {
+            "$ref": "#/components/schemas/Vehicle"
+          },
+          "departureTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "departureCity": {
+            "$ref": "#/components/schemas/City"
+          },
+          "destinationCity": {
+            "$ref": "#/components/schemas/City"
+          },
+          "pricePerSeat": {
+            "type": "number",
+            "format": "double"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expiresOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "offerStatus": {
+            "$ref": "#/components/schemas/OfferStatus"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "driverId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vehicleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "departureCityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "destinationCityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "databaseDriver": {
+            "$ref": "#/components/schemas/DatabaseUser"
+          },
+          "databaseDepartureCity": {
+            "$ref": "#/components/schemas/DatabaseCity"
+          },
+          "databaseDestinationCity": {
+            "$ref": "#/components/schemas/DatabaseCity"
+          }
+        },
+        "additionalProperties": false
+      },
       "DatabaseUser": {
         "type": "object",
         "properties": {
@@ -610,6 +802,45 @@
         },
         "additionalProperties": false
       },
+      "OfferApiObject": {
+        "type": "object",
+        "properties": {
+          "driverId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vehicleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "departureCityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "destinationCityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pricePerSeat": {
+            "type": "number",
+            "format": "double"
+          },
+          "departureTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OfferStatus": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
       "Sex": {
         "enum": [
           0,
@@ -658,6 +889,34 @@
           },
           "homeCity": {
             "$ref": "#/components/schemas/City"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Vehicle": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "make": {
+            "$ref": "#/components/schemas/VehicleMake"
+          },
+          "model": {
+            "type": "string",
+            "nullable": true
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "maxCapacity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "owner": {
+            "$ref": "#/components/schemas/User"
           }
         },
         "additionalProperties": false

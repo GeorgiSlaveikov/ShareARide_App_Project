@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../entity/user.dart';
 
-class Userutils {
+import 'utils.dart';
+
+class UserUtils {
   static User? currentUser;
   static Future<bool> checkConnection() async {
-    final url = Uri.parse('http://192.168.0.6:5205/api/users/check');
+    final url = Uri.parse('http://${Utils().ip}:5205/api/users/check');
 
     try {
       final response = await http.get(url).timeout(const Duration(seconds: 5));
@@ -22,7 +24,7 @@ class Userutils {
   }
 
   static Future<bool> Login(String username, String password) async {
-    final url = Uri.parse('http://192.168.0.6:5205/api/users/login');
+    final url = Uri.parse('http://${Utils().ip}:5205/api/users/login');
 
     try {
       final response = await http.post(
@@ -41,6 +43,7 @@ class Userutils {
           username: userData['username'],
           firstName: userData['firstName'],
           lastName: userData['lastName'],
+          age: userData['age'],
           email: userData['email'],
         );
 
@@ -75,7 +78,7 @@ class Userutils {
     int sex,
     String password,
   ) async {
-    final url = Uri.parse('http://192.168.0.6:5205/api/users/register');
+    final url = Uri.parse('http://${Utils().ip}:5205/api/users/register');
 
     try {
       final response = await http.post(
@@ -109,6 +112,7 @@ class Userutils {
           username: userData['username'],
           firstName: userData['firstName'],
           lastName: userData['lastName'],
+          age: userData['age'],
           email: userData['email'],
         );
 
@@ -130,5 +134,29 @@ class Userutils {
       print('Connection Error: $e');
       return false;
     }
+  }
+
+   static Future<User?> getUser(int id) async {
+    final url = Uri.parse('http://${Utils().ip}:5205/api/users/$id');
+
+    try {
+      final response = await http.get(url).timeout(const Duration(seconds: 5));
+
+      if (response.statusCode == 200) {
+        print("API is reachable!");
+        var userData = jsonDecode(response.body);
+        return User(
+          username: userData['username'],
+          firstName: userData['firstName'],
+          lastName: userData['lastName'],
+          age: userData['age'],
+          email: userData['email'],
+        );
+      }
+    } catch (e) {
+      print("API unreachable: $e");
+      return null;
+    }
+    return null;
   }
 }

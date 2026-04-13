@@ -1,8 +1,9 @@
-// import 'package:client_app/controllers/cityUtils.dart';
 import 'package:client_app/controllers/userUtils.dart';
 import 'package:client_app/pages/homePage.dart';
+// import 'package:client_app/pages/offersPage.dart'; // Offers List
+// import 'package:client_app/pages/bookedOffersPage.dart'; // Booked List
+import 'package:client_app/pages/loginPage.dart';
 import 'package:flutter/material.dart';
-import 'pages/loginPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,38 +15,58 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Share A Ride',
+      debugShowCheckedModeBanner: false,
+      title: 'Share a Ride',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
+          brightness: Brightness.light,
+        ),
       ),
-      // home: const LoginPage(),
-      home: MyHomePage(),
+      // The Root handles the Auth check
+      home: const AuthWrapper(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class AuthWrapper extends StatefulWidget {
+  const AuthWrapper({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<AuthWrapper> createState() => _AuthWrapperState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _AuthWrapperState extends State<AuthWrapper> {
+  // If UserUtils.currentUser is null, show login. Otherwise, show Main App.
+  @override
+  Widget build(BuildContext context) {
+    if (UserUtils.currentUser == null) {
+      return Scaffold(
+        body: LoginForm(onLoginSuccess: () => setState(() {})),
+      );
+    }
+    return const MainNavigationPage();
+  }
+}
+
+class MainNavigationPage extends StatefulWidget {
+  const MainNavigationPage({super.key});
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // CityUtils.getCities();
-  }
-  
+  State<MainNavigationPage> createState() => _MainNavigationPageState();
+}
+
+class _MainNavigationPageState extends State<MainNavigationPage> {
+  // int _currentIndex = 0;
+  // PageController allows the sliding effect
+  // final PageController _pageController = PageController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Userutils.currentUser == null ?  LoginForm() : HomePage()
-      ),
+      // The PageView handles the sliding/swiping logic
+      body: HomePage(),
     );
   }
 }

@@ -3,6 +3,7 @@ class User {
   String username;
   String firstName;
   String lastName;
+  int age;
   String email;
 
   
@@ -12,6 +13,7 @@ class User {
     required this.username,
     required this.firstName,
     required this.lastName,
+    required this.age,
     required this.email,
   });
 
@@ -23,6 +25,7 @@ class User {
       username: json['username'] ?? '',
       firstName: json['firstName'] ?? '',
       lastName: json['lastName'] ?? '',
+      age: json['age'] ?? 18,
       email: json['email'] ?? ''
     );
   }

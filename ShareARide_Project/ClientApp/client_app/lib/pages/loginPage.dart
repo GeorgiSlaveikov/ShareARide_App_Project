@@ -9,7 +9,8 @@ import '../elements/mainButtonElement.dart';
 import 'registerPage.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+  final VoidCallback onLoginSuccess;
+  const LoginForm({super.key, required this.onLoginSuccess});
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -35,7 +36,7 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void _verifyConnection() async {
-    bool status = await Userutils.checkConnection();
+    bool status = await UserUtils.checkConnection();
     setState(() {
       _isConnected = status;
     });
@@ -186,7 +187,7 @@ class _LoginFormState extends State<LoginForm> {
 
   void _handleLogin() async {
     setState(() => _isLoading = true);
-    bool response = await Userutils.Login(
+    bool response = await UserUtils.Login(
       _usernameController.text,
       _passwordController.text,
     );
@@ -199,6 +200,8 @@ class _LoginFormState extends State<LoginForm> {
           backgroundColor: Colors.green,
         ),
       );
+
+      widget.onLoginSuccess();
 
       // setState(() {
       //     _usernameController.clear();
