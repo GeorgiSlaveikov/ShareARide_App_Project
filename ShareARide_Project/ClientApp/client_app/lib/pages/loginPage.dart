@@ -118,7 +118,7 @@ class _LoginFormState extends State<LoginForm> {
                     child: Column(
                       children: [
                         // Connection Status Indicator (Styled)
-                        ConnectionBadgeElement(_isConnected),
+                        ConnectionBadgeElement(_isConnected, onTap: _verifyConnection),
                         const SizedBox(height: 24),
 
                         // 4. Modern Input Fields
@@ -198,6 +198,8 @@ class _LoginFormState extends State<LoginForm> {
         const SnackBar(
           content: Text("Login Success!"),
           backgroundColor: Colors.green,
+          behavior: SnackBarBehavior.floating,
+          dismissDirection: DismissDirection.horizontal,
         ),
       );
 
@@ -213,6 +215,8 @@ class _LoginFormState extends State<LoginForm> {
         const SnackBar(
           content: Text("Invalid Credentials"),
           backgroundColor: Colors.redAccent,
+          behavior: SnackBarBehavior.floating,
+          dismissDirection: DismissDirection.horizontal,
         ),
       );
     }

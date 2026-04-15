@@ -13,6 +13,7 @@ namespace Core.Model
         private int id;
         private Offer offer;
         private List<User> passengers;
+        private List<string> passengersNames;
         private int bookedSeats;
         private User requester;
         private double totalPrice;
@@ -26,6 +27,7 @@ namespace Core.Model
             Offer = offer;
             Requester = requester;
             passengers = new List<User>();
+            passengersNames = new List<string>();
             bookedSeats = 0;
             status = BookingStatus.Pending;
             createdAt = DateTime.Now;
@@ -45,6 +47,8 @@ namespace Core.Model
                 offer = value;
             }
         }
+
+        public List<string> PassengersNames { get => passengersNames; set => passengersNames = value; }
         public List<User> Passengers { get => passengers; set => passengers = value; }
         public int BookedSeats { get => bookedSeats; set => bookedSeats = value; }
         public User Requester

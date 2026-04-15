@@ -17,13 +17,18 @@ namespace DatabaseLayer.DatabaseModels
 
 
         public int OfferId { get; set; }
-        public int RequesterId { get; set; }
+        public int RequestorId { get; set; }
+
+        public int RequestedForId { get; set; }
 
         [ForeignKey("OfferId")]
         public virtual DatabaseOffer DatabaseOffer { get; set; }
 
         [ForeignKey("RequesterId")]
         public virtual DatabaseUser DatabaseRequester { get; set; }
+
+        [ForeignKey("RequestedForId")]
+        public virtual DatabaseUser DatabaseRequesterFor { get; set; }
 
         // Many-to-Many relationship for Passengers
         public virtual ICollection<DatabaseUser> DatabasePassengers { get; set; } = new List<DatabaseUser>();

@@ -34,7 +34,7 @@ class CityUtils {
   
       if (response.statusCode == 200) {
         print("API is reachable!");
-        print(response.body);
+        // print(response.body);
         var city = jsonDecode(response.body);
         return City.fromJson(city);
       }

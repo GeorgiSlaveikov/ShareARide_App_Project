@@ -1,4 +1,5 @@
 import 'package:client_app/controllers/offerUtils.dart';
+import 'package:client_app/controllers/userUtils.dart';
 import 'package:flutter/material.dart';
 import '../controllers/cityUtils.dart';
 
@@ -46,7 +47,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
   void _submitOffer() async {
     if (_formKey.currentState!.validate()) {
       bool success = await OfferUtils.createOffer(
-        1, // Hardcoded Driver ID for now
+        UserUtils.getCurrentUserId(), // Hardcoded Driver ID for now
         1, // Hardcoded Vehicle ID for now
         _selectedDateTime.toIso8601String(),
         _fromCityId!,
@@ -56,13 +57,23 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
 
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Offer Posted Successfully!"), backgroundColor: Colors.green),
+          const SnackBar(
+            content: Text("Offer Posted Successfully!"),
+            backgroundColor: Colors.green,
+            dismissDirection: DismissDirection.horizontal,
+            behavior: SnackBarBehavior.floating,
+          ),
         );
         widget.onOfferCreated();
         Navigator.pop(context);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Failed to post offer."), backgroundColor: Colors.red),
+          const SnackBar(
+            content: Text("Failed to post offer."),
+            backgroundColor: Colors.red,
+            dismissDirection: DismissDirection.horizontal,
+            behavior: SnackBarBehavior.floating,
+          ),
         );
       }
     }
@@ -73,11 +84,14 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
-        title: const Text("Create Travel Offer", style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text(
+          "Create Travel Offer",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black,
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
@@ -89,30 +103,47 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
               _buildSectionTitle("Route Information"),
               Card(
                 elevation: 2,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
                       DropdownButtonFormField<int>(
                         value: _fromCityId,
-                        decoration: _inputStyle("Departure City", Icons.location_on_outlined),
+                        decoration: _inputStyle(
+                          "Departure City",
+                          Icons.location_on_outlined,
+                        ),
                         items: cities.map<DropdownMenuItem<int>>((city) {
-                          return DropdownMenuItem<int>(value: city.id, child: Text(city.name));
+                          return DropdownMenuItem<int>(
+                            value: city.id,
+                            child: Text(city.name),
+                          );
                         }).toList(),
                         onChanged: (val) => setState(() {
-                           _fromCityId = val;
-                           if (_fromCityId == _toCityId) _toCityId = null;
+                          _fromCityId = val;
+                          if (_fromCityId == _toCityId) _toCityId = null;
                         }),
                         validator: (v) => v == null ? "Required" : null,
                       ),
                       const SizedBox(height: 20),
                       DropdownButtonFormField<int>(
                         value: _toCityId,
-                        decoration: _inputStyle("Destination City", Icons.flag_outlined),
-                        items: cities.where((c) => c.id != _fromCityId).map<DropdownMenuItem<int>>((city) {
-                          return DropdownMenuItem<int>(value: city.id, child: Text(city.name));
-                        }).toList(),
+                        decoration: _inputStyle(
+                          "Destination City",
+                          Icons.flag_outlined,
+                        ),
+                        items: cities
+                            .where((c) => c.id != _fromCityId)
+                            .map<DropdownMenuItem<int>>((city) {
+                              return DropdownMenuItem<int>(
+                                value: city.id,
+                                child: Text(city.name),
+                              );
+                            })
+                            .toList(),
                         onChanged: (val) => setState(() => _toCityId = val),
                         validator: (v) => v == null ? "Required" : null,
                       ),
@@ -124,7 +155,9 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
               _buildSectionTitle("Trip Details"),
               Card(
                 elevation: 2,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -132,20 +165,36 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                       TextFormField(
                         controller: _priceController,
                         keyboardType: TextInputType.number,
-                        decoration: _inputStyle("Price per Seat", Icons.attach_money, prefix: "\$ "),
-                        validator: (v) => (v == null || v.isEmpty) ? "Required" : null,
+                        decoration: _inputStyle(
+                          "Price per Seat",
+                          Icons.attach_money,
+                          prefix: "\$ ",
+                        ),
+                        validator: (v) =>
+                            (v == null || v.isEmpty) ? "Required" : null,
                       ),
                       const SizedBox(height: 10),
                       const Divider(),
                       ListTile(
                         leading: const CircleAvatar(
                           backgroundColor: Colors.deepPurple,
-                          child: Icon(Icons.calendar_month, color: Colors.white, size: 20),
+                          child: Icon(
+                            Icons.calendar_month,
+                            color: Colors.white,
+                            size: 20,
+                          ),
                         ),
-                        title: const Text("Departure Time", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                        title: const Text(
+                          "Departure Time",
+                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                        ),
                         subtitle: Text(
                           "${_selectedDateTime.day}/${_selectedDateTime.month} at ${_selectedDateTime.hour.toString().padLeft(2, '0')}:${_selectedDateTime.minute.toString().padLeft(2, '0')}",
-                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
                         ),
                         onTap: _pickDateTime,
                       ),
@@ -159,10 +208,19 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(55),
                   backgroundColor: Colors.deepPurple,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
                   elevation: 5,
                 ),
-                child: const Text("POST OFFER", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+                child: const Text(
+                  "POST OFFER",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ],
           ),
@@ -174,7 +232,14 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
   Widget _buildSectionTitle(String title) {
     return Padding(
       padding: const EdgeInsets.only(left: 4, bottom: 10),
-      child: Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey.shade800)),
+      child: Text(
+        title,
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: Colors.grey.shade800,
+        ),
+      ),
     );
   }
 
@@ -191,7 +256,15 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
         initialTime: TimeOfDay.fromDateTime(_selectedDateTime),
       );
       if (t != null) {
-        setState(() => _selectedDateTime = DateTime(d.year, d.month, d.day, t.hour, t.minute));
+        setState(
+          () => _selectedDateTime = DateTime(
+            d.year,
+            d.month,
+            d.day,
+            t.hour,
+            t.minute,
+          ),
+        );
       }
     }
   }

@@ -92,7 +92,7 @@ namespace DatabaseLayer.Database
             modelBuilder.Entity<DatabaseBooking>()
                 .HasOne(b => b.DatabaseRequester)
                 .WithMany()
-                .HasForeignKey(b => b.RequesterId)
+                .HasForeignKey(b => b.RequestorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // 5. DatabaseVehicle -> Owner (User)

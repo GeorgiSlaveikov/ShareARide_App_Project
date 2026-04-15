@@ -35,8 +35,8 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         controller: _pageController,
         onPageChanged: (index) => setState(() => _currentIndex = index),
-        children: const [
-          DashboardPage(),
+        children: [
+          DashboardPage(onFindOffer: (index) => _onTabTapped(index),),
           OffersPage(),
           RequestsPage(),     // New: Driver's view of pending passengers
           BookedOffersPage(), 

@@ -40,6 +40,7 @@ class UserUtils {
         // Success: The .NET API returns the User object
         var userData = jsonDecode(response.body);
         var loggedInUser = User(
+          id: userData['id'],
           username: userData['username'],
           firstName: userData['firstName'],
           lastName: userData['lastName'],
@@ -142,7 +143,7 @@ class UserUtils {
     try {
       final response = await http.get(url).timeout(const Duration(seconds: 5));
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         print("API is reachable!");
         var userData = jsonDecode(response.body);
         return User(
@@ -150,7 +151,7 @@ class UserUtils {
           firstName: userData['firstName'],
           lastName: userData['lastName'],
           age: userData['age'],
-          email: userData['email'],
+          email: userData['email']
         );
       }
     } catch (e) {
@@ -158,5 +159,9 @@ class UserUtils {
       return null;
     }
     return null;
+  }
+
+  static int getCurrentUserId() {
+    return currentUser != null ? currentUser!.id ?? -1 : -1;
   }
 }

@@ -33,6 +33,20 @@ namespace REST_API.Controllers
             return Ok(user);
         }
 
+
+        [HttpGet("other_offers/{id}")]
+        public async Task<ActionResult<IEnumerable<DatabaseOffer>>> GetOtherOffers(int id)
+        {
+            return await _context.Offers.Where(offer => offer.DriverId != id).ToListAsync();
+        }
+
+        [HttpGet("my_offers/{id}")]
+        public async Task<ActionResult<IEnumerable<DatabaseOffer>>> GetMyOffers(int id)
+        {
+            return await _context.Offers.Where(offer => offer.DriverId == id).ToListAsync();
+        }
+
+
         [HttpPost("create")]
         public async Task<ActionResult<DatabaseOffer>> CreateOffer([FromBody] OfferApiObject offerApiObject)
         {
