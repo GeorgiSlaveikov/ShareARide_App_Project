@@ -31,12 +31,17 @@ namespace REST_API.Controllers
             return Ok(booking);
         }
 
-        [HttpGet("requests_for_me/{id}")]
+        [HttpGet("requests_for_user/{id}")]
         public async Task<ActionResult<IEnumerable<DatabaseBooking>>> GetBookingsForMe(int id)
         {
             return await _context.Bookings.Where(booking => booking.RequestedForId == id).ToListAsync();
         }
 
+        [HttpGet("requests_from_user/{id}")]
+        public async Task<ActionResult<IEnumerable<DatabaseBooking>>> GetBookingsFromMe(int id)
+        {
+            return await _context.Bookings.Where(booking => booking.RequestorId == id).ToListAsync();
+        }
 
         [HttpPost("create")]
         public async Task<ActionResult<DatabaseOffer>> CreateBooking([FromBody] BookingApiObject bookingApiObject)

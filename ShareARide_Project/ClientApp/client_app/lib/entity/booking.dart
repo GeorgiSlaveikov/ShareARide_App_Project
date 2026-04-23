@@ -5,10 +5,10 @@
 import 'bookingStatus.dart';
 
 class Booking {
-  final int? id;              
-  final int requestedForId;   
-  final int requestorId;     
-  final int offerId;         
+  final int? id;
+  final int requestedForId;
+  final int requestorId;
+  final int offerId;
   final List<String> passengers;
   final BookingStatus? status;
 
@@ -28,7 +28,7 @@ class Booking {
       'RequestorId': requestorId,
       'OfferId': offerId,
       'passengers': passengers,
-      // Status is usually handled by the backend on creation, 
+      // Status is usually handled by the backend on creation,
       // but you can add it here if your API expects it.
     };
   }
@@ -36,24 +36,16 @@ class Booking {
   // Factory to create an object from API response
   factory Booking.fromJson(Map<String, dynamic> json) {
     return Booking(
-    id: json['id'], // Matches JSON "id"
-    offerId: json['offerId'] ?? 0, // Matches JSON "offerId"
-    
-    // FIX: Use 'requesterId' (with 'e') and lowercase 'r'
-    requestorId: json['requesterId'] ?? 0, 
-    
-    // FIX: Use 'requestedForId' with lowercase 'r'
-    requestedForId: json['requestedForId'] ?? 0,
-    
-    // FIX: Use 'passengersNames' to match the JSON key
-    passengers: List<String>.from(json['passengersNames'] ?? []),
-    
-    status: parseStatus(json['status']?.toString() ?? "0"),
-  );
+      id: json['id'],
+      offerId: json['offerId'] ?? 0,
+      requestorId: json['requestorId'] ?? 0,
+      requestedForId: json['requestedForId'] ?? 0,
+      passengers: List<String>.from(json['passengersNames'] ?? []),
+      status: parseStatus(json['status']?.toString() ?? "0"),
+    );
   }
 
   static BookingStatus parseStatus(String statusId) {
-    
     BookingStatus status;
     switch (statusId) {
       case "0":
@@ -68,6 +60,6 @@ class Booking {
       default:
         status = BookingStatus.Pending; // Default or throw an error
     }
-    return status; 
+    return status;
   }
 }

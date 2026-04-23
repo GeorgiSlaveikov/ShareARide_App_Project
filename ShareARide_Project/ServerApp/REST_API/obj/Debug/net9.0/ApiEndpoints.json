@@ -74,7 +74,33 @@
   {
     "ContainingType": "REST_API.Controllers.BookingsController",
     "Method": "GetBookingsForMe",
-    "RelativePath": "api/Bookings/requests_for_me/{id}",
+    "RelativePath": "api/Bookings/requests_for_user/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[DatabaseLayer.DatabaseModels.DatabaseBooking, DatabaseLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "REST_API.Controllers.BookingsController",
+    "Method": "GetBookingsFromMe",
+    "RelativePath": "api/Bookings/requests_from_user/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -450,7 +476,7 @@
   },
   {
     "ContainingType": "REST_API.Controllers.VehiclesController",
-    "Method": "GetUsers",
+    "Method": "GetVehicles",
     "RelativePath": "api/Vehicles",
     "HttpMethod": "GET",
     "IsController": true,
@@ -470,7 +496,7 @@
   },
   {
     "ContainingType": "REST_API.Controllers.VehiclesController",
-    "Method": "GetUser",
+    "Method": "GetVehicle",
     "RelativePath": "api/Vehicles/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -485,6 +511,74 @@
     "ReturnTypes": [
       {
         "Type": "DatabaseLayer.DatabaseModels.DatabaseVehicle",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "REST_API.Controllers.VehiclesController",
+    "Method": "DeleteVehicle",
+    "RelativePath": "api/Vehicles/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "REST_API.Controllers.VehiclesController",
+    "Method": "CreateVehicle",
+    "RelativePath": "api/Vehicles/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "vehicleApiObject",
+        "Type": "REST_API.Objects.VehicleApiObject",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DatabaseLayer.DatabaseModels.DatabaseVehicle",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "REST_API.Controllers.VehiclesController",
+    "Method": "GetMyVehicles",
+    "RelativePath": "api/Vehicles/my_vehicles/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[DatabaseLayer.DatabaseModels.DatabaseVehicle, DatabaseLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",

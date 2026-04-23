@@ -40,19 +40,18 @@ class _RequestsPageState extends State<RequestsPage> {
   List<Map<String, dynamic>> incomingRequests = [];
 
   void fetchBookingsForMe() async {
-    var offers = await BookingUtils.getBookingsForMe(
-      UserUtils.getCurrentUserId(),
-    );
+    var currentUserId = UserUtils.getCurrentUserId();
+    print("Current User ID: $currentUserId");
+    var offers = await BookingUtils.getBookingsForMe(currentUserId);
     var mappedOffers = await Future.wait(
       offers.map((offer) async {
-        // Fetch city data asynchronously for each ID
-
-        // final requestedForUser = await UserUtils.getUser(offer.requestedForId);
+        print("Processing booking for Offer ID: ${offer.offerId}");
+        print(offer.toJson());
+        // print("Offer requestor ID: ${offer.requestorId}");
+       
         final requestorUser = await UserUtils.getUser(offer.requestorId);
         final offerObject = await OfferUtils.getOffer(offer.offerId);
-        print("'Requested For' User:");
-        print(requestorUser);
-
+        
         var firstName = requestorUser?.firstName.toString();
         var lastName = requestorUser?.lastName.toString();
 

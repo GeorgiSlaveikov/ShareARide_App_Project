@@ -13,8 +13,8 @@ class CityUtils {
       final response = await http.get(url).timeout(const Duration(seconds: 5));
   
       if (response.statusCode == 200) {
-        print("API is reachable!");
-        print(response.body);
+        // print("API is reachable!");
+        // print(response.body);
         var cities = jsonDecode(response.body);
         var citiesList = (cities as List).map((city) => City.fromJson(city)).toList();
         return citiesList;
@@ -33,7 +33,7 @@ class CityUtils {
       final response = await http.get(url).timeout(const Duration(seconds: 5));
   
       if (response.statusCode == 200) {
-        print("API is reachable!");
+        // print("API is reachable!");
         // print(response.body);
         var city = jsonDecode(response.body);
         return City.fromJson(city);

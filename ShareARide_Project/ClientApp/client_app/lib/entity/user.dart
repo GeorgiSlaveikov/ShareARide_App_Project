@@ -6,8 +6,6 @@ class User {
   int age;
   String email;
 
-  
-  // Standard Constructor
   User({
     this.id,
     required this.username,
@@ -17,8 +15,6 @@ class User {
     required this.email,
   });
 
-  // 1. Factory constructor to create a User from a JSON Map
-  // This is what you use when receiving data from the .NET API
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json['id'],
@@ -30,8 +26,6 @@ class User {
     );
   }
 
-  // 2. Method to convert User object to a JSON Map
-  // This is what you use when sending data TO the .NET API (like Register)
   Map<String, dynamic> toJson() {
     return {
       'id': id,

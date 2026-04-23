@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
         ),
       ),
-      // The Root handles the Auth check
       home: const AuthWrapper(),
     );
   }
@@ -38,7 +37,6 @@ class AuthWrapper extends StatefulWidget {
 }
 
 class _AuthWrapperState extends State<AuthWrapper> {
-  // If UserUtils.currentUser is null, show login. Otherwise, show Main App.
   @override
   Widget build(BuildContext context) {
     if (UserUtils.currentUser == null) {
@@ -58,14 +56,9 @@ class MainNavigationPage extends StatefulWidget {
 }
 
 class _MainNavigationPageState extends State<MainNavigationPage> {
-  // int _currentIndex = 0;
-  // PageController allows the sliding effect
-  // final PageController _pageController = PageController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // The PageView handles the sliding/swiping logic
       body: HomePage(),
     );
   }

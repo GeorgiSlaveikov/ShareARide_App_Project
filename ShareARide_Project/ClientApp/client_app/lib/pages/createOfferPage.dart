@@ -2,6 +2,8 @@ import 'package:client_app/controllers/offerUtils.dart';
 import 'package:client_app/controllers/userUtils.dart';
 import 'package:flutter/material.dart';
 import '../controllers/cityUtils.dart';
+import '../controllers/vehicleUtils.dart';
+import '../entity/vehicle.dart';
 
 class CreateOfferPage extends StatefulWidget {
   final VoidCallback onOfferCreated;
@@ -18,12 +20,17 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
 
   int? _fromCityId;
   int? _toCityId;
+  int? _selectedVehicleId;
+
   List<dynamic> cities = [];
+  List<Vehicle> userVehicles = [];
+
 
   @override
   void initState() {
     super.initState();
     CityUtils.getCities().then((data) => setState(() => cities = data));
+    VehicleUtils.getMyVehicles(UserUtils.getCurrentUserId()).then((vehicles) => setState(() => userVehicles = vehicles));
   }
 
   // Reuseable styling for Input Decorations
@@ -47,8 +54,8 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
   void _submitOffer() async {
     if (_formKey.currentState!.validate()) {
       bool success = await OfferUtils.createOffer(
-        UserUtils.getCurrentUserId(), // Hardcoded Driver ID for now
-        1, // Hardcoded Vehicle ID for now
+        UserUtils.getCurrentUserId(),
+        _selectedVehicleId!,
         _selectedDateTime.toIso8601String(),
         _fromCityId!,
         _toCityId!,
@@ -162,6 +169,22 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
+                      DropdownButtonFormField<int>(
+                        value: _selectedVehicleId,
+                        decoration: _inputStyle(
+                          "Select Vehicle",
+                          Icons.directions_car_filled_outlined,
+                        ),
+                        items: userVehicles.map((vehicle) {
+                          return DropdownMenuItem<int>(
+                            value: vehicle.id,
+                            child: Text("${vehicle.make.name} ${vehicle.model} (${vehicle.year})"),
+                          );
+                        }).toList(),
+                        onChanged: (val) => setState(() => _selectedVehicleId = val),
+                        validator: (v) => v == null ? "Please select a vehicle" : null,
+                      ),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _priceController,
                         keyboardType: TextInputType.number,

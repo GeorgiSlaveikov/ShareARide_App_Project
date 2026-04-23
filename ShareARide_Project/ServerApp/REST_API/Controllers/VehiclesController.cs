@@ -1,7 +1,9 @@
-﻿using DatabaseLayer.Database;
+﻿using Core.Others;
+using DatabaseLayer.Database;
 using DatabaseLayer.DatabaseModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using REST_API.Objects;
 
 namespace REST_API.Controllers
 {
@@ -16,17 +18,65 @@ namespace REST_API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DatabaseVehicle>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<DatabaseVehicle>>> GetVehicles()
         {
             return await _context.Vehicles.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<DatabaseVehicle>> GetUser(int id)
+        public async Task<ActionResult<DatabaseVehicle>> GetVehicle(int id)
         {
-            var user = await _context.Cities.FindAsync(id);
+            var user = await _context.Vehicles.FindAsync(id);
             if (user == null) return NotFound();
             return Ok(user);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteVehicle(int id)
+        {   
+            var vehicle = await _context.Vehicles.FindAsync(id);
+
+            if (vehicle == null)
+            {
+                return NotFound();
+            }
+
+            _context.Vehicles.Remove(vehicle);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
+
+        [HttpGet("my_vehicles/{id}")]
+        public async Task<ActionResult<IEnumerable<DatabaseVehicle>>> GetMyVehicles(int id)
+        {
+            return await _context.Vehicles.Where(vehicle => vehicle.OwnerId == id).ToListAsync();
+        }
+
+        [HttpPost("create")]
+        public async Task<ActionResult<DatabaseVehicle>> CreateVehicle([FromBody] VehicleApiObject vehicleApiObject)
+        {
+            VehicleMake vehicleMake = VehicleMake.BMW;
+            if (Enum.TryParse<VehicleMake>(vehicleApiObject.Make, true, out var make))
+            {
+                vehicleMake = make;
+            }
+            else
+            {
+                Console.WriteLine("Invalid vehicle make.");
+            }
+
+            DatabaseVehicle newVehicle = new DatabaseVehicle()
+            {
+                Make = vehicleMake,
+                Model = vehicleApiObject.Model,
+                Year = vehicleApiObject.Year,
+                MaxCapacity = vehicleApiObject.MaxCapacity,
+                OwnerId = vehicleApiObject.OwnerId
+            };
+
+            _context.Vehicles.Add(newVehicle);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetVehicle), new { id = newVehicle.Id }, newVehicle);
         }
     }
 }

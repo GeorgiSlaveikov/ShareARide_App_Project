@@ -14,8 +14,6 @@ class OfferUtils {
       final response = await http.get(url).timeout(const Duration(seconds: 5));
 
       if (response.statusCode == 200) {
-        print("API is reachable!");
-        print(response.body);
         var offers = jsonDecode(response.body);
         var offersList = (offers as List)
             .map((offer) => Offer.fromJson(offer))
@@ -36,8 +34,6 @@ class OfferUtils {
       final response = await http.get(url).timeout(const Duration(seconds: 5));
 
       if (response.statusCode == 200) {
-        print("API is reachable!");
-        print(response.body);
         var offers = jsonDecode(response.body);
         var offersList = (offers as List)
             .map((offer) => Offer.fromJson(offer))
@@ -58,8 +54,8 @@ class OfferUtils {
       final response = await http.get(url).timeout(const Duration(seconds: 5));
 
       if (response.statusCode == 200) {
-        print("API is reachable!");
-        print(response.body);
+        // print("API is reachable!");
+        // print(response.body);
         var offers = jsonDecode(response.body);
         var offersList = (offers as List)
             .map((offer) => Offer.fromJson(offer))
@@ -80,8 +76,8 @@ class OfferUtils {
       final response = await http.get(url).timeout(const Duration(seconds: 5));
 
       if (response.statusCode == 200) {
-        print("API is reachable!");
-        print(response.body);
+        // print("API is reachable!");
+        // print(response.body);
         var offer = jsonDecode(response.body);
         return Offer.fromJson(offer);
       }
@@ -120,15 +116,6 @@ class OfferUtils {
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        // print("Offer created successfully!");
-        // var offer = jsonDecode(response.body);
-        // var offer = Offer(
-         
-        // );
-
-        // print(
-        //   'Login Success! Welcome ${userData['username']} - ${userData['firstName']} - ${userData['lastName']}',
-        // );
         print('Offer created successfully!');
         return true;
         // TODO: Save userData['id'] to SharedPreferences here

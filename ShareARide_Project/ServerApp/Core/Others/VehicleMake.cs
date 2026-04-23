@@ -2,6 +2,7 @@
 {
     public enum VehicleMake
     {
+        Unknown,
         Toyota,
         Honda,
         Ford,
