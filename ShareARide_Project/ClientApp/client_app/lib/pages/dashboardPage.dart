@@ -1,339 +1,13 @@
-// import 'package:client_app/pages/offersPage.dart';
-// import 'package:flutter/material.dart';
-// import '../controllers/userUtils.dart';
-// import 'requestsPage.dart';
-// import 'createOfferPage.dart';
-
-// class DashboardPage extends StatelessWidget {
-//   final Function(int) onFindOffer;
-//   const DashboardPage({super.key, required this.onFindOffer});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final user = UserUtils.currentUser;
-
-//     return Scaffold(
-//       backgroundColor: Colors.grey.shade50,
-//       body: CustomScrollView(
-//         slivers: [
-//           SliverAppBar(
-//             expandedHeight: 200,
-//             floating: false,
-//             pinned: true,
-//             flexibleSpace: FlexibleSpaceBar(
-//               title: Text(
-//                 "Welcome back, ${user?.firstName ?? 'Traveler'}",
-//                 style: const TextStyle(
-//                   color: Colors.white,
-//                   fontWeight: FontWeight.bold,
-//                 ),
-//               ),
-//               background: Container(
-//                 decoration: const BoxDecoration(
-//                   gradient: LinearGradient(
-//                     colors: [Colors.deepPurple, Colors.indigo],
-//                     begin: Alignment.topLeft,
-//                     end: Alignment.bottomRight,
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           ),
-//           SliverToBoxAdapter(
-//             child: Padding(
-//               padding: const EdgeInsets.all(20.0),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   // --- NEW: Pending Requests Section ---
-//                   _buildPendingRequestsPreview(context),
-
-//                   const SizedBox(height: 30),
-//                   const Text(
-//                     "Quick Actions",
-//                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-//                   ),
-//                   const SizedBox(height: 10),
-
-//                   Row(
-//                     children: [
-//                       Expanded(
-//                         child: Card(
-//                           clipBehavior: Clip
-//                               .antiAlias,
-//                           shape: RoundedRectangleBorder(
-//                             borderRadius: BorderRadius.circular(15),
-//                           ),
-//                           child: InkWell(
-//                             onTap: () {
-//                               Navigator.push(
-//                                 context,
-//                                 MaterialPageRoute(builder: (_) => CreateOfferPage(onOfferCreated: () => {},)),
-//                               );
-//                             },
-//                             child: const Padding(
-//                               padding: EdgeInsets.symmetric(
-//                                 vertical: 16,
-//                                 horizontal: 8,
-//                               ),
-//                               child: Column(
-//                                 mainAxisSize: MainAxisSize.min,
-//                                 children: [
-//                                   Icon(
-//                                     Icons.add_circle_outline,
-//                                     color: Colors.deepPurple,
-//                                     size: 32,
-//                                   ),
-//                                   SizedBox(height: 8),
-//                                   Text(
-//                                     "Create Offer",
-//                                     style: TextStyle(
-//                                       fontWeight: FontWeight.bold,
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                           ),
-//                         ),
-//                       ),
-//                       const SizedBox(width: 10),
-//                       Expanded(
-//                         child: Card(
-//                           clipBehavior: Clip.antiAlias,
-//                           shape: RoundedRectangleBorder(
-//                             borderRadius: BorderRadius.circular(15),
-//                           ),
-//                           child: InkWell(
-//                             onTap: () {
-//                                Navigator.push(
-//                                 context,
-//                                 MaterialPageRoute(builder: (_) => OffersPage()),
-//                               );
-//                               // onFindOffer(1);
-//                             },
-//                             child: const Padding(
-//                               padding: EdgeInsets.symmetric(
-//                                 vertical: 16,
-//                                 horizontal: 8,
-//                               ),
-//                               child: Column(
-//                                 mainAxisSize: MainAxisSize.min,
-//                                 children: [
-//                                   Icon(
-//                                     Icons.search,
-//                                     color: Colors.deepPurple,
-//                                     size: 32,
-//                                   ),
-//                                   SizedBox(height: 8),
-//                                   Text(
-//                                     "Find Offer",
-//                                     style: TextStyle(
-//                                       fontWeight: FontWeight.bold,
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                           ),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                   const SizedBox(height: 30),
-//                   const Text(
-//                     "Your Activity",
-//                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-//                   ),
-//                   const SizedBox(height: 15),
-
-//                   Row(
-//                     children: [
-//                       _buildStatCard(
-//                         "Total Trips",
-//                         "12",
-//                         Icons.route,
-//                         Colors.blue,
-//                       ),
-//                       const SizedBox(width: 15),
-//                       _buildStatCard(
-//                         "Saved",
-//                         "\$140",
-//                         Icons.savings,
-//                         Colors.green,
-//                       ),
-//                     ],
-//                   ),
-//                   const SizedBox(height: 15),
-//                   Row(
-//                     children: [
-//                       _buildStatCard(
-//                         "CO2 Saved",
-//                         "4kg",
-//                         Icons.eco,
-//                         Colors.teal,
-//                       ),
-//                       const SizedBox(width: 15),
-//                       _buildStatCard(
-//                         "Rating",
-//                         "4.9",
-//                         Icons.star,
-//                         Colors.orange,
-//                       ),
-//                     ],
-//                   ),
-
-//                   const SizedBox(height: 30),
-//                   const Text(
-//                     "Travel Info",
-//                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-//                   ),
-//                   const SizedBox(height: 10),
-
-//                   Card(
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(15),
-//                     ),
-//                     child: const ListTile(
-//                       leading: Icon(
-//                         Icons.notifications_active,
-//                         color: Colors.deepPurple,
-//                       ),
-//                       title: Text("Next trip in 2 days"),
-//                       subtitle: Text("Sofia to Plovdiv at 09:00"),
-//                       trailing: Icon(Icons.arrow_forward_ios, size: 14),
-//                     ),
-//                   ),
-                  
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-
-//   Widget _buildPendingRequestsPreview(BuildContext context) {
-//     // In a real app, you would check if requests list is empty
-//     int requestCount = 2;
-
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//           children: [
-//             const Text(
-//               "Pending Requests",
-//               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-//             ),
-//             if (requestCount > 0)
-//               Container(
-//                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-//                 decoration: BoxDecoration(
-//                   color: Colors.red,
-//                   borderRadius: BorderRadius.circular(12),
-//                 ),
-//                 child: Text(
-//                   "$requestCount New",
-//                   style: const TextStyle(
-//                     color: Colors.white,
-//                     fontSize: 12,
-//                     fontWeight: FontWeight.bold,
-//                   ),
-//                 ),
-//               ),
-//           ],
-//         ),
-//         const SizedBox(height: 12),
-//         Container(
-//           padding: const EdgeInsets.all(16),
-//           decoration: BoxDecoration(
-//             color: Colors.deepPurple.withOpacity(0.05),
-//             borderRadius: BorderRadius.circular(15),
-//             border: Border.all(color: Colors.deepPurple.withOpacity(0.1)),
-//           ),
-//           child: Row(
-//             children: [
-//               const CircleAvatar(
-//                 backgroundColor: Colors.deepPurple,
-//                 child: Icon(Icons.people, color: Colors.white),
-//               ),
-//               const SizedBox(width: 15),
-//               const Expanded(
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Text(
-//                       "Ivan and 1 other",
-//                       style: TextStyle(fontWeight: FontWeight.bold),
-//                     ),
-//                     Text(
-//                       "want to join your trip",
-//                       style: TextStyle(fontSize: 13, color: Colors.black54),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//               TextButton(
-//                 onPressed: () {
-//                   Navigator.push(
-//                     context,
-//                     MaterialPageRoute(builder: (_) => const RequestsPage()),
-//                   );
-//                 },
-//                 child: const Text("View All"),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-
-//   Widget _buildStatCard(
-//     String title,
-//     String value,
-//     IconData icon,
-//     Color color,
-//   ) {
-//     return Expanded(
-//       child: Container(
-//         padding: const EdgeInsets.all(20),
-//         decoration: BoxDecoration(
-//           color: Colors.white,
-//           borderRadius: BorderRadius.circular(15),
-//           boxShadow: [
-//             BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10),
-//           ],
-//         ),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Icon(icon, color: color),
-//             const SizedBox(height: 10),
-//             Text(
-//               value,
-//               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-//             ),
-//             Text(
-//               title,
-//               style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
+// import 'package:client_app/entity/user.dart';
+import '../widgets/pendingRequestsPreview.dart';
 import 'package:flutter/material.dart';
 import '../controllers/userUtils.dart';
-import 'requestsPage.dart';
+// import 'requestsPage.dart';
 import 'createOfferPage.dart';
 import 'offersPage.dart';
-import 'manageVehiclesPage.dart'; // Ensure this matches your filename
+import 'manageVehiclesPage.dart';
+import '../main.dart';
+import '../controllers/utils.dart';
 
 class DashboardPage extends StatelessWidget {
   final Function(int) onFindOffer;
@@ -349,7 +23,7 @@ class DashboardPage extends StatelessWidget {
         slivers: [
           // --- STICKY APP BAR ---
           SliverAppBar(
-            expandedHeight: 200,
+            expandedHeight: 240,
             floating: false,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
@@ -360,14 +34,30 @@ class DashboardPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              background: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.deepPurple, Colors.indigo],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
+              background: Stack(
+                fit: StackFit.expand,
+                children: [
+                  // 1. The Gradient Background
+                  Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Colors.deepPurple, Colors.indigo],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                    ),
                   ),
-                ),
+                  // 2. The Profile Image (Centered)
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        buildProfilePicture(user?.profilePicturePath),
+                        const SizedBox(height: 45), // Space for the title below
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -379,7 +69,7 @@ class DashboardPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // --- PENDING REQUESTS ---
-                  _buildPendingRequestsPreview(context),
+                  PendingRequestsPreview(context: context),
 
                   const SizedBox(height: 30),
                   const Text(
@@ -391,19 +81,20 @@ class DashboardPage extends StatelessWidget {
                   // --- UPDATED QUICK ACTIONS ROW ---
                   Row(
                     children: [
-                      _buildActionCard(
+                      buildActionCard(
                         context,
                         "Create Offer",
                         Icons.add_circle_outline,
                         () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => CreateOfferPage(onOfferCreated: () {}),
+                            builder: (_) =>
+                                CreateOfferPage(onOfferCreated: () {}),
                           ),
                         ),
                       ),
                       const SizedBox(width: 10),
-                      _buildActionCard(
+                      buildActionCard(
                         context,
                         "Find Offer",
                         Icons.search,
@@ -413,13 +104,15 @@ class DashboardPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 10),
-                      _buildActionCard(
+                      buildActionCard(
                         context,
                         "My Garage",
                         Icons.garage_outlined,
                         () => Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (_) => const ManageVehiclesPage()),
+                          MaterialPageRoute(
+                            builder: (_) => const ManageVehiclesPage(),
+                          ),
                         ),
                       ),
                     ],
@@ -435,17 +128,27 @@ class DashboardPage extends StatelessWidget {
                   // --- STATS GRID ---
                   Row(
                     children: [
-                      _buildStatCard("Total Trips", "12", Icons.route, Colors.blue),
+                      buildStatCard(
+                        "Total Trips",
+                        "12",
+                        Icons.route,
+                        Colors.blue,
+                      ),
                       const SizedBox(width: 15),
-                      _buildStatCard("Saved", "\$140", Icons.savings, Colors.green),
+                      buildStatCard(
+                        "Saved",
+                        "\$140",
+                        Icons.savings,
+                        Colors.green,
+                      ),
                     ],
                   ),
                   const SizedBox(height: 15),
                   Row(
                     children: [
-                      _buildStatCard("CO2 Saved", "4kg", Icons.eco, Colors.teal),
+                      buildStatCard("CO2 Saved", "4kg", Icons.eco, Colors.teal),
                       const SizedBox(width: 15),
-                      _buildStatCard("Rating", "4.9", Icons.star, Colors.orange),
+                      buildStatCard("Rating", "4.9", Icons.star, Colors.orange),
                     ],
                   ),
 
@@ -455,8 +158,6 @@ class DashboardPage extends StatelessWidget {
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
-
-                  // --- NOTIFICATION CARD ---
                   Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
@@ -471,6 +172,38 @@ class DashboardPage extends StatelessWidget {
                       trailing: Icon(Icons.arrow_forward_ios, size: 14),
                     ),
                   ),
+                  const SizedBox(height: 30),
+                  const Text(
+                    "Account Actions",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    // clipBehavior ensures the ripple effect stays inside the rounded corners
+                    clipBehavior: Clip.antiAlias,
+                    child: InkWell(
+                      onTap: () {
+                        UserUtils.logout();
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MyApp(),
+                          ),
+                          (route) =>
+                              false, // This clears the entire navigation history
+                        );
+                      },
+                      child: const ListTile(
+                        leading: Icon(Icons.logout, color: Colors.deepPurple),
+                        title: Text("Logout"),
+                        subtitle: Text("Sign out of your account"),
+                        trailing: Icon(Icons.arrow_forward_ios, size: 14),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -481,7 +214,7 @@ class DashboardPage extends StatelessWidget {
   }
 
   // --- COMPONENT: QUICK ACTION CARD ---
-  Widget _buildActionCard(
+  Widget buildActionCard(
     BuildContext context,
     String title,
     IconData icon,
@@ -517,91 +250,8 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
-  // --- COMPONENT: PENDING REQUESTS PREVIEW ---
-  Widget _buildPendingRequestsPreview(BuildContext context) {
-    int requestCount = 2; // Dummy Logic
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              "Pending Requests",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            if (requestCount > 0)
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  "$requestCount New",
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.deepPurple.withOpacity(0.05),
-            borderRadius: BorderRadius.circular(15),
-            border: Border.all(color: Colors.deepPurple.withOpacity(0.1)),
-          ),
-          child: Row(
-            children: [
-              const CircleAvatar(
-                backgroundColor: Colors.deepPurple,
-                child: Icon(Icons.people, color: Colors.white),
-              ),
-              const SizedBox(width: 15),
-              const Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Ivan and 1 other",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      "want to join your trip",
-                      style: TextStyle(fontSize: 13, color: Colors.black54),
-                    ),
-                  ],
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const RequestsPage()),
-                  );
-                },
-                child: const Text("View All"),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
   // --- COMPONENT: STAT CARD ---
-  Widget _buildStatCard(
-    String title,
-    String value,
-    IconData icon,
-    Color color,
-  ) {
+  Widget buildStatCard(String title, String value, IconData icon, Color color) {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.all(20),
@@ -627,6 +277,30 @@ class DashboardPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget buildProfilePicture(String? path) {
+    final String fullImageUrl = "http://${Utils().ip}:5205$path";
+
+    return Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: Colors.white, width: 3),
+        boxShadow: [
+          BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
+        ],
+      ),
+      child: CircleAvatar(
+        radius: 40,
+        backgroundColor: Colors.grey.shade200,
+        backgroundImage: (path != null && path.isNotEmpty)
+            ? NetworkImage(fullImageUrl)
+            : null,
+        child: (path == null || path.isEmpty)
+            ? const Icon(Icons.person, size: 40, color: Colors.grey)
+            : null,
       ),
     );
   }

@@ -3,7 +3,10 @@ import 'package:client_app/controllers/vehicleUtils.dart';
 import 'package:flutter/material.dart';
 import 'createVehiclePage.dart';
 import '../controllers/userUtils.dart';
-import '../entity/vehicleMake.dart'; // Path to your Enum
+import '../entity/vehicleMake.dart';
+import '../controllers/offerUtils.dart';
+
+import '../entity/offer.dart';
 
 class ManageVehiclesPage extends StatefulWidget {
   const ManageVehiclesPage({super.key});
@@ -57,47 +60,32 @@ class _ManageVehiclesPageState extends State<ManageVehiclesPage> {
     }
   }
 
-  void navigateAndRemoveVehicle(int index) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text("Remove Vehicle"),
-        content: Text(
-          "Are you sure you want to remove the ${userVehicles[index]['make']} ${userVehicles[index]['model']}?",
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: const Text("Cancel"),
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              var result = await removeVehicle(userVehicles[index]['id']);
-              if (result) {
-                fetchMyVehicles();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Vehicle removed")),
-                );
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Failed to remove vehicle")),
-                );
-              }
-              setState(() {
-                userVehicles.removeAt(index);
-              });
-              Navigator.pop(ctx);
-              
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
-              foregroundColor: Colors.white,
-            ),
-            child: const Text("Remove"),
-          ),
-        ],
-      ),
-    );
+  void navigateAndRemoveVehicle(int index) async {
+    final userId = await UserUtils.getCurrentUserId();
+    var myOffers = await OfferUtils.getMyOffers(userId);
+    var vehicleIdToRemove = userVehicles[index]['id'];
+
+    var dependentOffers = myOffers
+        .where((o) => o.vehicleId == vehicleIdToRemove)
+        .toList();
+
+    if (dependentOffers.isNotEmpty) {
+      List<Map<String, dynamic>> otherVehicles = userVehicles
+          .where((v) => v['id'] != vehicleIdToRemove)
+          .toList();
+
+      if (otherVehicles.isEmpty) {
+        showMustCreateVehicleDialog(); // Case: No other cars
+      } else {
+        showReplaceVehicleDialog(
+          dependentOffers,
+          otherVehicles,
+          index,
+        ); // Case: Swap car
+      }
+    } else {
+      showStandardDeleteDialog(index); // Case: Clean delete
+    }
   }
 
   Future<bool> removeVehicle(int id) async {
@@ -145,7 +133,7 @@ class _ManageVehiclesPageState extends State<ManageVehiclesPage> {
         ],
       ),
       body: userVehicles.isEmpty
-          ? _buildEmptyState()
+          ? buildEmptyState()
           : ListView.builder(
               padding: const EdgeInsets.all(16),
               itemCount: userVehicles.length,
@@ -182,7 +170,7 @@ class _ManageVehiclesPageState extends State<ManageVehiclesPage> {
     );
   }
 
-  Widget _buildEmptyState() {
+  Widget buildEmptyState() {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -193,6 +181,147 @@ class _ManageVehiclesPageState extends State<ManageVehiclesPage> {
             style: TextStyle(color: Colors.grey, fontSize: 18),
           ),
         ],
+      ),
+    );
+  }
+
+  void performDelete(int index) async {
+    var result = await removeVehicle(userVehicles[index]['id']);
+    if (result) {
+      setState(() {
+        userVehicles.removeAt(index);
+      });
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(
+        const SnackBar(
+          content: Text("Vehicle removed"),
+          dismissDirection: DismissDirection.horizontal,
+          behavior: SnackBarBehavior.floating,
+        )
+      );
+    }
+  }
+
+  // Popup 1: Standard Confirmation
+  void showStandardDeleteDialog(int index) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text("Remove Vehicle"),
+        content: Text(
+          "Are you sure you want to remove the ${userVehicles[index]['make']} ${userVehicles[index]['model']}?",
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text("Cancel"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              performDelete(index);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+            ),
+            child: const Text("Remove"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Popup 2: Must Add New Vehicle
+  void showMustCreateVehicleDialog() {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text("Action Required"),
+        content: const Text(
+          "You have active offers using this vehicle. You must add a new vehicle before you can remove this one.",
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text("Cancel"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              navigateAndAddVehicle();
+            },
+            child: const Text("Add New Vehicle"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              navigateAndAddVehicle();
+            },
+            child: const Text("Cancel Offer"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Popup 3: Select Replacement from Dropdown
+  void showReplaceVehicleDialog(
+    List<Offer> dependentOffers,
+    List<Map<String, dynamic>> otherVehicles,
+    int index,
+  ) {
+    int? selectedVehicleId = otherVehicles.first['id'];
+
+    showDialog(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (context, setDialogState) => AlertDialog(
+          title: const Text("Transfer Offers"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "You have ${dependentOffers.length} offer(s) using this vehicle. Select a replacement:",
+              ),
+              const SizedBox(height: 15),
+              DropdownButton<int>(
+                value: selectedVehicleId,
+                isExpanded: true,
+                items: otherVehicles
+                    .map(
+                      (v) => DropdownMenuItem<int>(
+                        value: v['id'],
+                        child: Text("${v['make']} ${v['model']}"),
+                      ),
+                    )
+                    .toList(),
+                onChanged: (val) =>
+                    setDialogState(() => selectedVehicleId = val),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text("Cancel"),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                for (var offer in dependentOffers) {
+                  await OfferUtils.updateOfferVehicle(
+                    offer.id!,
+                    selectedVehicleId!,
+                  );
+                }
+                Navigator.pop(ctx);
+                performDelete(index);
+              },
+              child: const Text("Replace & Remove"),
+            ),
+          ],
+        ),
       ),
     );
   }

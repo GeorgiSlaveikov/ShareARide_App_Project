@@ -46,24 +46,44 @@ namespace REST_API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<DatabaseUser>> Login([FromBody] LoginRequest loginData)
         {
-            Console.WriteLine("Login attempt");
-            // Pass the context into your static helper
+            Console.WriteLine("Login attempt for " + loginData.Username);
             var user = await DatabaseUserController.LogIn(loginData.Username, loginData.Password);
 
             if (user == null)
             {
-                // 401 Unauthorized is better than 404 for failed logins
-                Console.WriteLine("not Logged in");
+                Console.WriteLine("Not Logged in");
                 return Unauthorized(new { message = "Invalid username or password" });
             }
 
             Console.WriteLine("Logged in");
-            return Ok(user); // Returns 200 OK with the User JSON
+            return Ok(user); 
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<DatabaseUser>> RegisterUser([FromBody] User user)
+        public async Task<ActionResult<DatabaseUser>> RegisterUser([FromForm] User user)
         {
+            string? imagePath = null;
+
+            if (user.ProfilePicture != null && user.ProfilePicture.Length > 0)
+            {
+                // Define where to save (ensure this folder exists in your project)
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/profiles");
+                if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
+
+                // Create a unique filename to prevent overwriting
+                var fileName = $"{Guid.NewGuid()}_{user.ProfilePicture.FileName}";
+                var fullPath = Path.Combine(uploadsFolder, fileName);
+
+                // Save the file to the server disk
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await user.ProfilePicture.CopyToAsync(stream);
+                }
+
+                // This is the path we save to the DB (relative URL)
+                imagePath = $"/uploads/profiles/{fileName}";
+            }
+
             DatabaseUser newUser = new DatabaseUser() { 
                 Username = user.Username,
                 FirstName = user.FirstName,
@@ -73,7 +93,9 @@ namespace REST_API.Controllers
                 BirthDate = user.BirthDate,
                 Age = user.CalculateAge(),
                 Sex = user.Sex,
-                HomeCityId = user.HomeCity.Id
+                HomeCityId = user.HomeCity?.Id,
+                PhoneNumber = user.PhoneNumber,
+                ProfilePicturePath = imagePath,
             };
 
             _context.Users.Add(newUser);

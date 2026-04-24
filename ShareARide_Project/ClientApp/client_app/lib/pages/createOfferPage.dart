@@ -14,13 +14,13 @@ class CreateOfferPage extends StatefulWidget {
 }
 
 class _CreateOfferPageState extends State<CreateOfferPage> {
-  final _formKey = GlobalKey<FormState>();
-  final _priceController = TextEditingController();
-  DateTime _selectedDateTime = DateTime.now().add(const Duration(hours: 2));
+  final formKey = GlobalKey<FormState>();
+  final priceController = TextEditingController();
+  DateTime selectedDateTime = DateTime.now().add(const Duration(hours: 2));
 
-  int? _fromCityId;
-  int? _toCityId;
-  int? _selectedVehicleId;
+  int? fromCityId;
+  int? toCityId;
+  int? selectedVehicleId;
 
   List<dynamic> cities = [];
   List<Vehicle> userVehicles = [];
@@ -52,14 +52,14 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
   }
 
   void _submitOffer() async {
-    if (_formKey.currentState!.validate()) {
+    if (formKey.currentState!.validate()) {
       bool success = await OfferUtils.createOffer(
         UserUtils.getCurrentUserId(),
-        _selectedVehicleId!,
-        _selectedDateTime.toIso8601String(),
-        _fromCityId!,
-        _toCityId!,
-        double.parse(_priceController.text),
+        selectedVehicleId!,
+        selectedDateTime.toIso8601String(),
+        fromCityId!,
+        toCityId!,
+        double.parse(priceController.text),
       );
 
       if (success) {
@@ -103,7 +103,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Form(
-          key: _formKey,
+          key: formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -118,7 +118,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                   child: Column(
                     children: [
                       DropdownButtonFormField<int>(
-                        value: _fromCityId,
+                        value: fromCityId,
                         decoration: _inputStyle(
                           "Departure City",
                           Icons.location_on_outlined,
@@ -130,20 +130,20 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                           );
                         }).toList(),
                         onChanged: (val) => setState(() {
-                          _fromCityId = val;
-                          if (_fromCityId == _toCityId) _toCityId = null;
+                          fromCityId = val;
+                          if (fromCityId == toCityId) toCityId = null;
                         }),
                         validator: (v) => v == null ? "Required" : null,
                       ),
                       const SizedBox(height: 20),
                       DropdownButtonFormField<int>(
-                        value: _toCityId,
+                        value: toCityId,
                         decoration: _inputStyle(
                           "Destination City",
                           Icons.flag_outlined,
                         ),
                         items: cities
-                            .where((c) => c.id != _fromCityId)
+                            .where((c) => c.id != fromCityId)
                             .map<DropdownMenuItem<int>>((city) {
                               return DropdownMenuItem<int>(
                                 value: city.id,
@@ -151,7 +151,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                               );
                             })
                             .toList(),
-                        onChanged: (val) => setState(() => _toCityId = val),
+                        onChanged: (val) => setState(() => toCityId = val),
                         validator: (v) => v == null ? "Required" : null,
                       ),
                     ],
@@ -170,7 +170,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                   child: Column(
                     children: [
                       DropdownButtonFormField<int>(
-                        value: _selectedVehicleId,
+                        value: selectedVehicleId,
                         decoration: _inputStyle(
                           "Select Vehicle",
                           Icons.directions_car_filled_outlined,
@@ -181,12 +181,12 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                             child: Text("${vehicle.make.name} ${vehicle.model} (${vehicle.year})"),
                           );
                         }).toList(),
-                        onChanged: (val) => setState(() => _selectedVehicleId = val),
+                        onChanged: (val) => setState(() => selectedVehicleId = val),
                         validator: (v) => v == null ? "Please select a vehicle" : null,
                       ),
                       const SizedBox(height: 20),
                       TextFormField(
-                        controller: _priceController,
+                        controller: priceController,
                         keyboardType: TextInputType.number,
                         decoration: _inputStyle(
                           "Price per Seat",
@@ -212,7 +212,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                           style: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                         subtitle: Text(
-                          "${_selectedDateTime.day}/${_selectedDateTime.month} at ${_selectedDateTime.hour.toString().padLeft(2, '0')}:${_selectedDateTime.minute.toString().padLeft(2, '0')}",
+                          "${selectedDateTime.day}/${selectedDateTime.month} at ${selectedDateTime.hour.toString().padLeft(2, '0')}:${selectedDateTime.minute.toString().padLeft(2, '0')}",
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -269,18 +269,18 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
   Future<void> _pickDateTime() async {
     DateTime? d = await showDatePicker(
       context: context,
-      initialDate: _selectedDateTime,
+      initialDate: selectedDateTime,
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 30)),
     );
     if (d != null) {
       TimeOfDay? t = await showTimePicker(
         context: context,
-        initialTime: TimeOfDay.fromDateTime(_selectedDateTime),
+        initialTime: TimeOfDay.fromDateTime(selectedDateTime),
       );
       if (t != null) {
         setState(
-          () => _selectedDateTime = DateTime(
+          () => selectedDateTime = DateTime(
             d.year,
             d.month,
             d.day,

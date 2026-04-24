@@ -28,7 +28,9 @@ class OfferUtils {
   }
 
   static Future<List<Offer>> getOtherOffers(int id) async {
-    final url = Uri.parse('http://${Utils().ip}:5205/api/offers/other_offers/$id');
+    final url = Uri.parse(
+      'http://${Utils().ip}:5205/api/offers/other_offers/$id',
+    );
 
     try {
       final response = await http.get(url).timeout(const Duration(seconds: 5));
@@ -83,9 +85,27 @@ class OfferUtils {
       }
     } catch (e) {
       print("API unreachable: $e");
-      return Offer(id: id, driverId: 0, vehicleId: 0, departureTime: DateTime.now(), departureCityId: 0, destinationCityId: 0, pricePerSeat: 0.0, status: OfferStatus.Active);
+      return Offer(
+        id: id,
+        driverId: 0,
+        vehicleId: 0,
+        departureTime: DateTime.now(),
+        departureCityId: 0,
+        destinationCityId: 0,
+        pricePerSeat: 0.0,
+        status: OfferStatus.Active,
+      );
     }
-    return Offer(id: id, driverId: 0, vehicleId: 0, departureTime: DateTime.now(), departureCityId: 0, destinationCityId: 0, pricePerSeat: 0.0, status: OfferStatus.Active);
+    return Offer(
+      id: id,
+      driverId: 0,
+      vehicleId: 0,
+      departureTime: DateTime.now(),
+      departureCityId: 0,
+      destinationCityId: 0,
+      pricePerSeat: 0.0,
+      status: OfferStatus.Active,
+    );
   }
 
   static Future<bool> createOffer(
@@ -112,7 +132,7 @@ class OfferUtils {
           "departureCityId": departureCityId,
           "destinationCityId": destinationCityId,
           "pricePerSeat": pricePerSeat,
-        })
+        }),
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -128,6 +148,26 @@ class OfferUtils {
       }
     } catch (e) {
       print('Connection Error: $e');
+      return false;
+    }
+  }
+
+  static Future<bool> updateOfferVehicle(int offerId, int newVehicleId) async {
+    final url = Uri.parse(
+      'http://${Utils().ip}:5205/api/offers/update_vehicle',
+    );
+    try {
+      final response = await http
+          .put(
+            url,
+            headers: {"Content-Type": "application/json"},
+            body: jsonEncode({"offerId": offerId, "vehicleId": newVehicleId}),
+          )
+          .timeout(const Duration(seconds: 5));
+
+      return response.statusCode == 200;
+    } catch (e) {
+      print("Update Error: $e");
       return false;
     }
   }

@@ -320,6 +320,22 @@
     ]
   },
   {
+    "ContainingType": "REST_API.Controllers.OffersController",
+    "Method": "UpdateVehicle",
+    "RelativePath": "api/Offers/update_vehicle",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "offerVehicleApiObject",
+        "Type": "REST_API.Objects.OfferVehicleApiObject",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "REST_API.Controllers.UsersController",
     "Method": "GetUsers",
     "RelativePath": "api/Users",
@@ -457,9 +473,74 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "user",
-        "Type": "Core.Model.User",
-        "IsRequired": true
+        "Name": "ProfilePicture",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Username",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FirstName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "LastName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "PhoneNumber",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Password",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Age",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "BirthDate",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "Sex",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "HomeCity.Id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "HomeCity.Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Rating",
+        "Type": "System.Double",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [

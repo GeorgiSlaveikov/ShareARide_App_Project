@@ -5,7 +5,7 @@ import '../controllers/cityUtils.dart';
 import '../controllers/userUtils.dart';
 import '../controllers/vehicleUtils.dart';
 // import '../controllers/bookingUtils.dart';
-import '../cards/offerCard.dart';
+import '../widgets/offerCard.dart';
 
 class OffersPage extends StatefulWidget {
   const OffersPage({super.key});
@@ -15,6 +15,8 @@ class OffersPage extends StatefulWidget {
 }
 
 class _OffersPageState extends State<OffersPage> {
+  final searchController = TextEditingController();
+
   var travelOffers = [];
   var myOffers = [];
   var otherOffers = [];
@@ -57,6 +59,12 @@ class _OffersPageState extends State<OffersPage> {
       }).toList(),
     );
 
+    mappedOffers.sort((a, b) {
+      return (DateTime.parse(
+        b['createdAt'].toString(),
+      )).compareTo(DateTime.parse(a['createdAt'].toString()));
+    });
+
     setState(() {
       myOffers = mappedOffers;
     });
@@ -91,6 +99,12 @@ class _OffersPageState extends State<OffersPage> {
       }).toList(),
     );
 
+    mappedOffers.sort((a, b) {
+      return (DateTime.parse(
+        b['createdAt'].toString(),
+      )).compareTo(DateTime.parse(a['createdAt'].toString()));
+    });
+
     setState(() {
       otherOffers = mappedOffers;
     });
@@ -102,6 +116,35 @@ class _OffersPageState extends State<OffersPage> {
     } else {
       fetchOtherOffers();
     }
+  }
+
+  void onSearch() {
+    String query = searchController.text.toLowerCase();
+    if (query.isEmpty) {
+      refresh();
+      return;
+    }
+    setState(() {
+      if (showMyOffers) {
+        myOffers = myOffers
+            .where(
+              (offer) =>
+                  offer['from'].toLowerCase().contains(query) ||
+                  offer['to'].toLowerCase().contains(query) ||
+                  offer['driver'].toLowerCase().contains(query)
+            )
+            .toList();
+      } else {
+        otherOffers = otherOffers
+            .where(
+              (offer) =>
+                  offer['from'].toLowerCase().contains(query) ||
+                  offer['to'].toLowerCase().contains(query) ||
+                  offer['driver'].toLowerCase().contains(query)
+            )
+            .toList();
+      }
+    });
   }
 
   @override
@@ -132,8 +175,9 @@ class _OffersPageState extends State<OffersPage> {
               children: [
                 Expanded(
                   child: TextField(
+                    controller: searchController,
                     decoration: InputDecoration(
-                      hintText: "Where to?",
+                      hintText: "Search by city, driver, etc.",
                       prefixIcon: const Icon(Icons.search),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -141,6 +185,7 @@ class _OffersPageState extends State<OffersPage> {
                       filled: true,
                       fillColor: Colors.white,
                     ),
+                    onChanged: (value) => onSearch(),
                   ),
                 ),
               ],
@@ -188,8 +233,6 @@ class _OffersPageState extends State<OffersPage> {
     );
   }
 }
-
-
 
 Widget _buildTabButton({
   required String label,

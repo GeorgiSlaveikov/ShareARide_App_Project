@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Core.Model;
+using Microsoft.AspNetCore.Http;
 
 namespace DatabaseLayer.DatabaseModels
 {
@@ -19,5 +20,7 @@ namespace DatabaseLayer.DatabaseModels
 
         [ForeignKey("HomeCityId")]
         public virtual DatabaseCity DatabaseHomeCity { get; set; }
+
+        public string? ProfilePicturePath { get; set; }
     }
 }

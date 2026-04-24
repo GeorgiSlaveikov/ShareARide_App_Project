@@ -33,6 +33,7 @@ namespace DatabaseLayer.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<DatabaseUser>().Ignore(u => u.ProfilePicture);
             //modelBuilder.Entity<DatabaseUser>().Property(e => e.Id).ValueGeneratedOnAdd();
 
             //modelBuilder.Entity<DatabaseUser>()
@@ -120,7 +121,8 @@ namespace DatabaseLayer.Database
                 FirstName = "Admin",
                 LastName = "Admin",
                 Email = "admin@gmail.com",
-                Password = "0000"
+                Password = "0000",
+                PhoneNumber = "0888888888"
             };
 
             modelBuilder.Entity<DatabaseUser>().HasData(adminUser);

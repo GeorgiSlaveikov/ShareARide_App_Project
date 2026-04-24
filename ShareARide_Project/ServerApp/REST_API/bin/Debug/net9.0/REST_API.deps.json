@@ -1246,6 +1246,9 @@
       "System.Threading.Channels/7.0.0": {},
       "System.Threading.Tasks.Extensions/4.6.0": {},
       "Core/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Features": "2.3.0"
+        },
         "runtime": {
           "Core.dll": {
             "assemblyVersion": "1.0.0.0",

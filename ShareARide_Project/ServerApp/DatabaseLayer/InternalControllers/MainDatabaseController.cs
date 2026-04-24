@@ -55,7 +55,9 @@ namespace DatabaseLayer.InternalControllers
                             LastName = "Slaveykov",
                             Email = "user@gmail.com",
                             DatabaseHomeCity = hskCity,
-                            Password = "0000"
+                            Password = "0000",
+                            PhoneNumber = "0888888888"
+
                         };
                         context.Add<DatabaseUser>(user);
                     }

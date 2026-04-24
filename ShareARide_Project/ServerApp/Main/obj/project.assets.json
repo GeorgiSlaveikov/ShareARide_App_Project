@@ -3056,6 +3056,9 @@
       "Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Features": "2.3.0"
+        },
         "compile": {
           "bin/placeholder/Core.dll": {}
         },

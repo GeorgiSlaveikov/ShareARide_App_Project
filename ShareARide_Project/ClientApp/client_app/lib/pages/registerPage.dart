@@ -9,6 +9,9 @@ import '../elements/textFieldElement.dart';
 import '../elements/connectionBadgeElement.dart';
 import '../elements/mainButtonElement.dart';
 
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
@@ -19,6 +22,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _birthDateController = TextEditingController();
@@ -28,6 +32,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
   bool _isConnected = false;
   bool _isLoading = false;
+
+  File? _selectedImage;
+  final ImagePicker _picker = ImagePicker();
 
   var cities = [];
   int? _selectedCityId = 1;
@@ -43,7 +50,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _verifyConnection();
     CityUtils.getCities().then((data) {
@@ -51,6 +57,67 @@ class _RegisterPageState extends State<RegisterPage> {
         cities = data;
       });
     });
+  }
+
+  Future<void> _pickImage(ImageSource source) async {
+    try {
+      final XFile? pickedFile = await _picker.pickImage(
+        source: source,
+        maxWidth: 1000, // Optimize image size
+        maxHeight: 1000,
+        imageQuality: 85, // Compress slightly for faster upload
+      );
+
+      if (pickedFile != null) {
+        setState(() {
+          _selectedImage = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      debugPrint("Error picking image: $e");
+    }
+  }
+
+  // This creates the "Alert/Action Sheet" at the bottom
+  void _showImagePickerOptions() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => SafeArea(
+        child: Wrap(
+          children: [
+            const ListTile(
+              title: Text(
+                'Profile Photo',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.camera_alt, color: Colors.deepPurple),
+              title: const Text('Take a Photo'),
+              onTap: () {
+                Navigator.pop(context);
+                _pickImage(ImageSource.camera);
+              },
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.photo_library,
+                color: Colors.deepPurple,
+              ),
+              title: const Text('Choose from Gallery'),
+              onTap: () {
+                Navigator.pop(context);
+                _pickImage(ImageSource.gallery);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -109,20 +176,63 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // 2. Stylish App Icon/Logo Placeholder
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.1),
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white24, width: 2),
-                  ),
-                  child: const Icon(
-                    Icons.account_circle,
-                    size: 80,
-                    color: Colors.white,
+                GestureDetector(
+                  onTap: _showImagePickerOptions, // Trigger the alert
+                  child: Stack(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.1),
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white24, width: 2),
+                        ),
+                        child: CircleAvatar(
+                          radius: 50,
+                          backgroundColor: Colors.white10,
+                          backgroundImage: _selectedImage != null
+                              ? FileImage(_selectedImage!)
+                              : null,
+                          child: _selectedImage == null
+                              ? const Icon(
+                                  Icons.person,
+                                  size: 60,
+                                  color: Colors.white,
+                                )
+                              : null,
+                        ),
+                      ),
+                      // Little camera icon badge
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: CircleAvatar(
+                          radius: 18,
+                          backgroundColor: themeColor,
+                          child: const Icon(
+                            Icons.add_a_photo,
+                            size: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
+                // // 2. Stylish App Icon/Logo Placeholder
+                // Container(
+                //   padding: const EdgeInsets.all(16),
+                //   decoration: BoxDecoration(
+                //     color: Colors.white.withOpacity(0.1),
+                //     shape: BoxShape.circle,
+                //     border: Border.all(color: Colors.white24, width: 2),
+                //   ),
+                //   child: const Icon(
+                //     Icons.account_circle,
+                //     size: 80,
+                //     color: Colors.white,
+                //   ),
+                // ),
                 const SizedBox(height: 16),
                 const Text(
                   "WELCOME",
@@ -170,6 +280,13 @@ class _RegisterPageState extends State<RegisterPage> {
                           controller: _emailController,
                           label: "Email",
                           icon: Icons.person_outline,
+                          color: themeColor,
+                        ),
+                        const SizedBox(height: 16),
+                        TextFieldElement(
+                          controller: _phoneNumberController,
+                          label: "Phone Number",
+                          icon: Icons.phone,
                           color: themeColor,
                         ),
                         const SizedBox(height: 32),
@@ -244,9 +361,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           items: Sex.values.map((sex) {
                             return DropdownMenuItem<int>(
                               value: sex.index,
-                              child: Text(
-                                sex.toString().split('.').last,
-                              ),
+                              child: Text(sex.toString().split('.').last),
                             );
                           }).toList(),
                           onChanged: (value) {
@@ -338,6 +453,7 @@ class _RegisterPageState extends State<RegisterPage> {
       _usernameController.text,
       _firstNameController.text,
       _lastNameController.text,
+      _phoneNumberController.text,
       _emailController.text,
       _birthDateController.text,
       _calculateAge(
@@ -348,6 +464,7 @@ class _RegisterPageState extends State<RegisterPage> {
       _selectedCityId!,
       _selectedSex!.index,
       _passwordController.text,
+      _selectedImage
     );
     setState(() => _isLoading = false);
 

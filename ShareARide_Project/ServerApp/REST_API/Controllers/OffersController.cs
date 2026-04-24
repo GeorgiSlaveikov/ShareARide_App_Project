@@ -46,7 +46,6 @@ namespace REST_API.Controllers
             return await _context.Offers.Where(offer => offer.DriverId == id).ToListAsync();
         }
 
-
         [HttpPost("create")]
         public async Task<ActionResult<DatabaseOffer>> CreateOffer([FromBody] OfferApiObject offerApiObject)
         {
@@ -66,6 +65,38 @@ namespace REST_API.Controllers
             _context.Offers.Add(newOffer);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetOffer), new { id = newOffer.Id }, newOffer);
+        }
+
+        [HttpPut("update_vehicle")]
+        public async Task<IActionResult> UpdateVehicle([FromBody] OfferVehicleApiObject offerVehicleApiObject)
+        {
+            // 1. Find the offer in the database
+            var offer = await _context.Offers.FindAsync(offerVehicleApiObject.OfferId);
+
+            if (offer == null)
+            {
+                return NotFound("Offer not found.");
+            }
+
+            // 2. Validate that the new vehicle exists (Optional but recommended)
+            var vehicleExists = await _context.Vehicles.AnyAsync(v => v.Id == offerVehicleApiObject.VehicleId);
+            if (!vehicleExists)
+            {
+                return BadRequest("The selected vehicle does not exist.");
+            }
+
+            // 3. Update the vehicle ID
+            offer.VehicleId = offerVehicleApiObject.VehicleId;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                return Ok(); // Returns HTTP 200 as expected by your Flutter code
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }

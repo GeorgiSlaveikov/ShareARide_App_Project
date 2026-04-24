@@ -577,6 +577,37 @@
         }
       }
     },
+    "/api/Offers/update_vehicle": {
+      "put": {
+        "tags": [
+          "Offers"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OfferVehicleApiObject"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OfferVehicleApiObject"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OfferVehicleApiObject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Users/check": {
       "get": {
         "tags": [
@@ -800,19 +831,103 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/User"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/User"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/User"
+                "type": "object",
+                "properties": {
+                  "ProfilePicture": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "Id": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Username": {
+                    "type": "string"
+                  },
+                  "FirstName": {
+                    "type": "string"
+                  },
+                  "LastName": {
+                    "type": "string"
+                  },
+                  "PhoneNumber": {
+                    "type": "string"
+                  },
+                  "Email": {
+                    "type": "string"
+                  },
+                  "Password": {
+                    "type": "string"
+                  },
+                  "Age": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "BirthDate": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "Sex": {
+                    "$ref": "#/components/schemas/Sex"
+                  },
+                  "HomeCity.Id": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "HomeCity.Name": {
+                    "type": "string"
+                  },
+                  "Rating": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              },
+              "encoding": {
+                "ProfilePicture": {
+                  "style": "form"
+                },
+                "Id": {
+                  "style": "form"
+                },
+                "Username": {
+                  "style": "form"
+                },
+                "FirstName": {
+                  "style": "form"
+                },
+                "LastName": {
+                  "style": "form"
+                },
+                "PhoneNumber": {
+                  "style": "form"
+                },
+                "Email": {
+                  "style": "form"
+                },
+                "Password": {
+                  "style": "form"
+                },
+                "Age": {
+                  "style": "form"
+                },
+                "BirthDate": {
+                  "style": "form"
+                },
+                "Sex": {
+                  "style": "form"
+                },
+                "HomeCity.Id": {
+                  "style": "form"
+                },
+                "HomeCity.Name": {
+                  "style": "form"
+                },
+                "Rating": {
+                  "style": "form"
+                }
               }
             }
           }
@@ -1251,6 +1366,11 @@
       "DatabaseUser": {
         "type": "object",
         "properties": {
+          "profilePicture": {
+            "type": "string",
+            "format": "binary",
+            "nullable": true
+          },
           "username": {
             "type": "string",
             "nullable": true
@@ -1260,6 +1380,10 @@
             "nullable": true
           },
           "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
             "type": "string",
             "nullable": true
           },
@@ -1285,6 +1409,10 @@
           "homeCity": {
             "$ref": "#/components/schemas/City"
           },
+          "rating": {
+            "type": "number",
+            "format": "double"
+          },
           "id": {
             "type": "integer",
             "format": "int32"
@@ -1296,6 +1424,10 @@
           },
           "databaseHomeCity": {
             "$ref": "#/components/schemas/DatabaseCity"
+          },
+          "profilePicturePath": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1429,6 +1561,20 @@
         "type": "integer",
         "format": "int32"
       },
+      "OfferVehicleApiObject": {
+        "type": "object",
+        "properties": {
+          "offerId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vehicleId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "Sex": {
         "enum": [
           0,
@@ -1440,6 +1586,11 @@
       "User": {
         "type": "object",
         "properties": {
+          "profilePicture": {
+            "type": "string",
+            "format": "binary",
+            "nullable": true
+          },
           "id": {
             "type": "integer",
             "format": "int32"
@@ -1453,6 +1604,10 @@
             "nullable": true
           },
           "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
             "type": "string",
             "nullable": true
           },
@@ -1477,6 +1632,10 @@
           },
           "homeCity": {
             "$ref": "#/components/schemas/City"
+          },
+          "rating": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false

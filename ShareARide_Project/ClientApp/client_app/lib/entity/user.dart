@@ -5,6 +5,7 @@ class User {
   String lastName;
   int age;
   String email;
+  String? profilePicturePath;
 
   User({
     this.id,
@@ -13,6 +14,7 @@ class User {
     required this.lastName,
     required this.age,
     required this.email,
+    this.profilePicturePath,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
