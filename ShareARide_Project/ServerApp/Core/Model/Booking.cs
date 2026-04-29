@@ -11,99 +11,63 @@ namespace Core.Model
     public class Booking
     {
         private int id;
-        private Offer offer;
-        private List<User> passengers;
-        private List<string> passengersNames;
+        //private Offer offer;
+        //private List<User> passengers;
+        //private List<string> passengersNames;
+        private decimal pricePerSeat;
         private int bookedSeats;
-        private User requester;
-        private double totalPrice;
+        private decimal totalPrice;
         private BookingStatus status;
         private DateTime createdAt;
 
         public Booking() { }
 
-        public Booking(Offer offer, User requester)
+        public Booking(decimal price, int seats)
         {
-            Offer = offer;
-            Requester = requester;
-            passengers = new List<User>();
-            passengersNames = new List<string>();
-            bookedSeats = 0;
+            //Offer = offer;
+            //passengers = new List<User>();
+            //passengersNames = new List<string>();
+            pricePerSeat = price;
+            bookedSeats = seats;
             status = BookingStatus.Pending;
             createdAt = DateTime.Now;
-            totalPrice = 0;
+            totalPrice = CalculateTotalPrice();
         }
 
         public virtual int Id { get => id; set => id = value; }
 
-        [NotMapped]
-        public Offer Offer
-        {
-            get => offer;
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException(nameof(offer));
-                offer = value;
-            }
-        }
+        //[NotMapped]
+        //public Offer Offer
+        //{
+        //    get => offer;
+        //    set
+        //    {
+        //        if (value == null)
+        //            throw new ArgumentNullException(nameof(offer));
+        //        offer = value;
+        //    }
+        //}
 
-        public List<string> PassengersNames { get => passengersNames; set => passengersNames = value; }
-        public List<User> Passengers { get => passengers; set => passengers = value; }
+        //public List<string> PassengersNames { get => passengersNames; set => passengersNames = value; }
+        //public List<User> Passengers { get => passengers; set => passengers = value; }
         public int BookedSeats { get => bookedSeats; set => bookedSeats = value; }
-        public User Requester
-        {
-            get => requester;
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException(nameof(requester));
-                requester = value;
-            }
-        }
-        public double TotalPrice { get => totalPrice; set => totalPrice = value; }
+        //public User Requester
+        //{
+        //    get => requester;
+        //    set
+        //    {
+        //        if (value == null)
+        //            throw new ArgumentNullException(nameof(requester));
+        //        requester = value;
+        //    }
+        //}
+        public decimal TotalPrice { get => totalPrice; set => totalPrice = value; }
         public BookingStatus Status { get => status; set => status = value; }
         public DateTime CreatedAt { get => createdAt; set => createdAt = value; }
 
-        private double CalculateTotalPrice()
+        private decimal CalculateTotalPrice()
         {
-            return Math.Round(this.offer.PricePerSeat * this.bookedSeats, 2);
-        }
-
-        public void AddPassenger(User passenger)
-        {
-            if (passenger == null)
-                throw new ArgumentNullException(nameof(passenger));
-
-            if (passengers.Count + 1 > Offer.Vehicle.MaxCapacity)
-                throw new InvalidOperationException("No available seats.");
-
-            this.passengers.Add(passenger);
-            BookedSeats++;
-            TotalPrice = CalculateTotalPrice();
-        }
-
-        public void RemovePassenger(User passenger)
-        {
-            if (passenger == null)
-                throw new ArgumentNullException(nameof(passenger));
-
-            if (passengers.Remove(passenger))
-            {
-                BookedSeats--;
-                TotalPrice = CalculateTotalPrice();
-            }
-            else
-            {
-                throw new InvalidOperationException("Passenger not found in booking.");
-            }
-        }
-
-        public void ClearPassengers()
-        {
-            passengers.Clear();
-            BookedSeats = 0;
-            TotalPrice = 0;
+            return Math.Round(this.pricePerSeat * this.bookedSeats, 2);
         }
 
         public void ResetStatus()

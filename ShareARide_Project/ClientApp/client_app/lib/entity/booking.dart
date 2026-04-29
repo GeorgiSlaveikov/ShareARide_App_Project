@@ -6,18 +6,36 @@ import 'bookingStatus.dart';
 
 class Booking {
   final int? id;
+  final String driverName;
   final int requestedForId;
-  final int requestorId;
+  final String requestedForName;
+  final int requesterId;
+  final String requesterName;
   final int offerId;
-  final List<String> passengers;
+  final int bookedSeats;
+  final double pricePerSeat;
+  final double totalPrice;
+  final String departureCityName;
+  final String destinationCityName;
   final BookingStatus? status;
+  final DateTime createdAt;
+  final DateTime departureTime;
 
   Booking({
     this.id,
     required this.requestedForId,
-    required this.requestorId,
+    required this.requestedForName,
+    required this.requesterId,
+    required this.requesterName,
     required this.offerId,
-    required this.passengers,
+    required this.pricePerSeat,
+    required this.totalPrice,
+    required this.bookedSeats,
+    required this.departureTime,
+    required this.createdAt,
+    required this.departureCityName,
+    required this.destinationCityName,
+    required this.driverName,
     this.status,
   });
 
@@ -25,11 +43,8 @@ class Booking {
   Map<String, dynamic> toJson() {
     return {
       'RequestedForId': requestedForId,
-      'RequestorId': requestorId,
+      'RequesterId': requesterId,
       'OfferId': offerId,
-      'passengers': passengers,
-      // Status is usually handled by the backend on creation,
-      // but you can add it here if your API expects it.
     };
   }
 
@@ -38,9 +53,18 @@ class Booking {
     return Booking(
       id: json['id'],
       offerId: json['offerId'] ?? 0,
-      requestorId: json['requestorId'] ?? 0,
+      requesterId: json['requesterId'] ?? 0,
+      requesterName: json['requesterName'] ?? "Unknown",
       requestedForId: json['requestedForId'] ?? 0,
-      passengers: List<String>.from(json['passengersNames'] ?? []),
+      requestedForName: json['requestedForName'] ?? "Unknown",
+      bookedSeats: json['bookedSeats'] ?? 0,
+      pricePerSeat: (json['pricePerSeat'] ?? 0).toDouble(),
+      totalPrice: (json['totalPrice'] ?? 0).toDouble(),
+      departureTime: DateTime.parse(json['departureTime'] ?? DateTime.now().toString()),
+      createdAt: DateTime.parse(json['createdAt'] ?? DateTime.now().toString()),
+      departureCityName: json['departureCityName'] ?? "Unknown", 
+      destinationCityName: json['destinationCityName'] ?? "Unknown",
+      driverName: json['driverName'] ?? "Unknown",
       status: parseStatus(json['status']?.toString() ?? "0"),
     );
   }

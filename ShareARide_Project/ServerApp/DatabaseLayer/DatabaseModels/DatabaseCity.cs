@@ -14,7 +14,5 @@ namespace DatabaseLayer.DatabaseModels
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public override int Id { get; set; }
-
-        public virtual ICollection<DatabaseUser> Users { get; set; } = new List<DatabaseUser>();
     }
 }

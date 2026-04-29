@@ -15,12 +15,6 @@ namespace DatabaseLayer.DatabaseModels
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public override int Id { get; set; }
-
-        public int? HomeCityId { get; set; }
-
-        [ForeignKey("HomeCityId")]
-        public virtual DatabaseCity DatabaseHomeCity { get; set; }
-
         public string? ProfilePicturePath { get; set; }
     }
 }

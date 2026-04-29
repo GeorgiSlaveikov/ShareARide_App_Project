@@ -21,18 +21,39 @@ class _OfferCardState extends State<OfferCard> {
   }
 
   void checkIfRequested() async {
-    print('Offer card: ${widget.offer['id']}');
+    // print('Offer card: ${widget.offer['id']}');
+    // var currentUserId = await UserUtils.getCurrentUserId();
+    // var bookings = await BookingUtils.getBookingsFromMe(currentUserId);
+    // var requestedOfferIds = bookings.map((b) => b.offerId).toList();
+    // print("Bookings for me: $requestedOfferIds");
+    // if (mounted && requestedOfferIds.contains(widget.offer['id'])) {
+    //   print(
+    //     'requested offer found: ${widget.offer['id']} - setting state to requested true',
+    //   );
+    //   setState(() {
+    //     isOfferRequested = true;
+    //   });
+    // }
     var currentUserId = await UserUtils.getCurrentUserId();
+    // Ensure this utility is actually hitting your API and returning List<Booking>
     var bookings = await BookingUtils.getBookingsFromMe(currentUserId);
-    var requestedOfferIds = bookings.map((b) => b.offerId).toList();
-    print("Bookings for me: $requestedOfferIds");
-    if (mounted && requestedOfferIds.contains(widget.offer['id'])) {
-      print(
-        'requested offer found: ${widget.offer['id']} - setting state to requested true',
+
+    // LOG THIS: See if the list is empty or if IDs are different types
+    print(
+      "DEBUG: Checking Offer ID ${widget.offer['id']} against user bookings: ${bookings.map((b) => b.offerId).toList()}",
+    );
+
+    if (mounted) {
+      // Use .any to be safe with object comparison
+      bool exists = bookings.any(
+        (b) => b.offerId.toString() == widget.offer['id'].toString(),
       );
-      setState(() {
-        isOfferRequested = true;
-      });
+
+      if (exists) {
+        setState(() {
+          isOfferRequested = true;
+        });
+      }
     }
   }
 
@@ -145,7 +166,7 @@ class _OfferCardState extends State<OfferCard> {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          "${offer['seats']} seats left",
+                          "${offer['availableSeats']} seats left",
                           style: const TextStyle(color: Colors.grey),
                         ),
                       ],
@@ -198,23 +219,23 @@ class _OfferCardState extends State<OfferCard> {
                         alignment: Alignment.centerRight,
                         child: Row(
                           children: [
-                            Icon( 
+                            Icon(
                               Icons.watch_later_outlined,
                               size: 16,
                               color: const Color.fromARGB(255, 245, 143, 47),
                             ),
                             const SizedBox(width: 4),
                             Text(
-                          "Waiting for response",
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: const Color.fromARGB(255, 245, 143, 47),
-                            fontStyle: FontStyle.italic,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                              "Waiting for response",
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: const Color.fromARGB(255, 245, 143, 47),
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ],
-                        )
+                        ),
                       )
                     : Container(),
                 Align(
@@ -238,7 +259,6 @@ class _OfferCardState extends State<OfferCard> {
 
   void showSeatSelectionDialog(Map<String, dynamic> offer) {
     int selectedSeats = 1;
-    List<TextEditingController> nameControllers = [];
 
     showDialog(
       context: context,
@@ -246,59 +266,44 @@ class _OfferCardState extends State<OfferCard> {
         builder: (context, setDialogState) {
           return AlertDialog(
             title: const Text("Select Number of Seats"),
-            content: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text("How many people are traveling?"),
-                  const SizedBox(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        onPressed: selectedSeats > 1
-                            ? () => setDialogState(() {
-                                selectedSeats--;
-                                nameControllers.removeLast();
-                              })
-                            : null,
-                        icon: const Icon(
-                          Icons.remove_circle_outline,
-                          color: Colors.deepPurple,
-                        ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text("How many people are traveling?"),
+                const SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: selectedSeats > 1
+                          ? () => setDialogState(() => selectedSeats--)
+                          : null,
+                      icon: const Icon(
+                        Icons.remove_circle_outline,
+                        color: Colors.deepPurple,
                       ),
-                      Text(
-                        selectedSeats.toString(),
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: selectedSeats < 5
-                            ? () => setDialogState(() {
-                                selectedSeats++;
-                                nameControllers.add(TextEditingController());
-                              })
-                            : null,
-                        icon: const Icon(
-                          Icons.add_circle_outline,
-                          color: Colors.deepPurple,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Divider(),
-                  buildPassengerNameCard("Passenger 1 (You)", isFixed: true),
-                  ...List.generate(
-                    nameControllers.length,
-                    (index) => buildPassengerNameCard(
-                      "Passenger ${index + 2}",
-                      controller: nameControllers[index],
                     ),
-                  ),
-                ],
-              ),
+                    Text(
+                      selectedSeats.toString(),
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed:
+                          selectedSeats <
+                              int.parse(offer['seats'].toString())
+                          ? () => setDialogState(() => selectedSeats++)
+                          : null,
+                      icon: const Icon(
+                        Icons.add_circle_outline,
+                        color: Colors.deepPurple,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
             actions: [
               TextButton(
@@ -307,16 +312,13 @@ class _OfferCardState extends State<OfferCard> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  List<String> allNames = ["You"];
-                  allNames.addAll(
-                    nameControllers.map(
-                      (c) => c.text.isEmpty ? "Guest" : c.text,
-                    ),
-                  );
-                  Navigator.pop(context);
-                  showBookingDialog(offer, allNames);
+                  Navigator.pop(context); // Close seat picker
+                  showBookingDialog(
+                    offer,
+                    selectedSeats,
+                  ); // Pass seats to next dialog
                 },
-                child: const Text("Send Request"),
+                child: const Text("Next"),
               ),
             ],
           );
@@ -325,12 +327,14 @@ class _OfferCardState extends State<OfferCard> {
     );
   }
 
-  void showBookingDialog(Map<String, dynamic> offer, List<String> allNames) {
+  void showBookingDialog(Map<String, dynamic> offer, int bookedSeats) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text("Confirm Request"),
-        content: Text("Request seat from ${offer['from']} to ${offer['to']}?"),
+        content: Text(
+          "Request $bookedSeats seat(s) from ${offer['from']} to ${offer['to']}?\n",
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -338,56 +342,52 @@ class _OfferCardState extends State<OfferCard> {
           ),
           ElevatedButton(
             onPressed: () async {
-              Navigator.pop(context);
+              Navigator.pop(context); // Close confirmation dialog
+
               var currentUserId = await UserUtils.getCurrentUserId();
-              await BookingUtils.createBooking(
+
+              // print("Current user: $currentUserId");
+              // print('Driver id: ${offer["driverId"]}');
+
+              // Ensure your BookingUtils.createBooking accepts seats!
+              bool success = await BookingUtils.createBooking(
                 offer["driverId"],
                 currentUserId,
                 offer["id"],
-                allNames,
+                // bookedSeats, // <--- Add this if you updated your controller
               );
-              onRequestConfirm();
-              if (mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Booking successful!"),
-                    backgroundColor: Colors.green,
-                  ),
-                );
+
+              // var success = false;
+
+              if (success) {
+                onRequestConfirm();
+                if (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Booking successful!"),
+                      backgroundColor: Colors.green,
+                      behavior: SnackBarBehavior.floating,
+                      dismissDirection: DismissDirection.horizontal,
+                    ),
+                  );
+                }
+              } else {
+                // Handle error (400 or connection)
+                if (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Failed to create booking."),
+                      backgroundColor: Colors.red,
+                      behavior: SnackBarBehavior.floating,
+                      dismissDirection: DismissDirection.horizontal,
+                    ),
+                  );
+                }
               }
             },
             child: const Text("Confirm"),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget buildPassengerNameCard(
-    String label, {
-    bool isFixed = false,
-    TextEditingController? controller,
-  }) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 4),
-      color: isFixed ? Colors.deepPurple.withOpacity(0.05) : Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        child: isFixed
-            ? ListTile(
-                leading: const Icon(Icons.person, color: Colors.deepPurple),
-                title: Text(
-                  label,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-              )
-            : TextField(
-                controller: controller,
-                decoration: InputDecoration(
-                  labelText: label,
-                  prefixIcon: const Icon(Icons.person_outline),
-                ),
-              ),
       ),
     );
   }

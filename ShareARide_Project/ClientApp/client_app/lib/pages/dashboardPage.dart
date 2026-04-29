@@ -135,23 +135,15 @@ class DashboardPage extends StatelessWidget {
                         Colors.blue,
                       ),
                       const SizedBox(width: 15),
-                      buildStatCard(
-                        "Saved",
-                        "\$140",
-                        Icons.savings,
-                        Colors.green,
+                       buildStatCard(
+                        "Rating", 
+                        "4.9", 
+                        Icons.star, 
+                        Colors.orange
                       ),
                     ],
                   ),
-                  const SizedBox(height: 15),
-                  Row(
-                    children: [
-                      buildStatCard("CO2 Saved", "4kg", Icons.eco, Colors.teal),
-                      const SizedBox(width: 15),
-                      buildStatCard("Rating", "4.9", Icons.star, Colors.orange),
-                    ],
-                  ),
-
+                 
                   const SizedBox(height: 30),
                   const Text(
                     "Travel Info",
@@ -256,10 +248,10 @@ class DashboardPage extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: const Color.fromARGB(255, 255, 255, 255),
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10),
+            BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 10),
           ],
         ),
         child: Column(
@@ -293,7 +285,7 @@ class DashboardPage extends StatelessWidget {
         ],
       ),
       child: CircleAvatar(
-        radius: 40,
+        radius: 50,
         backgroundColor: Colors.grey.shade200,
         backgroundImage: (path != null && path.isNotEmpty)
             ? NetworkImage(fullImageUrl)

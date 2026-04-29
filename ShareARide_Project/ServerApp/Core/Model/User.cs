@@ -22,45 +22,28 @@ namespace Core.Model
         private Sex sex;
         private string email;
         private string password;
-        private City homeCity;
-        private double rating;
+        private decimal rating;
 
         [NotMapped]
         public IFormFile? ProfilePicture { get; set; }
 
-        // for creating a passenger
-        public User(string firstName, string lastName, int age, Sex sex)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-            Age = age;
-            Sex = sex;
-        }
-
-
-        // control ctor
         public User() { }
 
+        //public User(int id, string username, string firstName, string lastName, string email,
+        //   string password, string phoneNumber)
+        //{
+        //    Id = id;
+        //    Username = username;
+        //    FirstName = firstName;
+        //    LastName = lastName;
+        //    Email = email;
+        //    Password = password;
+        //    Age = 0;
+        //    PhoneNumber = phoneNumber;
+        //}
 
-        // admin user creation
         public User(int id, string username, string firstName, string lastName, string email,
-           string password, string phoneNumber)
-        {
-            Id = id;
-            Username = username;
-            FirstName = firstName;
-            LastName = lastName;
-            Email = email;
-            Password = password;
-            Age = CalculateAge();
-            HomeCity = homeCity;
-            PhoneNumber = phoneNumber;
-        }
-
-
-        // main ctor
-        public User(int id, string username, string firstName, string lastName, string email,
-            string password, DateTime birthDate, Sex sex, City homeCity, string phoneNumber, double rating)
+            string password, DateTime birthDate, Sex sex, string phoneNumber, decimal rating)
         {
             Id = id;
             Username = username;
@@ -69,9 +52,8 @@ namespace Core.Model
             Email = email;
             Password = password;
             BirthDate = birthDate;
-            Age = age;
+            Age = CalculateAge();
             Sex = sex;
-            HomeCity = homeCity;
             PhoneNumber = phoneNumber;
             Rating = rating;
         }
@@ -86,8 +68,7 @@ namespace Core.Model
         public int Age { get => age; set => age = value; }
         public DateTime BirthDate { get => birthDate; set => birthDate = value; }
         public Sex Sex { get => sex; set => sex = value; }
-        public City HomeCity { get => homeCity; set => homeCity = value; }
-        public double Rating { get => rating; set => rating = value; }
+        public decimal Rating { get => rating; set => rating = value; }
 
         public int CalculateAge() {
             return (DateTime.Now.Year - BirthDate.Year);

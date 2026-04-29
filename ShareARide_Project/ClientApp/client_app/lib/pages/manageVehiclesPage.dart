@@ -198,6 +198,7 @@ class _ManageVehiclesPageState extends State<ManageVehiclesPage> {
           content: Text("Vehicle removed"),
           dismissDirection: DismissDirection.horizontal,
           behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.red,
         )
       );
     }

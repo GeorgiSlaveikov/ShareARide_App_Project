@@ -16,6 +16,7 @@ class CreateOfferPage extends StatefulWidget {
 class _CreateOfferPageState extends State<CreateOfferPage> {
   final formKey = GlobalKey<FormState>();
   final priceController = TextEditingController();
+  final availableSeatsController = TextEditingController();
   DateTime selectedDateTime = DateTime.now().add(const Duration(hours: 2));
 
   int? fromCityId;
@@ -25,16 +26,70 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
   List<dynamic> cities = [];
   List<Vehicle> userVehicles = [];
 
+  Vehicle? selectedVehicle;
+
+  bool canDecrement = true;
+  bool canIncrement = false;
 
   @override
   void initState() {
     super.initState();
     CityUtils.getCities().then((data) => setState(() => cities = data));
-    VehicleUtils.getMyVehicles(UserUtils.getCurrentUserId()).then((vehicles) => setState(() => userVehicles = vehicles));
+    VehicleUtils.getMyVehicles(UserUtils.getCurrentUserId()).then((vehicles) {
+      setState(() {
+        userVehicles = vehicles;
+
+        if (userVehicles.isNotEmpty) {
+          selectedVehicleId = userVehicles[0].id;
+          selectedVehicle = userVehicles[0];
+          availableSeatsController.text = userVehicles[0].maxCapacity
+              .toString();
+        }
+      });
+    });
+  }
+
+  void handleVehicleChange(vehicleId) {
+    if (userVehicles.isEmpty) {
+      return;
+    }
+    final vehicle = userVehicles.firstWhere((v) => v.id == vehicleId);
+    setState(() {
+      selectedVehicle = vehicle;
+      availableSeatsController.text = vehicle.maxCapacity.toString();
+    });
+  }
+
+  void updateSeats(int delta) {
+    if (selectedVehicleId == null) return;
+
+    final currentVehicle = userVehicles.firstWhere(
+      (v) => v.id == selectedVehicleId,
+    );
+    int currentSeats = int.tryParse(availableSeatsController.text) ?? 1;
+    int newSeats = currentSeats + delta;
+
+    if (newSeats >= 1 && newSeats <= currentVehicle.maxCapacity) {
+      setState(() {
+        availableSeatsController.text = newSeats.toString();
+      });
+    }
+  
+    setState(() {
+      if (newSeats <= 1)
+        canDecrement = false;
+      else if (newSeats > 1)
+        canDecrement = true;
+
+      if (newSeats >= selectedVehicle!.maxCapacity)
+        canIncrement = false;
+      else if (newSeats < selectedVehicle!.maxCapacity) 
+        canIncrement = true;
+    });
   }
 
   // Reuseable styling for Input Decorations
-  InputDecoration _inputStyle(String label, IconData icon, {String? prefix}) {
+  InputDecoration inputStyle(String label, IconData icon, {String? prefix}) {
     return InputDecoration(
       labelText: label,
       prefixText: prefix,
@@ -51,7 +106,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
     );
   }
 
-  void _submitOffer() async {
+  void submitOffer() async {
     if (formKey.currentState!.validate()) {
       bool success = await OfferUtils.createOffer(
         UserUtils.getCurrentUserId(),
@@ -60,6 +115,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
         fromCityId!,
         toCityId!,
         double.parse(priceController.text),
+        int.parse(availableSeatsController.text),
       );
 
       if (success) {
@@ -119,7 +175,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                     children: [
                       DropdownButtonFormField<int>(
                         value: fromCityId,
-                        decoration: _inputStyle(
+                        decoration: inputStyle(
                           "Departure City",
                           Icons.location_on_outlined,
                         ),
@@ -138,7 +194,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                       const SizedBox(height: 20),
                       DropdownButtonFormField<int>(
                         value: toCityId,
-                        decoration: _inputStyle(
+                        decoration: inputStyle(
                           "Destination City",
                           Icons.flag_outlined,
                         ),
@@ -171,28 +227,98 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                     children: [
                       DropdownButtonFormField<int>(
                         value: selectedVehicleId,
-                        decoration: _inputStyle(
+                        decoration: inputStyle(
                           "Select Vehicle",
                           Icons.directions_car_filled_outlined,
                         ),
                         items: userVehicles.map((vehicle) {
                           return DropdownMenuItem<int>(
                             value: vehicle.id,
-                            child: Text("${vehicle.make.name} ${vehicle.model} (${vehicle.year})"),
+                            child: Text(
+                              "${vehicle.make.name} ${vehicle.model} (${vehicle.year})",
+                            ),
                           );
                         }).toList(),
-                        onChanged: (val) => setState(() => selectedVehicleId = val),
-                        validator: (v) => v == null ? "Please select a vehicle" : null,
+                        onChanged: (val) => setState(() {
+                          selectedVehicleId = val;
+                          handleVehicleChange(val);
+                        }),
+                        validator: (v) =>
+                            v == null ? "Please select a vehicle" : null,
                       ),
+                      const SizedBox(height: 20),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: Colors.grey.shade300,
+                          ), // Matches your enabledBorder
+                          color: Colors.white,
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.settings_accessibility,
+                              color: Colors.deepPurple,
+                            ),
+                            const SizedBox(width: 12),
+                            Text(
+                              "Seats to offer",
+                              style: TextStyle(
+                                color: Colors.grey.shade700,
+                                fontSize: 16,
+                              ),
+                            ),
+                            const Spacer(),
+                            // Minus Button
+                            IconButton(
+                              iconSize: 32,
+                              onPressed: canDecrement
+                                  ? () => updateSeats(-1)
+                                  : null,
+                              icon: const Icon(
+                                Icons.remove_circle,
+                                color: Colors.deepPurple,
+                              ),
+                            ),
+                            // Number Display
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8.0,
+                              ),
+                              child: Text(
+                                availableSeatsController.text,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                            // Plus Button
+                            IconButton(
+                              iconSize: 32,
+                              onPressed: canIncrement
+                                  ? () => updateSeats(1)
+                                  : null,
+                              icon: const Icon(
+                                Icons.add_circle,
+                                color: Colors.deepPurple,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // const SizedBox(height: 20),
                       const SizedBox(height: 20),
                       TextFormField(
                         controller: priceController,
                         keyboardType: TextInputType.number,
-                        decoration: _inputStyle(
-                          "Price per Seat",
-                          Icons.attach_money,
-                          prefix: "\$ ",
-                        ),
+                        decoration: inputStyle("Price per Seat", Icons.euro),
                         validator: (v) =>
                             (v == null || v.isEmpty) ? "Required" : null,
                       ),
@@ -227,7 +353,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
               ),
               const SizedBox(height: 40),
               ElevatedButton(
-                onPressed: _submitOffer,
+                onPressed: submitOffer,
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(55),
                   backgroundColor: Colors.deepPurple,

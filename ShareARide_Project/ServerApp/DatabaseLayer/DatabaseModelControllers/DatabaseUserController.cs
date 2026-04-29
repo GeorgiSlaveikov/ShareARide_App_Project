@@ -24,8 +24,8 @@ namespace DatabaseLayer.DatabaseControllers
             }
         }
 
-        public static async Task<DatabaseUser> GetUser(DatabaseContext context, int id) {
-            using (context)
+        public static async Task<DatabaseUser> GetUser(int id) {
+            using (var context = new DatabaseContext())
             {
                 var users = context.Users;
 

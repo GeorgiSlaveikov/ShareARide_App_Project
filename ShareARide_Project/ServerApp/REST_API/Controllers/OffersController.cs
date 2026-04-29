@@ -1,11 +1,11 @@
 ﻿using Core.Model;
 using DatabaseLayer.Database;
+using DatabaseLayer.DatabaseControllers;
 using DatabaseLayer.DatabaseModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using REST_API.Objects;
-
-using DatabaseLayer.DatabaseControllers;
+using REST_API.ResponseObjects;
 
 namespace REST_API.Controllers
 {
@@ -20,45 +20,127 @@ namespace REST_API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DatabaseOffer>>> GetOffers()
+        public async Task<ActionResult<IEnumerable<OfferResponse>>> GetOffers()
         {
-            return await _context.Offers.ToListAsync();
+            return await _context.Offers
+              .AsNoTracking()
+              .Select(o => new OfferResponse
+              {
+                  Id = o.Id,
+                  DriverId = o.DriverId,
+                  DriverName = o.DatabaseDriver.FirstName + " " + o.DatabaseDriver.LastName,
+                  DriverAge = o.DatabaseDriver.Age,
+                  VehicleMake = o.DatabaseVehicle.Make.ToString(),
+                  VehicleModel = o.DatabaseVehicle.Model,
+                  VehicleYear = o.DatabaseVehicle.Year,
+                  DepartureTime = o.DepartureTime,
+                  DepartureCityName = o.DatabaseDepartureCity.Name,
+                  DestinationCityName = o.DatabaseDestinationCity.Name,
+                  PricePerSeat = o.PricePerSeat,
+                  AvailableSeats = o.AvailableSeats,
+                  Status = o.OfferStatus
+              }).ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<DatabaseOffer>> GetOffer(int id)
+        public async Task<ActionResult<OfferResponse>> GetOffer(int id)
         {
-            var user = await _context.Offers.FindAsync(id);
-            if (user == null) return NotFound();
-            return Ok(user);
+            var offer = await _context.Offers
+                .AsNoTracking()
+                .Where(o => o.Id == id)
+                .Select(o => new OfferResponse
+                {
+                    Id = o.Id,
+                    DriverId = o.DriverId,
+                    DriverName = o.DatabaseDriver.FirstName + " " + o.DatabaseDriver.LastName,
+                    DriverAge = o.DatabaseDriver.Age,
+                    VehicleMake = o.DatabaseVehicle.Make.ToString(),
+                    VehicleModel = o.DatabaseVehicle.Model,
+                    VehicleYear = o.DatabaseVehicle.Year,
+                    DepartureTime = o.DepartureTime,
+                    DepartureCityName = o.DatabaseDepartureCity.Name,
+                    DestinationCityName = o.DatabaseDestinationCity.Name,
+                    PricePerSeat = o.PricePerSeat,
+                    AvailableSeats = o.AvailableSeats,
+                    Status = o.OfferStatus
+                }).FirstOrDefaultAsync();
+
+            if (offer == null)
+            {
+                return NotFound($"Offer with ID {id} not found.");
+            }
+
+            return Ok(offer);
         }
 
 
         [HttpGet("other_offers/{id}")]
-        public async Task<ActionResult<IEnumerable<DatabaseOffer>>> GetOtherOffers(int id)
+        public async Task<ActionResult<IEnumerable<OfferResponse>>> GetOtherOffers(int id)
         {
-            return await _context.Offers.Where(offer => offer.DriverId != id).ToListAsync();
+            return await _context.Offers
+        .AsNoTracking()
+        .Where(offer => offer.DriverId != id)
+        .Select(o => new OfferResponse
+        {
+            Id = o.Id,
+            DriverId = o.DriverId,
+            DriverName = o.DatabaseDriver.FirstName + " " + o.DatabaseDriver.LastName,
+            DriverAge = o.DatabaseDriver.Age,
+            VehicleMake = o.DatabaseVehicle.Make.ToString(),
+            VehicleModel = o.DatabaseVehicle.Model,
+            VehicleYear = o.DatabaseVehicle.Year,
+            DepartureTime = o.DepartureTime,
+            DepartureCityName = o.DatabaseDepartureCity.Name,
+            DestinationCityName = o.DatabaseDestinationCity.Name,
+            PricePerSeat = o.PricePerSeat,
+            AvailableSeats = o.AvailableSeats,
+            Status = o.OfferStatus
+        })
+        .ToListAsync();
         }
 
         [HttpGet("my_offers/{id}")]
-        public async Task<ActionResult<IEnumerable<DatabaseOffer>>> GetMyOffers(int id)
+        public async Task<ActionResult<IEnumerable<OfferResponse>>> GetMyOffers(int id)
         {
-            return await _context.Offers.Where(offer => offer.DriverId == id).ToListAsync();
+            return await _context.Offers
+        .AsNoTracking()
+        .Where(offer => offer.DriverId == id)
+        .Select(o => new OfferResponse
+        {
+            Id = o.Id,
+            DriverId = o.DriverId,
+            DriverName = o.DatabaseDriver.FirstName + " " + o.DatabaseDriver.LastName,
+            DriverAge = o.DatabaseDriver.Age,
+            VehicleMake = o.DatabaseVehicle.Make.ToString(),
+            VehicleModel = o.DatabaseVehicle.Model,
+            VehicleYear = o.DatabaseVehicle.Year,
+            DepartureTime = o.DepartureTime,
+            DepartureCityName = o.DatabaseDepartureCity.Name,
+            DestinationCityName = o.DatabaseDestinationCity.Name,
+            PricePerSeat = o.PricePerSeat,
+            AvailableSeats = o.AvailableSeats,
+            Status = o.OfferStatus
+        })
+        .ToListAsync();
         }
 
         [HttpPost("create")]
-        public async Task<ActionResult<DatabaseOffer>> CreateOffer([FromBody] OfferApiObject offerApiObject)
+        public async Task<ActionResult<DatabaseOffer>> CreateOffer([FromBody] OfferCreateRequest request)
         {
             DatabaseOffer newOffer = new DatabaseOffer()
             {
-                DriverId = offerApiObject.DriverId,
-                VehicleId = offerApiObject.VehicleId,
-                DepartureTime = offerApiObject.DepartureTime,
-                DepartureCityId = offerApiObject.DepartureCityId,
-                DestinationCityId = offerApiObject.DestinationCityId,
-                PricePerSeat = offerApiObject.PricePerSeat,
+                DriverId = request.DriverId,
+                DatabaseDriver = _context.Users.FirstOrDefault(u => u.Id == request.DriverId) ?? new DatabaseUser(),
+                VehicleId = request.VehicleId,
+                DatabaseVehicle = _context.Vehicles.FirstOrDefault(v => v.Id == request.VehicleId) ?? new DatabaseVehicle(),
+                DepartureTime = request.DepartureTime,
+                DepartureCityId = request.DepartureCityId,
+                DatabaseDestinationCity = _context.Cities.FirstOrDefault(c => c.Id == request.DestinationCityId) ?? new DatabaseCity(),
+                DestinationCityId = request.DestinationCityId,
+                DatabaseDepartureCity = _context.Cities.FirstOrDefault(c => c.Id == request.DepartureCityId) ?? new DatabaseCity(),
+                PricePerSeat = request.PricePerSeat,
+                AvailableSeats = request.AvailableSeats,
                 CreatedAt = DateTime.Now,
-                ExpiresOn = DateTime.Now,
                 OfferStatus = Core.Others.OfferStatus.Active
             };
 

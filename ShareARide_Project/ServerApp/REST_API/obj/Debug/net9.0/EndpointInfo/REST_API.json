@@ -5,6 +5,35 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/Base/check": {
+      "get": {
+        "tags": [
+          "Base"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Bookings": {
       "get": {
         "tags": [
@@ -18,7 +47,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseBooking"
+                    "$ref": "#/components/schemas/BookingResponse"
                   }
                 }
               },
@@ -26,7 +55,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseBooking"
+                    "$ref": "#/components/schemas/BookingResponse"
                   }
                 }
               },
@@ -34,7 +63,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseBooking"
+                    "$ref": "#/components/schemas/BookingResponse"
                   }
                 }
               }
@@ -107,7 +136,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseBooking"
+                    "$ref": "#/components/schemas/BookingResponse"
                   }
                 }
               },
@@ -115,7 +144,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseBooking"
+                    "$ref": "#/components/schemas/BookingResponse"
                   }
                 }
               },
@@ -123,7 +152,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseBooking"
+                    "$ref": "#/components/schemas/BookingResponse"
                   }
                 }
               }
@@ -156,7 +185,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseBooking"
+                    "$ref": "#/components/schemas/BookingResponse"
                   }
                 }
               },
@@ -164,7 +193,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseBooking"
+                    "$ref": "#/components/schemas/BookingResponse"
                   }
                 }
               },
@@ -172,7 +201,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseBooking"
+                    "$ref": "#/components/schemas/BookingResponse"
                   }
                 }
               }
@@ -190,17 +219,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BookingApiObject"
+                "$ref": "#/components/schemas/BookingCreateRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/BookingApiObject"
+                "$ref": "#/components/schemas/BookingCreateRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/BookingApiObject"
+                "$ref": "#/components/schemas/BookingCreateRequest"
               }
             }
           }
@@ -242,7 +271,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseCity"
+                    "$ref": "#/components/schemas/CityResponse"
                   }
                 }
               },
@@ -250,7 +279,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseCity"
+                    "$ref": "#/components/schemas/CityResponse"
                   }
                 }
               },
@@ -258,7 +287,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseCity"
+                    "$ref": "#/components/schemas/CityResponse"
                   }
                 }
               }
@@ -366,7 +395,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseOffer"
+                    "$ref": "#/components/schemas/OfferResponse"
                   }
                 }
               },
@@ -374,7 +403,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseOffer"
+                    "$ref": "#/components/schemas/OfferResponse"
                   }
                 }
               },
@@ -382,7 +411,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseOffer"
+                    "$ref": "#/components/schemas/OfferResponse"
                   }
                 }
               }
@@ -413,17 +442,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/DatabaseOffer"
+                  "$ref": "#/components/schemas/OfferResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DatabaseOffer"
+                  "$ref": "#/components/schemas/OfferResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DatabaseOffer"
+                  "$ref": "#/components/schemas/OfferResponse"
                 }
               }
             }
@@ -455,7 +484,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseOffer"
+                    "$ref": "#/components/schemas/OfferResponse"
                   }
                 }
               },
@@ -463,7 +492,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseOffer"
+                    "$ref": "#/components/schemas/OfferResponse"
                   }
                 }
               },
@@ -471,7 +500,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseOffer"
+                    "$ref": "#/components/schemas/OfferResponse"
                   }
                 }
               }
@@ -504,7 +533,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseOffer"
+                    "$ref": "#/components/schemas/OfferResponse"
                   }
                 }
               },
@@ -512,7 +541,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseOffer"
+                    "$ref": "#/components/schemas/OfferResponse"
                   }
                 }
               },
@@ -520,7 +549,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseOffer"
+                    "$ref": "#/components/schemas/OfferResponse"
                   }
                 }
               }
@@ -538,17 +567,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OfferApiObject"
+                "$ref": "#/components/schemas/OfferCreateRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/OfferApiObject"
+                "$ref": "#/components/schemas/OfferCreateRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/OfferApiObject"
+                "$ref": "#/components/schemas/OfferCreateRequest"
               }
             }
           }
@@ -608,10 +637,10 @@
         }
       }
     },
-    "/api/Users/check": {
+    "/api/Rides": {
       "get": {
         "tags": [
-          "Users"
+          "Rides"
         ],
         "responses": {
           "200": {
@@ -619,17 +648,114 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "boolean"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookingResponse"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "boolean"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookingResponse"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "boolean"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookingResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Rides/{id}": {
+      "get": {
+        "tags": [
+          "Rides"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatabaseBooking"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatabaseBooking"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatabaseBooking"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Rides/create": {
+      "post": {
+        "tags": [
+          "Rides"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingCreateRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingCreateRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatabaseOffer"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatabaseOffer"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatabaseOffer"
                 }
               }
             }
@@ -650,7 +776,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseUser"
+                    "$ref": "#/components/schemas/UserResponse"
                   }
                 }
               },
@@ -658,7 +784,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseUser"
+                    "$ref": "#/components/schemas/UserResponse"
                   }
                 }
               },
@@ -666,7 +792,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseUser"
+                    "$ref": "#/components/schemas/UserResponse"
                   }
                 }
               }
@@ -697,17 +823,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/DatabaseUser"
+                  "$ref": "#/components/schemas/UserResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DatabaseUser"
+                  "$ref": "#/components/schemas/UserResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DatabaseUser"
+                  "$ref": "#/components/schemas/UserResponse"
                 }
               }
             }
@@ -833,17 +959,17 @@
           "content": {
             "multipart/form-data": {
               "schema": {
+                "required": [
+                  "FirstName",
+                  "LastName",
+                  "Password",
+                  "Username"
+                ],
                 "type": "object",
                 "properties": {
-                  "ProfilePicture": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "Id": {
-                    "type": "integer",
-                    "format": "int32"
-                  },
                   "Username": {
+                    "maxLength": 50,
+                    "minLength": 3,
                     "type": "string"
                   },
                   "FirstName": {
@@ -852,18 +978,16 @@
                   "LastName": {
                     "type": "string"
                   },
-                  "PhoneNumber": {
-                    "type": "string"
-                  },
                   "Email": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "email"
                   },
                   "Password": {
+                    "minLength": 8,
                     "type": "string"
                   },
-                  "Age": {
-                    "type": "integer",
-                    "format": "int32"
+                  "PhoneNumber": {
+                    "type": "string"
                   },
                   "BirthDate": {
                     "type": "string",
@@ -872,26 +996,13 @@
                   "Sex": {
                     "$ref": "#/components/schemas/Sex"
                   },
-                  "HomeCity.Id": {
-                    "type": "integer",
-                    "format": "int32"
-                  },
-                  "HomeCity.Name": {
-                    "type": "string"
-                  },
-                  "Rating": {
-                    "type": "number",
-                    "format": "double"
+                  "ProfilePicture": {
+                    "type": "string",
+                    "format": "binary"
                   }
                 }
               },
               "encoding": {
-                "ProfilePicture": {
-                  "style": "form"
-                },
-                "Id": {
-                  "style": "form"
-                },
                 "Username": {
                   "style": "form"
                 },
@@ -901,16 +1012,13 @@
                 "LastName": {
                   "style": "form"
                 },
-                "PhoneNumber": {
-                  "style": "form"
-                },
                 "Email": {
                   "style": "form"
                 },
                 "Password": {
                   "style": "form"
                 },
-                "Age": {
+                "PhoneNumber": {
                   "style": "form"
                 },
                 "BirthDate": {
@@ -919,13 +1027,7 @@
                 "Sex": {
                   "style": "form"
                 },
-                "HomeCity.Id": {
-                  "style": "form"
-                },
-                "HomeCity.Name": {
-                  "style": "form"
-                },
-                "Rating": {
+                "ProfilePicture": {
                   "style": "form"
                 }
               }
@@ -969,7 +1071,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseVehicle"
+                    "$ref": "#/components/schemas/VehicleResponse"
                   }
                 }
               },
@@ -977,7 +1079,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseVehicle"
+                    "$ref": "#/components/schemas/VehicleResponse"
                   }
                 }
               },
@@ -985,7 +1087,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseVehicle"
+                    "$ref": "#/components/schemas/VehicleResponse"
                   }
                 }
               }
@@ -1079,7 +1181,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseVehicle"
+                    "$ref": "#/components/schemas/VehicleResponse"
                   }
                 }
               },
@@ -1087,7 +1189,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseVehicle"
+                    "$ref": "#/components/schemas/VehicleResponse"
                   }
                 }
               },
@@ -1095,7 +1197,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DatabaseVehicle"
+                    "$ref": "#/components/schemas/VehicleResponse"
                   }
                 }
               }
@@ -1113,17 +1215,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VehicleApiObject"
+                "$ref": "#/components/schemas/VehicleCreateRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/VehicleApiObject"
+                "$ref": "#/components/schemas/VehicleCreateRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/VehicleApiObject"
+                "$ref": "#/components/schemas/VehicleCreateRequest"
               }
             }
           }
@@ -1155,14 +1257,28 @@
   },
   "components": {
     "schemas": {
-      "BookingApiObject": {
+      "BookingCreateRequest": {
         "type": "object",
         "properties": {
           "requestedForId": {
             "type": "integer",
             "format": "int32"
           },
-          "requestorId": {
+          "requesterId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "offerId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BookingResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "integer",
             "format": "int32"
           },
@@ -1170,12 +1286,56 @@
             "type": "integer",
             "format": "int32"
           },
-          "passengers": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
+          "departureCityName": {
+            "type": "string",
             "nullable": true
+          },
+          "destinationCityName": {
+            "type": "string",
+            "nullable": true
+          },
+          "departureTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "driverName": {
+            "type": "string",
+            "nullable": true
+          },
+          "requesterId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "requesterName": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestedForId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "requestedForName": {
+            "type": "string",
+            "nullable": true
+          },
+          "bookedSeats": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pricePerSeat": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "status": {
+            "$ref": "#/components/schemas/BookingStatus"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
           }
         },
         "additionalProperties": false
@@ -1203,32 +1363,26 @@
         },
         "additionalProperties": false
       },
-      "DatabaseBooking": {
+      "CityResponse": {
         "type": "object",
         "properties": {
-          "offer": {
-            "$ref": "#/components/schemas/Offer"
-          },
-          "passengersNames": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "passengers": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/User"
-            },
-            "nullable": true
-          },
-          "bookedSeats": {
+          "id": {
             "type": "integer",
             "format": "int32"
           },
-          "requester": {
-            "$ref": "#/components/schemas/User"
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DatabaseBooking": {
+        "type": "object",
+        "properties": {
+          "bookedSeats": {
+            "type": "integer",
+            "format": "int32"
           },
           "totalPrice": {
             "type": "number",
@@ -1263,15 +1417,8 @@
           "databaseRequester": {
             "$ref": "#/components/schemas/DatabaseUser"
           },
-          "databaseRequesterFor": {
+          "databaseRequestedFor": {
             "$ref": "#/components/schemas/DatabaseUser"
-          },
-          "databasePassengers": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DatabaseUser"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1286,13 +1433,6 @@
           "id": {
             "type": "integer",
             "format": "int32"
-          },
-          "users": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DatabaseUser"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1300,9 +1440,6 @@
       "DatabaseOffer": {
         "type": "object",
         "properties": {
-          "driver": {
-            "$ref": "#/components/schemas/User"
-          },
           "vehicle": {
             "$ref": "#/components/schemas/Vehicle"
           },
@@ -1351,8 +1488,15 @@
             "type": "integer",
             "format": "int32"
           },
+          "availableSeats": {
+            "type": "integer",
+            "format": "int32"
+          },
           "databaseDriver": {
             "$ref": "#/components/schemas/DatabaseUser"
+          },
+          "databaseVehicle": {
+            "$ref": "#/components/schemas/DatabaseVehicle"
           },
           "databaseDepartureCity": {
             "$ref": "#/components/schemas/DatabaseCity"
@@ -1406,9 +1550,6 @@
           "sex": {
             "$ref": "#/components/schemas/Sex"
           },
-          "homeCity": {
-            "$ref": "#/components/schemas/City"
-          },
           "rating": {
             "type": "number",
             "format": "double"
@@ -1416,14 +1557,6 @@
           "id": {
             "type": "integer",
             "format": "int32"
-          },
-          "homeCityId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "databaseHomeCity": {
-            "$ref": "#/components/schemas/DatabaseCity"
           },
           "profilePicturePath": {
             "type": "string",
@@ -1481,48 +1614,7 @@
         },
         "additionalProperties": false
       },
-      "Offer": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "driver": {
-            "$ref": "#/components/schemas/User"
-          },
-          "vehicle": {
-            "$ref": "#/components/schemas/Vehicle"
-          },
-          "departureTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "departureCity": {
-            "$ref": "#/components/schemas/City"
-          },
-          "destinationCity": {
-            "$ref": "#/components/schemas/City"
-          },
-          "pricePerSeat": {
-            "type": "number",
-            "format": "double"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "expiresOn": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "offerStatus": {
-            "$ref": "#/components/schemas/OfferStatus"
-          }
-        },
-        "additionalProperties": false
-      },
-      "OfferApiObject": {
+      "OfferCreateRequest": {
         "type": "object",
         "properties": {
           "driverId": {
@@ -1545,9 +1637,78 @@
             "type": "number",
             "format": "double"
           },
+          "availableSeats": {
+            "type": "integer",
+            "format": "int32"
+          },
           "departureTime": {
             "type": "string",
             "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OfferResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "driverId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "driverName": {
+            "type": "string",
+            "nullable": true
+          },
+          "driverAge": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vehicleMake": {
+            "type": "string",
+            "nullable": true
+          },
+          "vehicleModel": {
+            "type": "string",
+            "nullable": true
+          },
+          "vehicleYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "departureTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "departureCityName": {
+            "type": "string",
+            "nullable": true
+          },
+          "destinationCityName": {
+            "type": "string",
+            "nullable": true
+          },
+          "pricePerSeat": {
+            "type": "number",
+            "format": "double"
+          },
+          "availableSeats": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expiresOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "$ref": "#/components/schemas/OfferStatus"
           }
         },
         "additionalProperties": false
@@ -1630,8 +1791,46 @@
           "sex": {
             "$ref": "#/components/schemas/Sex"
           },
-          "homeCity": {
-            "$ref": "#/components/schemas/City"
+          "rating": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userName": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "age": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "sex": {
+            "$ref": "#/components/schemas/Sex"
           },
           "rating": {
             "type": "number",
@@ -1668,7 +1867,7 @@
         },
         "additionalProperties": false
       },
-      "VehicleApiObject": {
+      "VehicleCreateRequest": {
         "type": "object",
         "properties": {
           "make": {
@@ -1725,6 +1924,39 @@
         ],
         "type": "integer",
         "format": "int32"
+      },
+      "VehicleResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "make": {
+            "$ref": "#/components/schemas/VehicleMake"
+          },
+          "model": {
+            "type": "string",
+            "nullable": true
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "maxCapacity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ownerId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ownerName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       }
     }
   }

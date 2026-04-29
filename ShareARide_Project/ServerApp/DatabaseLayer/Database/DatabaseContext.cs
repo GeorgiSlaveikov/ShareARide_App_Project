@@ -34,26 +34,7 @@ namespace DatabaseLayer.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DatabaseUser>().Ignore(u => u.ProfilePicture);
-            //modelBuilder.Entity<DatabaseUser>().Property(e => e.Id).ValueGeneratedOnAdd();
-
-            //modelBuilder.Entity<DatabaseUser>()
-            //    .HasOne(u => u.HomeCity)
-            //    .WithMany()
-            //    .HasForeignKey("HomeCityId");
-
-            //modelBuilder.Entity<DatabaseUser>().ToTable("Users");
-
-            //var adminUser = new DatabaseUser()
-            //{
-            //    Id = 1,
-            //    Username = "admin",
-            //    FirstName = "Admin",
-            //    LastName = "Admin",
-            //    Email = "admin@gmail.com",
-            //    Password = "0000"
-            //};
-
-            //modelBuilder.Entity<DatabaseUser>().HasData(adminUser);
+          
 
             modelBuilder.Ignore<User>();
             modelBuilder.Ignore<Booking>();
@@ -83,11 +64,17 @@ namespace DatabaseLayer.Database
                 .HasForeignKey(o => o.DriverId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<DatabaseOffer>()
+                .HasOne(o => o.DatabaseVehicle)
+                .WithMany()
+                .HasForeignKey(o => o.VehicleId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             // 3. DatabaseBooking -> Passengers (Many-to-Many)
             // This creates a join table (e.g., BookingUser) automatically.
-            modelBuilder.Entity<DatabaseBooking>()
-                .HasMany(b => b.DatabasePassengers)
-                .WithMany();
+            //modelBuilder.Entity<DatabaseBooking>()
+            //    .HasMany(b => b.DatabasePassengers)
+            //    .WithMany();
 
             // 4. DatabaseBooking -> Requester (User)
             modelBuilder.Entity<DatabaseBooking>()
@@ -102,14 +89,6 @@ namespace DatabaseLayer.Database
                 .WithMany()
                 .HasForeignKey(v => v.OwnerId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            // 6. DatabaseUser -> HomeCity (City)
-            modelBuilder.Entity<DatabaseUser>()
-                .HasOne(u => u.DatabaseHomeCity)
-                .WithMany(c => c.Users)
-                .HasForeignKey(u => u.HomeCityId)
-                .OnDelete(DeleteBehavior.SetNull);
-
 
 
             modelBuilder.Entity<DatabaseUser>().ToTable("Users");

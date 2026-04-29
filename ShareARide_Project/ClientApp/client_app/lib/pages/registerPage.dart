@@ -2,6 +2,7 @@ import 'package:client_app/controllers/cityUtils.dart';
 import 'package:client_app/entity/sex.dart';
 import 'package:flutter/material.dart';
 import '../controllers/userUtils.dart';
+import '../controllers/utils.dart';
 
 // import '../styles/mainColors.dart';
 
@@ -11,6 +12,8 @@ import '../elements/mainButtonElement.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+
+import '../main.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -27,8 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _birthDateController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
   bool _isConnected = false;
   bool _isLoading = false;
@@ -37,12 +39,12 @@ class _RegisterPageState extends State<RegisterPage> {
   final ImagePicker _picker = ImagePicker();
 
   var cities = [];
-  int? _selectedCityId = 1;
 
-  Sex? _selectedSex = Sex.Male; // Default to
+
+  Sex? _selectedSex = Sex.Male;
 
   void _verifyConnection() async {
-    bool status = await UserUtils.checkConnection();
+    bool status = await Utils.checkConnection();
     setState(() {
       _isConnected = status;
     });
@@ -313,39 +315,6 @@ class _RegisterPageState extends State<RegisterPage> {
                           obscureText: false,
                         ),
                         const SizedBox(height: 16),
-                        // 4.5 City Dropdown
-                        DropdownButtonFormField<int>(
-                          key: ValueKey(cities.length),
-                          value: _selectedCityId,
-                          decoration: InputDecoration(
-                            labelText: "Select Home City",
-                            prefixIcon: Icon(
-                              Icons.location_city,
-                              color: themeColor,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                          items: cities.map((city) {
-                            return DropdownMenuItem<int>(
-                              value:
-                                  city.id, // Ensure 'id' matches your API key
-                              child: Text(
-                                city.name,
-                              ), // Ensure 'name' matches your API key
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedCityId = value;
-                            });
-                          },
-                          validator: (value) =>
-                              value == null ? "Please select a city" : null,
-                        ),
-                        const SizedBox(height: 16),
-                        // 4.5 Sex Dropdown
                         DropdownButtonFormField<int>(
                           value: _selectedSex?.index,
                           decoration: InputDecoration(
@@ -391,7 +360,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
                         const SizedBox(height: 16),
 
-                        // 5. Main Action Button (Login)
                         MainButtonElement(
                           onPressed: () {
                             if (_passwordController.text !=
@@ -404,7 +372,15 @@ class _RegisterPageState extends State<RegisterPage> {
                               );
                               return;
                             }
-                            _handleRegister();
+                            handleRegister();
+                            Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MyApp(),
+                          ),
+                          (route) =>
+                              false, // This clears the entire navigation history
+                        );
                           },
                           isLoading: _isLoading,
                           text: "REGISTER",
@@ -412,7 +388,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         const SizedBox(height: 16),
 
-                        // 6. Secondary Action (Register)
                         TextButton(
                           onPressed: _isLoading
                               ? null
@@ -447,7 +422,7 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  void _handleRegister() async {
+  void handleRegister() async {
     setState(() => _isLoading = true);
     bool response = await UserUtils.Register(
       _usernameController.text,
@@ -461,7 +436,6 @@ class _RegisterPageState extends State<RegisterPage> {
             ? DateTime.parse(_birthDateController.text)
             : DateTime(2000, 1, 1),
       ),
-      _selectedCityId!,
       _selectedSex!.index,
       _passwordController.text,
       _selectedImage

@@ -14,12 +14,10 @@ namespace DatabaseLayer.DatabaseModels
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public override int Id { get; set; }
-
-
         public int OfferId { get; set; }
         public int RequestorId { get; set; }
-
         public int RequestedForId { get; set; }
+
 
         [ForeignKey("OfferId")]
         public virtual DatabaseOffer DatabaseOffer { get; set; }
@@ -28,9 +26,9 @@ namespace DatabaseLayer.DatabaseModels
         public virtual DatabaseUser DatabaseRequester { get; set; }
 
         [ForeignKey("RequestedForId")]
-        public virtual DatabaseUser DatabaseRequesterFor { get; set; }
+        public virtual DatabaseUser DatabaseRequestedFor { get; set; }
 
-        // Many-to-Many relationship for Passengers
-        public virtual ICollection<DatabaseUser> DatabasePassengers { get; set; } = new List<DatabaseUser>();
+        //// Many-to-Many relationship for Passengers
+        //public virtual ICollection<DatabaseUser> DatabasePassengers { get; set; } = new List<DatabaseUser>();
     }
 }

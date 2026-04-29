@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using DatabaseLayer.DatabaseModels;
+﻿using Core.Model;
 using DatabaseLayer.Database;
 using DatabaseLayer.DatabaseControllers;
-
-using System.Linq;
+using DatabaseLayer.DatabaseModels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using REST_API.Objects;
-using Core.Model;
+using REST_API.RequestObjects;
+using REST_API.ResponseObjects;
+using System;
 
 
 namespace REST_API.Controllers
@@ -21,26 +22,42 @@ namespace REST_API.Controllers
             _context = context;
         }
 
-        [HttpGet("check")]
-        public ActionResult<bool> CheckConnection()
-        {
-            Console.WriteLine("Connected");
-            return Ok(new { status = "online", timestamp = DateTime.UtcNow });
-        }
-
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DatabaseUser>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<UserResponse>>> GetUsers()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users
+                .AsNoTracking()
+                .Select(user => new UserResponse()
+                {
+                    Id = user.Id,
+                    UserName = user.Username,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    Age = user.Age,
+                    PhoneNumber = user.PhoneNumber,
+                    Sex = user.Sex,
+                    Rating = user.Rating
+                }).ToListAsync();
         }
-
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<DatabaseUser>> GetUser(int id)
+        public async Task<ActionResult<UserResponse>> GetUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await DatabaseUserController.GetUser(id);
             if (user == null) return NotFound();
-            return Ok(user);
+            return Ok(new UserResponse()
+            {
+                Id = user.Id,
+                UserName = user.Username,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Age = user.Age,
+                PhoneNumber = user.PhoneNumber,
+                Sex = user.Sex,
+                Rating = user.Rating
+            });
         }
 
         [HttpPost("login")]
@@ -56,51 +73,71 @@ namespace REST_API.Controllers
             }
 
             Console.WriteLine("Logged in");
-            return Ok(user); 
+            return Ok(new UserResponse()
+            {
+                Id = user.Id,
+                UserName = user.Username,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Age = user.Age,
+                PhoneNumber = user.PhoneNumber,
+                Sex = user.Sex,
+                Rating = user.Rating
+            });
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<DatabaseUser>> RegisterUser([FromForm] User user)
+        public async Task<ActionResult<DatabaseUser>> RegisterUser([FromForm] UserCreateRequest request)
         {
             string? imagePath = null;
 
-            if (user.ProfilePicture != null && user.ProfilePicture.Length > 0)
+            if (request.ProfilePicture != null && request.ProfilePicture.Length > 0)
             {
                 // Define where to save (ensure this folder exists in your project)
                 var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/profiles");
                 if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
 
                 // Create a unique filename to prevent overwriting
-                var fileName = $"{Guid.NewGuid()}_{user.ProfilePicture.FileName}";
+                var fileName = $"{Guid.NewGuid()}_{request.ProfilePicture.FileName}";
                 var fullPath = Path.Combine(uploadsFolder, fileName);
 
                 // Save the file to the server disk
                 using (var stream = new FileStream(fullPath, FileMode.Create))
                 {
-                    await user.ProfilePicture.CopyToAsync(stream);
+                    await request.ProfilePicture.CopyToAsync(stream);
                 }
 
                 // This is the path we save to the DB (relative URL)
                 imagePath = $"/uploads/profiles/{fileName}";
             }
 
-            DatabaseUser newUser = new DatabaseUser() { 
-                Username = user.Username,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                Password = user.Password,
-                BirthDate = user.BirthDate,
-                Age = user.CalculateAge(),
-                Sex = user.Sex,
-                HomeCityId = user.HomeCity?.Id,
-                PhoneNumber = user.PhoneNumber,
+            DatabaseUser newUser = new DatabaseUser()
+            {
+                Username = request.Username,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Email = request.Email,
+                Password = request.Password,
+                BirthDate = request.BirthDate,
+                Sex = request.Sex,
+                PhoneNumber = request.PhoneNumber,
                 ProfilePicturePath = imagePath,
             };
 
-            _context.Users.Add(newUser);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
+            try
+            {
+                _context.Users.Add(newUser);
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+                throw;
+            }
+
+            //return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
         }
 
         [HttpPatch("{id}")]

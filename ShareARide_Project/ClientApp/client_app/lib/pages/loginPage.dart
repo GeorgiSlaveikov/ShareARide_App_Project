@@ -5,6 +5,7 @@ import '../controllers/userUtils.dart';
 import '../elements/textFieldElement.dart';
 import '../elements/connectionBadgeElement.dart';
 import '../elements/mainButtonElement.dart';
+import '../controllers/utils.dart';
 
 import 'registerPage.dart';
 
@@ -36,7 +37,7 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void _verifyConnection() async {
-    bool status = await UserUtils.checkConnection();
+    bool status = await Utils.checkConnection();
     setState(() {
       _isConnected = status;
     });

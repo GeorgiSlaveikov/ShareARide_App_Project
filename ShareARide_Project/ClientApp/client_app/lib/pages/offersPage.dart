@@ -1,10 +1,8 @@
+import 'package:client_app/widgets/pageEmptyState.dart';
 import 'package:flutter/material.dart';
-
 import '../controllers/offerUtils.dart';
-import '../controllers/cityUtils.dart';
 import '../controllers/userUtils.dart';
-import '../controllers/vehicleUtils.dart';
-// import '../controllers/bookingUtils.dart';
+
 import '../widgets/offerCard.dart';
 
 class OffersPage extends StatefulWidget {
@@ -17,7 +15,6 @@ class OffersPage extends StatefulWidget {
 class _OffersPageState extends State<OffersPage> {
   final searchController = TextEditingController();
 
-  var travelOffers = [];
   var myOffers = [];
   var otherOffers = [];
 
@@ -34,29 +31,30 @@ class _OffersPageState extends State<OffersPage> {
     var offers = await OfferUtils.getMyOffers(UserUtils.getCurrentUserId());
     var mappedOffers = await Future.wait(
       offers.map((offer) async {
-        // Fetch city data asynchronously for each ID
-        final fromCity = await CityUtils.getCity(offer.departureCityId);
-        final toCity = await CityUtils.getCity(offer.destinationCityId);
-        final driver = await UserUtils.getUser(offer.driverId);
-        final vehicle = await VehicleUtils.getVehicle(offer.vehicleId);
+        final fromCityName = offer.departureCityName;
+        final toCityName = offer.destinationCityName;
+        final driverName = offer.driverName;
+        final vehicleMake = offer.vehicleMake;
+        final vehicleModel = offer.vehicleModel;
+        final vhicleYear = offer.vehicleYear;
 
         return {
           "id": offer.id,
-          "from": fromCity.name,
-          "to": toCity.name,
+          "from": fromCityName,
+          "to": toCityName,
           "date": offer.departureTime.toString(),
-          "driver": "${driver?.firstName} ${driver?.lastName}",
+          "driver": driverName,
           "driverId": offer.driverId,
           "price": offer.pricePerSeat.toStringAsFixed(2),
+          "availableSeats": offer.availableSeats,
           "createdAt": offer.createdAt.toString(),
           "vehicle": {
-            "make": vehicle.make.name,
-            "model": vehicle.model,
-            "year": vehicle.year,
+            "make": vehicleMake,
+            "model": vehicleModel,
+            "year": vhicleYear,
           },
-          "seats": 3,
         };
-      }).toList(),
+      }).toList()
     );
 
     mappedOffers.sort((a, b) {
@@ -74,27 +72,28 @@ class _OffersPageState extends State<OffersPage> {
     var offers = await OfferUtils.getOtherOffers(UserUtils.getCurrentUserId());
     var mappedOffers = await Future.wait(
       offers.map((offer) async {
-        // Fetch city data asynchronously for each ID
-        final fromCity = await CityUtils.getCity(offer.departureCityId);
-        final toCity = await CityUtils.getCity(offer.destinationCityId);
-        final driver = await UserUtils.getUser(offer.driverId);
-        final vehicle = await VehicleUtils.getVehicle(offer.vehicleId);
+        final fromCityName = offer.departureCityName;
+        final toCityName = offer.destinationCityName;
+        final driverName = offer.driverName;
+        final vehicleMake = offer.vehicleMake;
+        final vehicleModel = offer.vehicleModel;
+        final vhicleYear = offer.vehicleYear;
 
         return {
           "id": offer.id,
-          "from": fromCity.name,
-          "to": toCity.name,
+          "from": fromCityName,
+          "to": toCityName,
           "date": offer.departureTime.toString(),
-          "driver": "${driver?.firstName} ${driver?.lastName}",
+          "driver": driverName,
           "driverId": offer.driverId,
           "price": offer.pricePerSeat.toStringAsFixed(2),
+          "availableSeats": offer.availableSeats,
           "createdAt": offer.createdAt.toString(),
           "vehicle": {
-            "make": vehicle.make.name,
-            "model": vehicle.model,
-            "year": vehicle.year,
+            "make": vehicleMake,
+            "model": vehicleModel,
+            "year": vhicleYear,
           },
-          "seats": 3,
         };
       }).toList(),
     );
@@ -149,6 +148,8 @@ class _OffersPageState extends State<OffersPage> {
 
   @override
   Widget build(BuildContext context) {
+    final currentOffers = showMyOffers ? myOffers : otherOffers;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -196,34 +197,32 @@ class _OffersPageState extends State<OffersPage> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(
               children: [
-                _buildTabButton(
+                buildTabButton(
                   label: "Other Offers",
                   isActive: !showMyOffers,
                   onTap: () {
                     setState(() => showMyOffers = false);
-                    //  fetchOtherOffers();
                   },
                 ),
                 const SizedBox(width: 8),
-                _buildTabButton(
+                buildTabButton(
                   label: "My Offers",
                   isActive: showMyOffers,
                   onTap: () {
                     setState(() => showMyOffers = true);
-                    // fetchMyOffers();
                   },
                 ),
               ],
             ),
           ),
           Expanded(
-            child: ListView.builder(
+            child: currentOffers.isEmpty ? 
+            pageEmptyState(
+              Icons.checklist_rtl_rounded, Colors.grey.shade300, "No offers", Colors.grey) : ListView.builder(
               padding: const EdgeInsets.all(8.0),
-              itemCount: showMyOffers ? myOffers.length : otherOffers.length,
+              itemCount: currentOffers.length,
               itemBuilder: (context, index) {
-                final offer = showMyOffers
-                    ? myOffers[index]
-                    : otherOffers[index];
+                final offer = currentOffers[index];
                 return OfferCard(offer: offer, isMyOffer: showMyOffers);
               },
             ),
@@ -234,7 +233,7 @@ class _OffersPageState extends State<OffersPage> {
   }
 }
 
-Widget _buildTabButton({
+Widget buildTabButton({
   required String label,
   required bool isActive,
   required VoidCallback onTap,

@@ -5,6 +5,7 @@ class User {
   String lastName;
   int age;
   String email;
+  String phoneNumber;
   String? profilePicturePath;
 
   User({
@@ -14,6 +15,7 @@ class User {
     required this.lastName,
     required this.age,
     required this.email,
+    required this.phoneNumber,
     this.profilePicturePath,
   });
 
@@ -24,7 +26,8 @@ class User {
       firstName: json['firstName'] ?? '',
       lastName: json['lastName'] ?? '',
       age: json['age'] ?? 18,
-      email: json['email'] ?? ''
+      email: json['email'] ?? '',
+      phoneNumber: json['phoneNumber'] ?? ''
     );
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../controllers/offerUtils.dart';
-import '../controllers/cityUtils.dart';
-import '../controllers/userUtils.dart';
+// import '../controllers/cityUtils.dart';
+// import '../controllers/userUtils.dart';
 
 class BookedOffersPage extends StatefulWidget {
   const BookedOffersPage({super.key});
@@ -17,15 +17,15 @@ class _BookedOffersPageState extends State<BookedOffersPage> {
     var offers = await OfferUtils.getOffers(); 
     
     return await Future.wait(offers.map((offer) async {
-      final fromCity = await CityUtils.getCity(offer.departureCityId);
-      final toCity = await CityUtils.getCity(offer.destinationCityId);
-      final driver = await UserUtils.getUser(offer.driverId);
+      final fromCityName = offer.departureCityName;
+      final toCityName = offer.destinationCityName;
+      final driverName = offer.driverName;
 
       return {
-        "from": fromCity.name,
-        "to": toCity.name,
+        "from": fromCityName,
+        "to": toCityName,
         "date": offer.departureTime,
-        "driver": driver?.username ?? "Unknown",
+        "driver": driverName,
         "price": offer.pricePerSeat.toStringAsFixed(2),
       };
     }).toList());

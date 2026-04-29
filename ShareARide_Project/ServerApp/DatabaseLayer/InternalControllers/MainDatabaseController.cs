@@ -1,4 +1,6 @@
-﻿using DatabaseLayer.Database;
+﻿using Core.Model;
+using DatabaseLayer.Database;
+using DatabaseLayer.DatabaseModelControllers;
 using DatabaseLayer.DatabaseModels;
 using System;
 using System.Collections.Generic;
@@ -32,19 +34,6 @@ namespace DatabaseLayer.InternalControllers
                 try
                 {
                     context.Database.EnsureCreated();
-
-
-                    var hskCity = context.Cities.FirstOrDefault(u => u.Name == "Haskovo");
-                    if (hskCity == null)
-                    {
-                        hskCity = new DatabaseCity()
-                        {
-                            Name = "Haskovo"
-                        };
-                        context.Cities.Add(hskCity);
-                        context.SaveChanges();
-                    }
-
                     DatabaseUser user = null;
                     if (!context.Users.Any(u => u.Username == "georgi.slaveykov"))
                     {
@@ -53,10 +42,9 @@ namespace DatabaseLayer.InternalControllers
                             Username = "georgi.slaveykov",
                             FirstName = "Georgi",
                             LastName = "Slaveykov",
-                            Email = "user@gmail.com",
-                            DatabaseHomeCity = hskCity,
+                            Email = "georgi.slaveykov@gmail.com",
                             Password = "0000",
-                            PhoneNumber = "0888888888"
+                            PhoneNumber = "0886586117"
 
                         };
                         context.Add<DatabaseUser>(user);
@@ -70,6 +58,13 @@ namespace DatabaseLayer.InternalControllers
                         MaxCapacity = 4
                     });
 
+                    foreach (var c in DatabaseCityController.cities)
+                    {
+                        context.Add<DatabaseCity>(new DatabaseCity()
+                        {
+                            Name = c.ToString()
+                        });
+                    }
 
                     context.SaveChanges();
                     //var users = context.Users.ToList();

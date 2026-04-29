@@ -11,8 +11,6 @@ class BookingUtils {
       final response = await http.get(url).timeout(const Duration(seconds: 5));
 
       if (response.statusCode == 200) {
-        // print("API is reachable!");
-        // print(response.body);
         var bookings = jsonDecode(response.body);
         var bookingsList = (bookings as List)
             .map((booking) => Booking.fromJson(booking))
@@ -26,32 +24,21 @@ class BookingUtils {
     return [];
   }
 
-  static Future<Booking> getBooking(int id) async {
+  static Future<Booking?> getBooking(int id) async {
     final url = Uri.parse('http://${Utils().ip}:5205/api/bookings/$id');
 
     try {
       final response = await http.get(url).timeout(const Duration(seconds: 5));
 
       if (response.statusCode == 200) {
-        // print("API is reachable!");
         var booking = jsonDecode(response.body);
         return Booking.fromJson(booking);
       }
     } catch (e) {
       print("API unreachable: $e");
-      return Booking(
-        requestedForId: 0,
-        requestorId: 0,
-        offerId: 0,
-        passengers: [],
-      );
+      return null;
     }
-    return Booking(
-      requestedForId: 0,
-      requestorId: 0,
-      offerId: 0,
-      passengers: [],
-    );
+    return null;
   }
 
   static Future<List<Booking>> getBookingsForMe(int id) async {
@@ -63,8 +50,6 @@ class BookingUtils {
       final response = await http.get(url).timeout(const Duration(seconds: 5));
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        // print("Offers for me");
-        // print(response.body);
         var bookings = jsonDecode(response.body);
         var bookingsList = (bookings as List)
             .map((booking) => Booking.fromJson(booking))
@@ -104,18 +89,10 @@ class BookingUtils {
 
   static Future<bool> createBooking(
     int requestedForId,
-    int requestorId,
-    int offerId,
-    List<String> passengers,
+    int requesterId,
+    int offerId
   ) async {
     final url = Uri.parse('http://${Utils().ip}:5205/api/bookings/create');
-
-    print("""Creating booking with:
-    requestedForId: $requestedForId,
-    requestorId: $requestorId,
-    offerId: $offerId,
-    passengers: $passengers
-    """);
 
     try {
       final response = await http.post(
@@ -126,9 +103,8 @@ class BookingUtils {
         },
         body: jsonEncode({
           "requestedForId": requestedForId,
-          "requestorId": requestorId,
-          "offerId": offerId,
-          "passengers": passengers,
+          "requesterId": requesterId,
+          "offerId": offerId
         }),
       );
 

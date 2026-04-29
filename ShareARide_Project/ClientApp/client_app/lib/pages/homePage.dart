@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
             BottomNavigationBarItem(
               icon: Icon(Icons.notification_important_outlined),
               activeIcon: Icon(Icons.notification_important),
-              label: 'Requests',
+              label: 'Notificatins',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.bookmark_border_rounded),

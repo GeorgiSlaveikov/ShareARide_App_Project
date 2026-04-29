@@ -1,9 +1,11 @@
-import 'package:client_app/controllers/cityUtils.dart';
+// import 'package:client_app/controllers/cityUtils.dart';
 // import 'package:client_app/entity/booking.dart';
 import 'package:flutter/material.dart';
 import '../controllers/bookingUtils.dart';
 import '../controllers/userUtils.dart';
-import '../controllers/offerUtils.dart';
+// import '../controllers/offerUtils.dart';
+
+import '../widgets/pageEmptyState.dart';
 
 class RequestsPage extends StatefulWidget {
   const RequestsPage({super.key});
@@ -13,24 +15,6 @@ class RequestsPage extends StatefulWidget {
 }
 
 class _RequestsPageState extends State<RequestsPage> {
-  // Dummy data representing incoming requests for YOUR posted rides
-  // List<Map<String, dynamic>> incomingRequests = [
-  //   {
-  //     "passengerName": "Ivan Georgiev",
-  //     "rating": 4.8,
-  //     "trip": "Sofia → Plovdiv",
-  //     "date": "Tomorrow, 09:00",
-  //     "seats": 1,
-  //   },
-  //   {
-  //     "passengerName": "Maria Petrova",
-  //     "rating": 5.0,
-  //     "trip": "Sofia → Varna",
-  //     "date": "Friday, 14:30",
-  //     "seats": 2,
-  //   },
-  // ];
-
   @override
   void initState() {
     super.initState();
@@ -41,32 +25,17 @@ class _RequestsPageState extends State<RequestsPage> {
 
   void fetchBookingsForMe() async {
     var currentUserId = UserUtils.getCurrentUserId();
-    print("Current User ID: $currentUserId");
-    var offers = await BookingUtils.getBookingsForMe(currentUserId);
+    var bookings = await BookingUtils.getBookingsForMe(currentUserId);
     var mappedOffers = await Future.wait(
-      offers.map((offer) async {
-        print("Processing booking for Offer ID: ${offer.offerId}");
-        print(offer.toJson());
-        // print("Offer requestor ID: ${offer.requestorId}");
-       
-        final requestorUser = await UserUtils.getUser(offer.requestorId);
-        final offerObject = await OfferUtils.getOffer(offer.offerId);
-        
-        var firstName = requestorUser?.firstName.toString();
-        var lastName = requestorUser?.lastName.toString();
-
-        final fromCity = await CityUtils.getCity(offerObject.departureCityId);
-        final toCity = await CityUtils.getCity(offerObject.destinationCityId);
-
+      bookings.map((booking) async {
         return {
-          "requestedForId": offer.requestedForId,
-          "requestorFullName": "${firstName ?? ''} ${lastName ?? ''}",
-          "offerId": offer.offerId,
-          "passengers": offer.passengers,
+          "requestedForId": booking.requestedForId,
+          "requesterFullName": booking.requesterName,
+          "offerId": booking.offerId,
           "rating": 5.0,
-          "trip": "${fromCity.name} → ${toCity.name}",
-          "date": offerObject.departureTime.toString(),
-          "seats": offer.passengers.length,
+          "trip": "${booking.departureCityName} → ${booking.destinationCityName}",
+          "date": booking.departureTime,
+          "seats": booking.bookedSeats,
         };
       }).toList(),
     );
@@ -91,19 +60,24 @@ class _RequestsPageState extends State<RequestsPage> {
         elevation: 0,
       ),
       body: incomingRequests.isEmpty
-          ? _buildEmptyState()
+          ? pageEmptyState(
+            Icons.checklist_rtl_rounded, 
+            Colors.grey.shade300, 
+            "No pending requests", 
+            Colors.grey
+          )
           : ListView.builder(
               padding: const EdgeInsets.all(16),
               itemCount: incomingRequests.length,
               itemBuilder: (context, index) {
                 final req = incomingRequests[index];
-                return _buildRequestCard(req, index);
+                return buildRequestCard(req, index);
               },
             ),
     );
   }
 
-  Widget _buildRequestCard(Map<String, dynamic> req, int index) {
+  Widget buildRequestCard(Map<String, dynamic> req, int index) {
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -112,7 +86,7 @@ class _RequestsPageState extends State<RequestsPage> {
           ListTile(
             leading: const CircleAvatar(child: Icon(Icons.person)),
             title: Text(
-              req['requestorFullName'] ?? "Unknown User",
+              req['requesterFullName'] ?? "Unknown User",
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             subtitle: Row(
@@ -143,7 +117,7 @@ class _RequestsPageState extends State<RequestsPage> {
               children: [
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: () => _handleRequest(index, false),
+                    onPressed: () => handleRequest(index, false),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.red,
                     ),
@@ -153,7 +127,7 @@ class _RequestsPageState extends State<RequestsPage> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () => _handleRequest(index, true),
+                    onPressed: () => handleRequest(index, true),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
                       foregroundColor: Colors.white,
@@ -169,7 +143,7 @@ class _RequestsPageState extends State<RequestsPage> {
     );
   }
 
-  void _handleRequest(int index, bool accepted) {
+  void handleRequest(int index, bool accepted) {
     // Logic to call your API to Update Status to 'Accepted' or 'Rejected'
     setState(() {
       incomingRequests.removeAt(index);
@@ -183,23 +157,23 @@ class _RequestsPageState extends State<RequestsPage> {
     );
   }
 
-  Widget _buildEmptyState() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.checklist_rtl_rounded,
-            size: 80,
-            color: Colors.grey.shade300,
-          ),
-          const SizedBox(height: 16),
-          const Text(
-            "No pending requests",
-            style: TextStyle(fontSize: 18, color: Colors.grey),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget buildEmptyState() {
+  //   return Center(
+  //     child: Column(
+  //       mainAxisAlignment: MainAxisAlignment.center,
+  //       children: [
+  //         Icon(
+  //           Icons.checklist_rtl_rounded,
+  //           size: 80,
+  //           color: Colors.grey.shade300,
+  //         ),
+  //         const SizedBox(height: 16),
+  //         const Text(
+  //           "No pending requests",
+  //           style: TextStyle(fontSize: 18, color: Colors.grey),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

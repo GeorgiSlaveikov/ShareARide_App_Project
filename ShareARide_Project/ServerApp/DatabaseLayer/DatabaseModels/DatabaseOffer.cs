@@ -18,10 +18,14 @@ namespace DatabaseLayer.DatabaseModels
         public int VehicleId { get; set; }
         public int DepartureCityId { get; set; }
         public int DestinationCityId { get; set; }
+        public int AvailableSeats { get; set; }
 
 
         [ForeignKey("DriverId")]
         public virtual DatabaseUser DatabaseDriver { get; set; }
+
+        [ForeignKey("DriverId")]
+        public virtual DatabaseVehicle DatabaseVehicle { get; set; }
 
         [ForeignKey("DepartureCityId")]
         public virtual DatabaseCity DatabaseDepartureCity { get; set; }

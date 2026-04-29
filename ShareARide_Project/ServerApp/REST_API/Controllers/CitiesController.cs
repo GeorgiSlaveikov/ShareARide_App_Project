@@ -5,6 +5,7 @@ using DatabaseLayer.DatabaseModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using REST_API.Objects;
+using REST_API.ResponseObjects;
 using System.Linq;
 
 namespace REST_API.Controllers
@@ -20,19 +21,41 @@ namespace REST_API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DatabaseCity>>> GetCities()
+        public async Task<ActionResult<IEnumerable<CityResponse>>> GetCities()
         {
-            return await _context.Cities.ToListAsync();
+            return await _context.Cities
+                .AsNoTracking() 
+                .Select(c => new CityResponse
+                {
+                    Id = c.Id,
+                    Name = c.Name
+                })
+                .ToListAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<DatabaseCity>> GetCity(int id)
         {
-            var user = await _context.Cities.FindAsync(id);
-            if (user == null) return NotFound();
-            return Ok(user);
+            var city = await _context.Cities
+                .AsNoTracking()
+                .Where(c => c.Id == id)
+                .Select(c => new CityResponse
+                {
+                    Id = c.Id,
+                    Name = c.Name
+                })
+                .FirstOrDefaultAsync();
+
+            if (city == null)
+            {
+                return NotFound($"City with ID {id} not found.");
+            }
+
+            return Ok(city);
         }
 
+
+        // remove later maybe
         [HttpPost]
         public async Task<ActionResult<DatabaseCity>> CreateCity([FromBody] City city)
         {

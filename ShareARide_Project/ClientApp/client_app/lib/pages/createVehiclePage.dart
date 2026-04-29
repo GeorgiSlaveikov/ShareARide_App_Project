@@ -53,7 +53,12 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
       
       // print("Vehicle Created: $vehicleData");
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Vehicle created successfully!")),
+        const SnackBar(
+          content: Text("Vehicle created successfully!"),
+          dismissDirection: DismissDirection.horizontal,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.green,
+        ),
       );
     }
   }

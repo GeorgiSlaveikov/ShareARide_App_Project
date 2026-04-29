@@ -1,6 +1,6 @@
 ﻿namespace REST_API.Objects
 {
-    public class VehicleApiObject
+    public class VehicleCreateRequest
     {
         public string Make { get; set; }
         public string Model { get; set; }

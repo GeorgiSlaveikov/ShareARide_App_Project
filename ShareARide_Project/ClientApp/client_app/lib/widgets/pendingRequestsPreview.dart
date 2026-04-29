@@ -1,3 +1,5 @@
+import 'package:client_app/controllers/bookingUtils.dart';
+import 'package:client_app/controllers/userUtils.dart';
 import 'package:flutter/material.dart';
 import '../pages/requestsPage.dart';
 
@@ -12,11 +14,37 @@ class PendingRequestsPreview extends StatefulWidget {
 }
 
 class _PendingRequestsPreviewState extends State<PendingRequestsPreview> {
-  int requestCount = 2;
+  int requestCount = 0;
+  String firstWaitingUserName = '';
+
+  void fetchBookingRequestsForCurrentUser() async {
+    var currentUserId = UserUtils.getCurrentUserId();
+
+    var bookings = await BookingUtils.getBookingsForMe(currentUserId);
+
+    if (bookings.isEmpty) {
+      return;
+    }
+
+    var count = bookings.length;
+    var name = bookings[0].requesterName;
+
+    setState(() {
+      requestCount = count;
+      firstWaitingUserName = name;
+    });  
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchBookingRequestsForCurrentUser();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return requestCount > 0 ? Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
@@ -59,12 +87,15 @@ class _PendingRequestsPreviewState extends State<PendingRequestsPreview> {
                 child: Icon(Icons.people, color: Colors.white),
               ),
               const SizedBox(width: 15),
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Ivan and 1 other",
+                    requestCount-1 > 0 ? Text(
+                      "$firstWaitingUserName and ${requestCount-1} other",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ) : Text(
+                      firstWaitingUserName,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(
@@ -87,6 +118,6 @@ class _PendingRequestsPreviewState extends State<PendingRequestsPreview> {
           ),
         ),
       ],
-    );
+    ) : Container();
   }
 }
