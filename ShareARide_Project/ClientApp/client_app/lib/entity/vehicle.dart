@@ -7,6 +7,7 @@ class Vehicle {
   int year;
   int maxCapacity;
   int ownerId;
+  String? vehiclePicturePath;
 
   Vehicle({
     this.id,
@@ -15,6 +16,7 @@ class Vehicle {
     required this.year,
     required this.maxCapacity,
     required this.ownerId,
+    this.vehiclePicturePath,
   });
 
   factory Vehicle.fromJson(Map<String, dynamic> json) {
@@ -24,7 +26,7 @@ class Vehicle {
       model: json['model'] ?? 'Unknown',
       year: json['year'] ?? 0,
       maxCapacity: json['maxCapacity'] ?? 0,
-      ownerId: json['ownerId'] ?? 0,
+      ownerId: json['ownerId'] ?? 0
     );
   }
 

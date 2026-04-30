@@ -85,7 +85,7 @@ class UserUtils {
       request.fields['sex'] = sex.toString();
       request.fields['password'] = password;
      
-      request.fields['HomeCity.name'] = 'Haskovo';
+      // request.fields['HomeCity.name'] = 'Haskovo';
 
       if (imageFile != null) {
         request.files.add(

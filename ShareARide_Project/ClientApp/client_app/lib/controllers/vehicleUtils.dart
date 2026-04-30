@@ -3,6 +3,7 @@ import '../entity/vehicle.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'utils.dart';
+import 'dart:io';
 
 class VehicleUtils {
 
@@ -54,24 +55,45 @@ class VehicleUtils {
     int year,
     int maxCapacity,
     int ownerId,
+    File? imageFile,
   ) async {
     final url = Uri.parse('http://${Utils().ip}:5205/api/vehicles/create');
 
     try {
-      final response = await http.post(
-        url,
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        },
-        body: jsonEncode({
-          "make": make.name,
-          "model": model,
-          "year": year,
-          "maxCapacity": maxCapacity,
-          "ownerId": ownerId,
-        })
-      );
+      var request = http.MultipartRequest('POST', url);
+
+      request.fields['make'] = make.name;
+      request.fields['model'] = model;
+      request.fields['year'] = year.toString();
+      request.fields['maxCapacity'] = maxCapacity.toString();
+      request.fields['ownerId'] = ownerId.toString();
+
+      if (imageFile != null) {
+        request.files.add(
+          await http.MultipartFile.fromPath(
+            'VehiclePicture',
+            imageFile.path,
+          ),
+        );
+      }
+
+      var streamedResponse = await request.send();
+      
+      var response = await http.Response.fromStream(streamedResponse);
+      // final response = await http.post(
+      //   url,
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     "Accept": "application/json",
+      //   },
+      //   body: jsonEncode({
+      //     "make": make.name,
+      //     "model": model,
+      //     "year": year,
+      //     "maxCapacity": maxCapacity,
+      //     "ownerId": ownerId,
+      //   })
+      // );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         print('Vehicle created successfully!');

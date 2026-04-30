@@ -37,7 +37,8 @@ namespace REST_API.Controllers
                     Age = user.Age,
                     PhoneNumber = user.PhoneNumber,
                     Sex = user.Sex,
-                    Rating = user.Rating
+                    Rating = user.Rating,
+                    ProfilePicturePath = user.ProfilePicturePath
                 }).ToListAsync();
         }
 
@@ -56,7 +57,8 @@ namespace REST_API.Controllers
                 Age = user.Age,
                 PhoneNumber = user.PhoneNumber,
                 Sex = user.Sex,
-                Rating = user.Rating
+                Rating = user.Rating,
+                ProfilePicturePath = user.ProfilePicturePath
             });
         }
 
@@ -83,7 +85,8 @@ namespace REST_API.Controllers
                 Age = user.Age,
                 PhoneNumber = user.PhoneNumber,
                 Sex = user.Sex,
-                Rating = user.Rating
+                Rating = user.Rating,
+                ProfilePicturePath = user.ProfilePicturePath
             });
         }
 

@@ -11,5 +11,6 @@ namespace REST_API.ResponseObjects
         public int MaxCapacity { get; set; }
         public int OwnerId { get; set; }
         public string OwnerName { get; set; }
+        public string? VehiclePicturePath { get; set; }
     }
 }

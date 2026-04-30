@@ -285,7 +285,7 @@ class DashboardPage extends StatelessWidget {
         ],
       ),
       child: CircleAvatar(
-        radius: 50,
+        radius: 40,
         backgroundColor: Colors.grey.shade200,
         backgroundImage: (path != null && path.isNotEmpty)
             ? NetworkImage(fullImageUrl)

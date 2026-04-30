@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dashboardPage.dart';
 import 'offersPage.dart';
-import 'bookedOffersPage.dart';
+import 'ridesPage.dart';
 import 'requestsPage.dart'; // The new Driver Management page
 
 class HomePage extends StatefulWidget {
@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
           DashboardPage(onFindOffer: (index) => _onTabTapped(index),),
           OffersPage(),
           RequestsPage(),     // New: Driver's view of pending passengers
-          BookedOffersPage(), 
+          RidesPage(), 
         ],
       ),
       bottomNavigationBar: Container(

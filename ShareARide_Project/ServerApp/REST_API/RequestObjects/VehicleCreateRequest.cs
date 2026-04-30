@@ -7,5 +7,6 @@
         public int Year { get; set; }
         public int MaxCapacity { get; set; }
         public int OwnerId { get; set; }
+        public IFormFile? VehiclePicture { get; set; }
     }
 }

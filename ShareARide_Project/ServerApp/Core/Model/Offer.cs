@@ -16,7 +16,6 @@ namespace Core.Model
         private City departureCity;
         private City destinationCity;
         private decimal pricePerSeat;
-        //private int availableSeats;
         private DateTime createdAt;
         private DateTime expiresOn;
         private OfferStatus status;
@@ -42,7 +41,6 @@ namespace Core.Model
         public DateTime DepartureTime { get => departureTime; set => departureTime = value; }
         public City DepartureCity { get => departureCity; set => departureCity = value; }
         public City DestinationCity { get => destinationCity; set => destinationCity = value; }
-        //public int AvailableSeats { get => availableSeats; set => availableSeats = value; }
 
         public decimal PricePerSeat
         {

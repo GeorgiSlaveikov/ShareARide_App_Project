@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../controllers/userUtils.dart';
 import '../controllers/bookingUtils.dart';
+import '../widgets/userDetails.dart';
 
 class OfferCard extends StatefulWidget {
   final Map<String, dynamic> offer;
@@ -122,9 +123,22 @@ class _OfferCardState extends State<OfferCard> {
                   children: [
                     Row(
                       children: [
-                        const CircleAvatar(
-                          radius: 12,
-                          child: Icon(Icons.person, size: 16),
+                        InkWell(
+                          onTap: () async {
+                            var user = await UserUtils.getUser(offer['driverId']);
+                            UserDetailModal.show(context, {
+                              "fullName":
+                                  "${user?.firstName} ${user?.lastName}",
+                              "username": user?.username,
+                              "email": user?.email,
+                              "age": user?.age,
+                              "phoneNumber": user?.phoneNumber,
+                            });
+                          },
+                          child: const CircleAvatar(
+                            radius: 12,
+                            child: Icon(Icons.person, size: 16),
+                          ),
                         ),
                         const SizedBox(width: 8),
                         widget.isMyOffer
@@ -282,24 +296,28 @@ class _OfferCardState extends State<OfferCard> {
                         Icons.remove_circle_outline,
                         color: Colors.deepPurple,
                       ),
+                      iconSize: 25,
                     ),
+                    const SizedBox(width: 5),
                     Text(
                       selectedSeats.toString(),
                       style: const TextStyle(
-                        fontSize: 20,
+                        fontSize: 25,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                    const SizedBox(width: 5),
                     IconButton(
                       onPressed:
                           selectedSeats <
-                              int.parse(offer['seats'].toString())
+                              int.parse(offer['availableSeats'].toString())
                           ? () => setDialogState(() => selectedSeats++)
                           : null,
                       icon: const Icon(
                         Icons.add_circle_outline,
                         color: Colors.deepPurple,
                       ),
+                      iconSize: 25,
                     ),
                   ],
                 ),
@@ -342,22 +360,14 @@ class _OfferCardState extends State<OfferCard> {
           ),
           ElevatedButton(
             onPressed: () async {
-              Navigator.pop(context); // Close confirmation dialog
+              Navigator.pop(context);
 
               var currentUserId = await UserUtils.getCurrentUserId();
-
-              // print("Current user: $currentUserId");
-              // print('Driver id: ${offer["driverId"]}');
-
-              // Ensure your BookingUtils.createBooking accepts seats!
               bool success = await BookingUtils.createBooking(
                 offer["driverId"],
                 currentUserId,
                 offer["id"],
-                // bookedSeats, // <--- Add this if you updated your controller
               );
-
-              // var success = false;
 
               if (success) {
                 onRequestConfirm();

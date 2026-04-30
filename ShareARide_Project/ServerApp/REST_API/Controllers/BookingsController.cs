@@ -58,7 +58,10 @@ namespace REST_API.Controllers
                 DestinationCityName = b.DatabaseOffer.DatabaseDestinationCity.Name,
                 DepartureTime = b.DatabaseOffer.DepartureTime,
                 DriverName = b.DatabaseOffer.DatabaseDriver.FirstName + " " + b.DatabaseOffer.DatabaseDriver.LastName,
+                RequesterId = b.RequestorId,
                 RequesterName = b.DatabaseRequester.FirstName + " " + b.DatabaseRequester.LastName,
+                RequestedForId = b.RequestedForId,
+                RequestedForName = b.DatabaseRequestedFor.FirstName + " " + b.DatabaseRequestedFor.LastName,
                 BookedSeats = b.BookedSeats,
                 PricePerSeat = b.DatabaseOffer.PricePerSeat,
                 TotalPrice = b.TotalPrice,
@@ -84,7 +87,10 @@ namespace REST_API.Controllers
                     DestinationCityName = b.DatabaseOffer.DatabaseDestinationCity.Name,
                     DepartureTime = b.DatabaseOffer.DepartureTime,
                     DriverName = b.DatabaseOffer.DatabaseDriver.FirstName + " " + b.DatabaseOffer.DatabaseDriver.LastName,
+                    RequesterId = b.RequestorId,
                     RequesterName = b.DatabaseRequester.FirstName + " " + b.DatabaseRequester.LastName,
+                    RequestedForId = b.RequestedForId,
+                    RequestedForName = b.DatabaseRequestedFor.FirstName + " " + b.DatabaseRequestedFor.LastName,
                     BookedSeats = b.BookedSeats,
                     PricePerSeat = b.DatabaseOffer.PricePerSeat,
                     TotalPrice = b.TotalPrice,
@@ -108,7 +114,10 @@ namespace REST_API.Controllers
                    DestinationCityName = b.DatabaseOffer.DatabaseDestinationCity.Name,
                    DepartureTime = b.DatabaseOffer.DepartureTime,
                    DriverName = b.DatabaseOffer.DatabaseDriver.FirstName + " " + b.DatabaseOffer.DatabaseDriver.LastName,
+                   RequesterId = b.RequestorId,
                    RequesterName = b.DatabaseRequester.FirstName + " " + b.DatabaseRequester.LastName,
+                   RequestedForId = b.RequestedForId,
+                   RequestedForName = b.DatabaseRequestedFor.FirstName + " " + b.DatabaseRequestedFor.LastName,
                    BookedSeats = b.BookedSeats,
                    PricePerSeat = b.DatabaseOffer.PricePerSeat,
                    TotalPrice = b.TotalPrice,
@@ -121,6 +130,7 @@ namespace REST_API.Controllers
         [HttpPost("create")]
         public async Task<ActionResult<DatabaseOffer>> CreateBooking([FromBody] BookingCreateRequest request)
         {
+            Console.WriteLine("Requester Id: " + request.RequesterId);
             DatabaseBooking newBooking = new DatabaseBooking()
             {
                 RequestedForId = request.RequestedForId,

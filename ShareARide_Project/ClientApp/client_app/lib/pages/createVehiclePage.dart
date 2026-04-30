@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../entity/vehicleMake.dart'; // Path to your Enum
 import '../controllers/vehicleUtils.dart'; // Path to the Utility file created earlier
+import 'dart:io'; // Required for File
+import 'package:image_picker/image_picker.dart'; // Import the picker
 
 class CreateVehiclePage extends StatefulWidget {
   const CreateVehiclePage({super.key});
@@ -11,6 +13,65 @@ class CreateVehiclePage extends StatefulWidget {
 
 class _CreateVehiclePageState extends State<CreateVehiclePage> {
   final _formKey = GlobalKey<FormState>();
+
+  File? _vehicleImage; // Variable to store the picked image
+  final ImagePicker _picker = ImagePicker(); // Initialize picker
+
+  Future<void> pickImage() async {
+    // Show a dialog to choose between Camera or Gallery
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => SafeArea(
+        child: Wrap(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.camera_alt),
+              title: const Text('Take a Photo'),
+              onTap: () => handleImageSource(ImageSource.camera),
+            ),
+            ListTile(
+              leading: const Icon(Icons.photo_library),
+              title: const Text('Chose from Gallery'),
+              onTap: () => handleImageSource(ImageSource.gallery),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> handleImageSource(ImageSource source) async {
+    Navigator.pop(context); // Close bottom sheet
+    final XFile? pickedFile = await _picker.pickImage(
+      source: source,
+      maxWidth: 1000, // Optimize image size
+      maxHeight: 1000,
+      imageQuality: 85,
+    );
+
+    if (pickedFile != null) {
+      setState(() {
+        _vehicleImage = File(pickedFile.path);
+      });
+    }
+  }
+
+  // // Add the image to your submission logic
+  // void _submitForm() {
+  //   if (_formKey.currentState!.validate()) {
+  //     final vehicleData = {
+  //       "make": _selectedMake?.name,
+  //       "model": _selectedModel,
+  //       "year": _selectedYear,
+  //       "maxCapacity": _seats,
+  //       "image": _vehicleImage?.path, // Store the local path or handle upload
+  //     };
+  //     // ... rest of your code
+  //   }
+  // }
 
   // Form Values
   VehicleMake? _selectedMake;
@@ -27,7 +88,7 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
     (index) => (DateTime.now().year + 1) - index,
   );
 
-  void _handleMakeChange(VehicleMake? newValue) {
+  void handleMakeChange(VehicleMake? newValue) {
     setState(() {
       _selectedMake = newValue;
       _selectedModel = null; // Reset model if make changes
@@ -39,7 +100,7 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
     });
   }
 
-  void _submitForm() {
+  void submitForm() {
     if (_formKey.currentState!.validate()) {
       // Logic to save the vehicle to your database/API
       final vehicleData = {
@@ -47,11 +108,11 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
         "model": _selectedModel,
         "year": _selectedYear,
         "maxCapacity": _seats,
+        "vehiclePicture": _vehicleImage,
       };
 
       Navigator.pop(context, vehicleData);
-      
-      // print("Vehicle Created: $vehicleData");
+
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Vehicle created successfully!"),
@@ -85,36 +146,32 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
               const SizedBox(height: 20),
 
               // --- MAKE DROPDOWN ---
-              _buildLabel("Vehicle Make"),
+              buildLabel("Vehicle Make"),
               DropdownButtonFormField<VehicleMake>(
                 decoration: _inputDecoration("Select Brand"),
                 value: _selectedMake,
                 items: VehicleMake.values.map((make) {
-                  return DropdownMenuItem(
-                    value: make,
-                    child: Text(make.name),
-                  );
+                  return DropdownMenuItem(value: make, child: Text(make.name));
                 }).toList(),
-                onChanged: _handleMakeChange,
-                validator: (value) => value == null ? "Please select a make" : null,
+                onChanged: handleMakeChange,
+                validator: (value) =>
+                    value == null ? "Please select a make" : null,
               ),
 
               const SizedBox(height: 20),
 
               // --- MODEL DROPDOWN ---
-              _buildLabel("Vehicle Model"),
+              buildLabel("Vehicle Model"),
               DropdownButtonFormField<String>(
                 decoration: _inputDecoration("Select Model"),
                 value: _selectedModel,
                 disabledHint: const Text("Select a make first"),
                 items: _availableModels.map((model) {
-                  return DropdownMenuItem(
-                    value: model,
-                    child: Text(model),
-                  );
+                  return DropdownMenuItem(value: model, child: Text(model));
                 }).toList(),
                 onChanged: (val) => setState(() => _selectedModel = val),
-                validator: (value) => value == null ? "Please select a model" : null,
+                validator: (value) =>
+                    value == null ? "Please select a model" : null,
               ),
 
               const SizedBox(height: 20),
@@ -126,7 +183,7 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildLabel("Year"),
+                        buildLabel("Year"),
                         DropdownButtonFormField<int>(
                           decoration: _inputDecoration(null),
                           value: _selectedYear,
@@ -136,7 +193,8 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
                               child: Text(year.toString()),
                             );
                           }).toList(),
-                          onChanged: (val) => setState(() => _selectedYear = val!),
+                          onChanged: (val) =>
+                              setState(() => _selectedYear = val!),
                         ),
                       ],
                     ),
@@ -147,7 +205,7 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildLabel("Seats"),
+                        buildLabel("Seats"),
                         DropdownButtonFormField<int>(
                           decoration: _inputDecoration(null),
                           value: _seats,
@@ -164,15 +222,76 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
                   ),
                 ],
               ),
-
-              const SizedBox(height: 40),
-
+              // --- VEHICLE PHOTO ---
+              const SizedBox(height: 20),
+              buildLabel("Vehicle Photo"),
+              Center(
+                child: GestureDetector(
+                  onTap: pickImage,
+                  child: Container(
+                    width: 360,
+                    height: 360,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade100,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Colors.grey.shade300, width: 2),
+                      image: _vehicleImage != null
+                          ? DecorationImage(
+                              image: FileImage(_vehicleImage!),
+                              fit: BoxFit.cover,
+                            )
+                          : null,
+                    ),
+                    child: _vehicleImage == null
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.add_a_photo,
+                                size: 50,
+                                color: Colors.deepPurple.shade300,
+                              ),
+                              const SizedBox(height: 8),
+                              const Text(
+                                "Upload Photo",
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          )
+                        : Stack(
+                            children: [
+                              Positioned(
+                                right: 5,
+                                top: 5,
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.red.withOpacity(0.8),
+                                  radius: 15,
+                                  child: IconButton(
+                                    icon: const Icon(
+                                      Icons.close,
+                                      size: 15,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () =>
+                                        setState(() => _vehicleImage = null),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
               // --- SUBMIT BUTTON ---
               SizedBox(
                 width: double.infinity,
                 height: 55,
                 child: ElevatedButton(
-                  onPressed: _submitForm,
+                  onPressed: submitForm,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurple,
                     foregroundColor: Colors.white,
@@ -193,9 +312,7 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
     );
   }
 
-  // --- UI HELPERS ---
-
-  Widget _buildLabel(String text) {
+  Widget buildLabel(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Text(

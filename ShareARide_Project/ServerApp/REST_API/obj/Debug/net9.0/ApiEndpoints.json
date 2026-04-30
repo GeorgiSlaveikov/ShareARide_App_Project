@@ -357,7 +357,7 @@
   },
   {
     "ContainingType": "REST_API.Controllers.RidesController",
-    "Method": "GetBookings",
+    "Method": "GeRides",
     "RelativePath": "api/Rides",
     "HttpMethod": "GET",
     "IsController": true,
@@ -377,7 +377,7 @@
   },
   {
     "ContainingType": "REST_API.Controllers.RidesController",
-    "Method": "GetBooking",
+    "Method": "GetRide",
     "RelativePath": "api/Rides/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -403,7 +403,7 @@
   },
   {
     "ContainingType": "REST_API.Controllers.RidesController",
-    "Method": "CreateBooking",
+    "Method": "CreateRide",
     "RelativePath": "api/Rides/create",
     "HttpMethod": "POST",
     "IsController": true,
@@ -673,9 +673,34 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "vehicleApiObject",
-        "Type": "REST_API.Objects.VehicleCreateRequest",
-        "IsRequired": true
+        "Name": "Make",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Model",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Year",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "MaxCapacity",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "OwnerId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "VehiclePicture",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [

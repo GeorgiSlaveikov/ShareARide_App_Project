@@ -18,7 +18,7 @@ namespace REST_API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BookingResponse>>> GetBookings()
+        public async Task<ActionResult<IEnumerable<BookingResponse>>> GeRides()
         {
             return await _context.Bookings
                 .AsNoTracking()
@@ -44,7 +44,7 @@ namespace REST_API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<DatabaseBooking>> GetBooking(int id)
+        public async Task<ActionResult<DatabaseBooking>> GetRide(int id)
         {
             var booking = await _context.Bookings
                 .AsNoTracking()
@@ -71,7 +71,7 @@ namespace REST_API.Controllers
 
 
         [HttpPost("create")]
-        public async Task<ActionResult<DatabaseOffer>> CreateBooking([FromBody] BookingCreateRequest request)
+        public async Task<ActionResult<DatabaseOffer>> CreateRide([FromBody] BookingCreateRequest request)
         {
             DatabaseBooking newBooking = new DatabaseBooking()
             {
@@ -87,7 +87,7 @@ namespace REST_API.Controllers
 
             _context.Bookings.Add(newBooking);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetBooking), new { id = newBooking.Id }, request);
+            return CreatedAtAction(nameof(GetRide), new { id = newBooking.Id }, request);
         }
     }
 }

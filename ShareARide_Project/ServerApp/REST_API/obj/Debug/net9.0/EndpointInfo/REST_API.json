@@ -1213,19 +1213,53 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/VehicleCreateRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/VehicleCreateRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/VehicleCreateRequest"
+                "type": "object",
+                "properties": {
+                  "Make": {
+                    "type": "string"
+                  },
+                  "Model": {
+                    "type": "string"
+                  },
+                  "Year": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "MaxCapacity": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "OwnerId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "VehiclePicture": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "Make": {
+                  "style": "form"
+                },
+                "Model": {
+                  "style": "form"
+                },
+                "Year": {
+                  "style": "form"
+                },
+                "MaxCapacity": {
+                  "style": "form"
+                },
+                "OwnerId": {
+                  "style": "form"
+                },
+                "VehiclePicture": {
+                  "style": "form"
+                }
               }
             }
           }
@@ -1596,6 +1630,10 @@
           },
           "databaseOwner": {
             "$ref": "#/components/schemas/DatabaseUser"
+          },
+          "vehiclePicturePath": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1835,6 +1873,10 @@
           "rating": {
             "type": "number",
             "format": "double"
+          },
+          "profilePicturePath": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1863,32 +1905,6 @@
           },
           "owner": {
             "$ref": "#/components/schemas/User"
-          }
-        },
-        "additionalProperties": false
-      },
-      "VehicleCreateRequest": {
-        "type": "object",
-        "properties": {
-          "make": {
-            "type": "string",
-            "nullable": true
-          },
-          "model": {
-            "type": "string",
-            "nullable": true
-          },
-          "year": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "maxCapacity": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "ownerId": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -1952,6 +1968,10 @@
             "format": "int32"
           },
           "ownerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "vehiclePicturePath": {
             "type": "string",
             "nullable": true
           }

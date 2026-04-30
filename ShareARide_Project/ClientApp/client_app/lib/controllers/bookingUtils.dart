@@ -50,6 +50,7 @@ class BookingUtils {
       final response = await http.get(url).timeout(const Duration(seconds: 5));
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+        print("RAW JSON FROM API: ${response.body}");
         var bookings = jsonDecode(response.body);
         var bookingsList = (bookings as List)
             .map((booking) => Booking.fromJson(booking))

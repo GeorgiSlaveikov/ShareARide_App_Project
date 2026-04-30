@@ -30,7 +30,8 @@ namespace REST_API.Controllers
                     Year = v.Year,
                     MaxCapacity = v.MaxCapacity,
                     OwnerId = v.OwnerId,
-                    OwnerName = v.DatabaseOwner.FirstName + " " + v.DatabaseOwner.LastName
+                    OwnerName = v.DatabaseOwner.FirstName + " " + v.DatabaseOwner.LastName,
+                    VehiclePicturePath = v.VehiclePicturePath
                 }).ToListAsync();
         }
 
@@ -48,7 +49,8 @@ namespace REST_API.Controllers
                     Year = v.Year,
                     MaxCapacity = v.MaxCapacity,
                     OwnerId = v.OwnerId,
-                    OwnerName = v.DatabaseOwner.FirstName + " " + v.DatabaseOwner.LastName
+                    OwnerName = v.DatabaseOwner.FirstName + " " + v.DatabaseOwner.LastName,
+                    VehiclePicturePath = v.VehiclePicturePath
                 })
                 .FirstOrDefaultAsync();
 
@@ -89,15 +91,16 @@ namespace REST_API.Controllers
                     Year = v.Year,
                     MaxCapacity = v.MaxCapacity,
                     OwnerId = v.OwnerId,
-                    OwnerName = v.DatabaseOwner.FirstName + " " + v.DatabaseOwner.LastName
+                    OwnerName = v.DatabaseOwner.FirstName + " " + v.DatabaseOwner.LastName,
+                    VehiclePicturePath = v.VehiclePicturePath
                 }).ToListAsync(); ;
         }
 
         [HttpPost("create")]
-        public async Task<ActionResult<DatabaseVehicle>> CreateVehicle([FromBody] VehicleCreateRequest vehicleApiObject)
+        public async Task<ActionResult<DatabaseVehicle>> CreateVehicle([FromForm] VehicleCreateRequest request)
         {
             VehicleMake vehicleMake = VehicleMake.Unknown;
-            if (Enum.TryParse<VehicleMake>(vehicleApiObject.Make, true, out var make))
+            if (Enum.TryParse<VehicleMake>(request.Make, true, out var make))
             {
                 vehicleMake = make;
             }
@@ -106,13 +109,32 @@ namespace REST_API.Controllers
                 Console.WriteLine("Invalid vehicle make.");
             }
 
+            string? imagePath = null;
+
+            if (request.VehiclePicture != null && request.VehiclePicture.Length > 0)
+            {
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/profiles");
+                if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
+
+                var fileName = $"{Guid.NewGuid()}_{request.VehiclePicture.FileName}";
+                var fullPath = Path.Combine(uploadsFolder, fileName);
+
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await request.VehiclePicture.CopyToAsync(stream);
+                }
+
+                imagePath = $"/uploads/vehicles/{fileName}";
+            }
+
             DatabaseVehicle newVehicle = new DatabaseVehicle()
             {
                 Make = vehicleMake,
-                Model = vehicleApiObject.Model,
-                Year = vehicleApiObject.Year,
-                MaxCapacity = vehicleApiObject.MaxCapacity,
-                OwnerId = vehicleApiObject.OwnerId
+                Model = request.Model,
+                Year = request.Year,
+                MaxCapacity = request.MaxCapacity,
+                OwnerId = request.OwnerId,
+                VehiclePicturePath = imagePath,
             };
 
             _context.Vehicles.Add(newVehicle);

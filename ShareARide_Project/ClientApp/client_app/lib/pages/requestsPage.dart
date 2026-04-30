@@ -7,6 +7,8 @@ import '../controllers/userUtils.dart';
 
 import '../widgets/pageEmptyState.dart';
 
+import '../widgets/userDetails.dart';
+
 class RequestsPage extends StatefulWidget {
   const RequestsPage({super.key});
 
@@ -31,9 +33,11 @@ class _RequestsPageState extends State<RequestsPage> {
         return {
           "requestedForId": booking.requestedForId,
           "requesterFullName": booking.requesterName,
+          "requesterId": booking.requesterId,
           "offerId": booking.offerId,
-          "rating": 5.0,
-          "trip": "${booking.departureCityName} → ${booking.destinationCityName}",
+          "age": 18,
+          "trip":
+              "${booking.departureCityName} → ${booking.destinationCityName}",
           "date": booking.departureTime,
           "seats": booking.bookedSeats,
         };
@@ -61,40 +65,51 @@ class _RequestsPageState extends State<RequestsPage> {
       ),
       body: incomingRequests.isEmpty
           ? pageEmptyState(
-            Icons.checklist_rtl_rounded, 
-            Colors.grey.shade300, 
-            "No pending requests", 
-            Colors.grey
-          )
+              Icons.checklist_rtl_rounded,
+              Colors.grey.shade300,
+              "No pending requests",
+              Colors.grey,
+            )
           : ListView.builder(
               padding: const EdgeInsets.all(16),
               itemCount: incomingRequests.length,
               itemBuilder: (context, index) {
                 final req = incomingRequests[index];
-                return buildRequestCard(req, index);
+                return buildRequestCard(req, index, context);
               },
             ),
     );
   }
 
-  Widget buildRequestCard(Map<String, dynamic> req, int index) {
+  Widget buildRequestCard(
+    Map<String, dynamic> req,
+    int index,
+    BuildContext context,
+  ) {
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: Column(
         children: [
           ListTile(
-            leading: const CircleAvatar(child: Icon(Icons.person)),
+            leading: InkWell(
+              onTap: () async {
+                var user = await UserUtils.getUser(req['requesterId']);
+                UserDetailModal.show(context, {
+                  "fullName": "${user?.firstName} ${user?.lastName}",
+                  "username": user?.username,
+                  "email": user?.email,
+                  "age": user?.age,
+                  "phoneNumber": user?.phoneNumber,
+                });
+              },
+              child: const CircleAvatar(child: Icon(Icons.person)),
+            ),
             title: Text(
               req['requesterFullName'] ?? "Unknown User",
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            subtitle: Row(
-              children: [
-                const Icon(Icons.star, color: Colors.orange, size: 16),
-                Text(" ${req['rating']} Passenger Rating"),
-              ],
-            ),
+            subtitle: Text(" ${req['age']} years old"),
             trailing: Text(
               "${req['seats']} Seat(s)",
               style: const TextStyle(fontWeight: FontWeight.bold),

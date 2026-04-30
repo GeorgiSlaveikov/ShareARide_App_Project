@@ -53,6 +53,7 @@ class _ManageVehiclesPageState extends State<ManageVehiclesPage> {
       vehicleData['year'],
       vehicleData['maxCapacity'],
       UserUtils.getCurrentUserId(),
+      vehicleData['vehiclePicture']
     );
 
     if (result) {

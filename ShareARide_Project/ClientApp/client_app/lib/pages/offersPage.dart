@@ -158,14 +158,6 @@ class _OffersPageState extends State<OffersPage> {
         ),
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.person),
-            onPressed: () {
-              // Profile logic
-            },
-          ),
-        ],
       ),
       body: Column(
         children: [
