@@ -7,7 +7,7 @@ import '../controllers/userUtils.dart';
 
 import '../widgets/pageEmptyState.dart';
 
-import '../infoPopupModals/userDetailsModal.dart';
+import '../infoPopupModals/userDetailModal.dart';
 
 class RequestsPage extends StatefulWidget {
   const RequestsPage({super.key});
@@ -55,7 +55,7 @@ class _RequestsPageState extends State<RequestsPage> {
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
         title: const Text(
-          "Booking Requests",
+          "Заявки за резервация",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: false,
@@ -67,7 +67,7 @@ class _RequestsPageState extends State<RequestsPage> {
           ? pageEmptyState(
               Icons.checklist_rtl_rounded,
               Colors.grey.shade300,
-              "No pending requests",
+              "Няма чакащи заявки",
               Colors.grey,
             )
           : ListView.builder(
@@ -107,12 +107,12 @@ class _RequestsPageState extends State<RequestsPage> {
               child: const CircleAvatar(child: Icon(Icons.person)),
             ),
             title: Text(
-              req['requesterFullName'] ?? "Unknown User",
+              req['requesterFullName'] ?? "Неизвестен потребител",
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            subtitle: Text(" ${req['age']} years old"),
+            subtitle: Text(" ${req['age']} години"),
             trailing: Text(
-              "${req['seats']} Seat(s)",
+              "${req['seats']} Места",
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
@@ -123,7 +123,7 @@ class _RequestsPageState extends State<RequestsPage> {
               children: [
                 const Icon(Icons.info_outline, size: 16, color: Colors.grey),
                 const SizedBox(width: 8),
-                Text("Wants to join your ${req['trip']} trip"),
+                Text("Иска да се присъедини към вашия ${req['trip']} trip"),
               ],
             ),
           ),
@@ -137,7 +137,7 @@ class _RequestsPageState extends State<RequestsPage> {
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.red,
                     ),
-                    child: const Text("Reject"),
+                    child: const Text("Отхвърляне"),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -148,7 +148,7 @@ class _RequestsPageState extends State<RequestsPage> {
                       backgroundColor: Colors.green,
                       foregroundColor: Colors.white,
                     ),
-                    child: const Text("Accept"),
+                    child: const Text("Приемане"),
                   ),
                 ),
               ],
@@ -167,7 +167,7 @@ class _RequestsPageState extends State<RequestsPage> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(accepted ? "Passenger accepted!" : "Request declined."),
+        content: Text(accepted ? "Пътникът е приет!" : "Заявката е отхвърлена."),
         backgroundColor: accepted ? Colors.green : Colors.red,
       ),
     );

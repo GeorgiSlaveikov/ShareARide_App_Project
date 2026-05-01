@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import '../controllers/userUtils.dart';
 import '../controllers/bookingUtils.dart';
-import '../infoPopupModals/userDetailsModal.dart';
+
+import '../infoPopupModals/userDetailModal.dart';
 import '../widgets/rideMapPreview.dart';
 import '../entity/city.dart';
 import '../controllers/notificationService.dart';
+
+// import '../infoPopupModals/userDetailModal.dart';
 
 class OfferCard extends StatefulWidget {
   final Map<String, dynamic> offer;

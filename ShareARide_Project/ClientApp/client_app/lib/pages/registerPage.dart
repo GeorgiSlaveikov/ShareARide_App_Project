@@ -76,7 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
         });
       }
     } catch (e) {
-      debugPrint("Error picking image: $e");
+      debugPrint("Грешка при избора на изображение: $e");
     }
   }
 
@@ -93,13 +93,13 @@ class _RegisterPageState extends State<RegisterPage> {
           children: [
             const ListTile(
               title: Text(
-                'Profile Photo',
+                'Профилна снимка',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
             ListTile(
               leading: const Icon(Icons.camera_alt, color: Colors.deepPurple),
-              title: const Text('Take a Photo'),
+              title: const Text('Направете снимка'),
               onTap: () {
                 Navigator.pop(context);
                 _pickImage(ImageSource.camera);
@@ -110,7 +110,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 Icons.photo_library,
                 color: Colors.deepPurple,
               ),
-              title: const Text('Choose from Gallery'),
+              title: const Text('Избере от галерия'),
               onTap: () {
                 Navigator.pop(context);
                 _pickImage(ImageSource.gallery);
@@ -237,7 +237,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 // ),
                 const SizedBox(height: 16),
                 const Text(
-                  "WELCOME",
+                  "ДОБРЕ ДОШЛИ",
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -246,7 +246,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
                 const Text(
-                  "Create your account",
+                  "Създайте си акаунт",
                   style: TextStyle(fontSize: 16, color: Colors.white70),
                 ),
                 const SizedBox(height: 32),
@@ -273,35 +273,35 @@ class _RegisterPageState extends State<RegisterPage> {
                         // 4. Modern Input Fields
                         TextFieldElement(
                           controller: _usernameController,
-                          label: "Username",
+                          label: "Прякор",
                           icon: Icons.person_outline,
                           color: themeColor,
                         ),
                         const SizedBox(height: 16),
                         TextFieldElement(
                           controller: _emailController,
-                          label: "Email",
+                          label: "Емейл",
                           icon: Icons.person_outline,
                           color: themeColor,
                         ),
                         const SizedBox(height: 16),
                         TextFieldElement(
                           controller: _phoneNumberController,
-                          label: "Phone Number",
+                          label: "Телефонен номер",
                           icon: Icons.phone,
                           color: themeColor,
                         ),
                         const SizedBox(height: 32),
                         TextFieldElement(
                           controller: _firstNameController,
-                          label: "First Name",
+                          label: "Първо име",
                           icon: Icons.person_outline,
                           color: themeColor,
                         ),
                         const SizedBox(height: 16),
                         TextFieldElement(
                           controller: _lastNameController,
-                          label: "Last Name",
+                          label: "Фамилия",
                           icon: Icons.person_outline,
                           color: themeColor,
                         ),
@@ -309,7 +309,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         TextFieldElement(
                           onTap: () => _selectDate(context),
                           controller: _birthDateController,
-                          label: "Birth Date",
+                          label: "Дата на раждане",
                           icon: Icons.calendar_today,
                           color: themeColor,
                           obscureText: false,
@@ -318,7 +318,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         DropdownButtonFormField<int>(
                           value: _selectedSex?.index,
                           decoration: InputDecoration(
-                            labelText: "Select Sex",
+                            labelText: "Изберете пол",
                             prefixIcon: Icon(
                               Icons.person_outline,
                               color: themeColor,
@@ -339,12 +339,12 @@ class _RegisterPageState extends State<RegisterPage> {
                             });
                           },
                           validator: (value) =>
-                              value == null ? "Please select a sex" : null,
+                              value == null ? "Моля, изберете пол" : null,
                         ),
                         const SizedBox(height: 32),
                         TextFieldElement(
                           controller: _passwordController,
-                          label: "Password",
+                          label: "Парола",
                           icon: Icons.lock_outline,
                           color: themeColor,
                           obscureText: true,
@@ -352,7 +352,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         const SizedBox(height: 16),
                         TextFieldElement(
                           controller: _confirmPasswordController,
-                          label: "Confirm Password",
+                          label: "Потвърдете паролата",
                           icon: Icons.lock_outline,
                           color: themeColor,
                           obscureText: true,
@@ -366,7 +366,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 _confirmPasswordController.text) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text("Passwords do not match!"),
+                                  content: Text("Паролите не съвпадат!"),
                                   backgroundColor: Colors.redAccent,
                                 ),
                               );
@@ -375,7 +375,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             handleRegister();
                           },
                           isLoading: _isLoading,
-                          text: "REGISTER",
+                          text: "Регистрация",
                           color: themeColor,
                         ),
                         const SizedBox(height: 16),
@@ -388,11 +388,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                 },
                           child: RichText(
                             text: TextSpan(
-                              text: "Go back to ",
+                              text: "Върни се към ",
                               style: const TextStyle(color: Colors.black54),
                               children: [
                                 TextSpan(
-                                  text: "Login",
+                                  text: "Влизане",
                                   style: TextStyle(
                                     color: themeColor,
                                     fontWeight: FontWeight.bold,
@@ -452,6 +452,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     if (success) {
       ScaffoldMessenger.of(context).showSnackBar(
+
         SnackBar(content: Text(message), backgroundColor: Colors.green),
       );
 
@@ -460,11 +461,23 @@ class _RegisterPageState extends State<RegisterPage> {
         context,
         MaterialPageRoute(builder: (context) => const MyApp()),
         (route) => false,
+
+        // const SnackBar(
+        //   content: Text("Успешна регистрация!"),
+        //   backgroundColor: Colors.green,
+        // ),
+
       );
     } else {
       // Show error without crashing using fallback string
       ScaffoldMessenger.of(context).showSnackBar(
+
         SnackBar(content: Text(message), backgroundColor: Colors.redAccent),
+
+        // SnackBar(
+        //   content: Text("Невалидни данни"),
+        //   backgroundColor: Colors.redAccent,
+        // ),
       );
       return;
     }
