@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import '../controllers/userUtils.dart';
 import '../controllers/bookingUtils.dart';
 import '../infoPopupModals/userDetailsModal.dart';
+import '../widgets/rideMapPreview.dart';
+import '../entity/city.dart';
+import '../controllers/notificationService.dart';
 
 class OfferCard extends StatefulWidget {
   final Map<String, dynamic> offer;
@@ -186,6 +189,27 @@ class _OfferCardState extends State<OfferCard> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 8),
+                      InkWell(
+                        onTap: () => showMapDialog(offer),
+                        child: const Row(
+                          children: [
+                            Icon(
+                              Icons.map_outlined,
+                              size: 16,
+                              color: Colors.deepPurple,
+                            ),
+                            SizedBox(width: 4),
+                            Text(
+                              "View map",
+                              style: TextStyle(
+                                color: Colors.deepPurple,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                   ],
                 ),
                 !widget.isMyOffer
@@ -271,6 +295,60 @@ class _OfferCardState extends State<OfferCard> {
       ),
     );
   }
+  void showMapDialog(Map<String, dynamic> offer) {
+  final departureCity = offer['departureCity'];
+  final destinationCity = offer['destinationCity'];
+
+  if (departureCity == null || destinationCity == null) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Map data is missing for this offer."),
+        backgroundColor: Colors.red,
+      ),
+    );
+    return;
+  }
+
+  final City fromCity = departureCity is City
+      ? departureCity
+      : City.fromJson(Map<String, dynamic>.from(departureCity));
+
+  final City toCity = destinationCity is City
+      ? destinationCity
+      : City.fromJson(Map<String, dynamic>.from(destinationCity));
+
+  if (!fromCity.hasCoordinates || !toCity.hasCoordinates) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("City coordinates are missing."),
+        backgroundColor: Colors.red,
+      ),
+    );
+    return;
+  }
+
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text("${fromCity.name} → ${toCity.name}"),
+        content: SizedBox(
+          width: double.maxFinite,
+          child: RideMapPreview(
+            departureCity: fromCity,
+            destinationCity: toCity,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Close"),
+          ),
+        ],
+      );
+    },
+  );
+}
 
   void showSeatSelectionDialog(Map<String, dynamic> offer) {
     int selectedSeats = 1;
@@ -371,18 +449,26 @@ class _OfferCardState extends State<OfferCard> {
               );
 
               if (success) {
-                onRequestConfirm();
-                if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Booking successful!"),
-                      backgroundColor: Colors.green,
-                      behavior: SnackBarBehavior.floating,
-                      dismissDirection: DismissDirection.horizontal,
-                    ),
-                  );
-                }
-              } else {
+              onRequestConfirm();
+            
+              final DateTime departureTime = DateTime.parse(offer['date']);
+            
+              await NotificationService.scheduleRideReminder(
+                notificationId: offer["id"],
+                departureTime: departureTime,
+              );
+            
+              if (mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Booking successful! Reminder notification scheduled."),
+                    backgroundColor: Colors.green,
+                    behavior: SnackBarBehavior.floating,
+                    dismissDirection: DismissDirection.horizontal,
+                  ),
+                );
+              }
+            } else {
                 // Handle error (400 or connection)
                 if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
