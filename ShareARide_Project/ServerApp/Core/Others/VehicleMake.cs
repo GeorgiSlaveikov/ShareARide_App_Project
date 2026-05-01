@@ -1,0 +1,32 @@
+﻿namespace Core.Others
+{
+    public enum VehicleMake
+    {
+        Unknown,
+        Toyota,
+        Honda,
+        Ford,
+        Chevrolet,
+        Nissan,
+        BMW,
+        MercedesBenz,
+        Audi,
+        Volkswagen,
+        Hyundai,
+        Kia,
+        Subaru,
+        Mazda,
+        Tesla,
+        Jeep,
+        Dodge,
+        Lexus,
+        GMC,
+        Volvo,
+        Porsche,
+        Jaguar,
+        LandRover,
+        Mitsubishi,
+        Fiat,
+        AlfaRomeo
+    }
+}

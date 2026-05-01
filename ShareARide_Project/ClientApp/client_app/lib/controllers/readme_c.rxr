@@ -1,0 +1,3 @@
+This folder is for utility scripts, custom libraries and row dart scripts.
+
+Please do not make any widgets and ui elements here. There are separate folders for this.
