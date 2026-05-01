@@ -1,4 +1,5 @@
 import 'package:client_app/entity/offerStatus.dart';
+import 'city.dart';
 // import 'package:client_app/entity/vehicleMake.dart';
 // import '../entity/vehicle.dart';
 
@@ -14,6 +15,8 @@ class Offer {
   DateTime departureTime;
   String departureCityName;
   String destinationCityName;
+  City? departureCity;
+  City? destinationCity;
   double pricePerSeat;
   int availableSeats;
   DateTime? createdAt;
@@ -32,6 +35,8 @@ class Offer {
     required this.departureTime,
     required this.departureCityName,
     required this.destinationCityName,
+    this.departureCity,
+    this.destinationCity,
     required this.pricePerSeat,
     required this.availableSeats,
     this.createdAt,
@@ -52,6 +57,12 @@ class Offer {
       departureTime: DateTime.parse(json['departureTime']),
       departureCityName: json['departureCityName'] ?? '',
       destinationCityName: json['destinationCityName'] ?? '',
+      departureCity: json['departureCity'] != null
+      ? City.fromJson(json['departureCity'])
+      : null,
+      destinationCity: json['destinationCity'] != null
+      ? City.fromJson(json['destinationCity'])
+      : null,
       pricePerSeat: json['pricePerSeat']?.toDouble() ?? 0.0,
       availableSeats: json['availableSeats'] ?? 0,
       createdAt: DateTime.parse(json['createdAt']),
