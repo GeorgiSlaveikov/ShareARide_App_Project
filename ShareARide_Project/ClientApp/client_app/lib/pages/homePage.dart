@@ -56,22 +56,22 @@ class _HomePageState extends State<HomePage> {
             BottomNavigationBarItem(
               icon: Icon(Icons.dashboard_outlined),
               activeIcon: Icon(Icons.dashboard),
-              label: 'Home',
+              label: 'Начало',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.search),
               activeIcon: Icon(Icons.directions_car_filled),
-              label: 'Find',
+              label: 'Намери',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.notification_important_outlined),
               activeIcon: Icon(Icons.notification_important),
-              label: 'Notificatins',
+              label: 'Известия',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.bookmark_border_rounded),
               activeIcon: Icon(Icons.bookmark_rounded),
-              label: 'Booked',
+              label: 'Резервации',
             ),
           ],
         ),
