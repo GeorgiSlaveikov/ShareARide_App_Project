@@ -1,6 +1,4 @@
-﻿using Core.Model;
 using DatabaseLayer.Database;
-using DatabaseLayer.DatabaseControllers;
 using DatabaseLayer.DatabaseModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +34,20 @@ namespace REST_API.Controllers
                   DepartureTime = o.DepartureTime,
                   DepartureCityName = o.DatabaseDepartureCity.Name,
                   DestinationCityName = o.DatabaseDestinationCity.Name,
+                  DepartureCity = new CityResponse
+                  {
+                      Id = o.DatabaseDepartureCity.Id,
+                      Name = o.DatabaseDepartureCity.Name,
+                      Latitude = o.DatabaseDepartureCity.Latitude,
+                      Longitude = o.DatabaseDepartureCity.Longitude
+                  },
+                  DestinationCity = new CityResponse
+                  {
+                      Id = o.DatabaseDestinationCity.Id,
+                      Name = o.DatabaseDestinationCity.Name,
+                      Latitude = o.DatabaseDestinationCity.Latitude,
+                      Longitude = o.DatabaseDestinationCity.Longitude
+                  },
                   PricePerSeat = o.PricePerSeat,
                   AvailableSeats = o.AvailableSeats,
                   Status = o.OfferStatus
@@ -60,6 +72,20 @@ namespace REST_API.Controllers
                     DepartureTime = o.DepartureTime,
                     DepartureCityName = o.DatabaseDepartureCity.Name,
                     DestinationCityName = o.DatabaseDestinationCity.Name,
+                    DepartureCity = new CityResponse
+                    {
+                        Id = o.DatabaseDepartureCity.Id,
+                        Name = o.DatabaseDepartureCity.Name,
+                        Latitude = o.DatabaseDepartureCity.Latitude,
+                        Longitude = o.DatabaseDepartureCity.Longitude
+                    },
+                    DestinationCity = new CityResponse
+                    {
+                        Id = o.DatabaseDestinationCity.Id,
+                        Name = o.DatabaseDestinationCity.Name,
+                        Latitude = o.DatabaseDestinationCity.Latitude,
+                        Longitude = o.DatabaseDestinationCity.Longitude
+                    },
                     PricePerSeat = o.PricePerSeat,
                     AvailableSeats = o.AvailableSeats,
                     Status = o.OfferStatus
@@ -92,6 +118,20 @@ namespace REST_API.Controllers
             DepartureTime = o.DepartureTime,
             DepartureCityName = o.DatabaseDepartureCity.Name,
             DestinationCityName = o.DatabaseDestinationCity.Name,
+            DepartureCity = new CityResponse
+            {
+                Id = o.DatabaseDepartureCity.Id,
+                Name = o.DatabaseDepartureCity.Name,
+                Latitude = o.DatabaseDepartureCity.Latitude,
+                Longitude = o.DatabaseDepartureCity.Longitude
+            },
+            DestinationCity = new CityResponse
+            {
+                Id = o.DatabaseDestinationCity.Id,
+                Name = o.DatabaseDestinationCity.Name,
+                Latitude = o.DatabaseDestinationCity.Latitude,
+                Longitude = o.DatabaseDestinationCity.Longitude
+            },
             PricePerSeat = o.PricePerSeat,
             AvailableSeats = o.AvailableSeats,
             Status = o.OfferStatus
@@ -117,6 +157,20 @@ namespace REST_API.Controllers
             DepartureTime = o.DepartureTime,
             DepartureCityName = o.DatabaseDepartureCity.Name,
             DestinationCityName = o.DatabaseDestinationCity.Name,
+            DepartureCity = new CityResponse
+            {
+                Id = o.DatabaseDepartureCity.Id,
+                Name = o.DatabaseDepartureCity.Name,
+                Latitude = o.DatabaseDepartureCity.Latitude,
+                Longitude = o.DatabaseDepartureCity.Longitude
+            },
+            DestinationCity = new CityResponse
+            {
+                Id = o.DatabaseDestinationCity.Id,
+                Name = o.DatabaseDestinationCity.Name,
+                Latitude = o.DatabaseDestinationCity.Latitude,
+                Longitude = o.DatabaseDestinationCity.Longitude
+            },
             PricePerSeat = o.PricePerSeat,
             AvailableSeats = o.AvailableSeats,
             Status = o.OfferStatus
