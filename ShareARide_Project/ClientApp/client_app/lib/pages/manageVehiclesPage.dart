@@ -24,7 +24,7 @@ class _ManageVehiclesPageState extends State<ManageVehiclesPage> {
     var mappedVehicles = await Future.wait(
       vehicles.map((vehicle) async {
         print(
-          "Vehicle from API: ${vehicle.make.name} ${vehicle.model} (${vehicle.year}) - Seats: ${vehicle.maxCapacity}",
+          "Превозно средство от API: ${vehicle.make.name} ${vehicle.model} (${vehicle.year}) - Места: ${vehicle.maxCapacity}",
         );
         return {
           "id": vehicle.id,
@@ -120,7 +120,7 @@ class _ManageVehiclesPageState extends State<ManageVehiclesPage> {
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
-        title: const Text("My Vehicles"),
+        title: const Text("Моите превозни средства"),
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
         actions: [
@@ -152,7 +152,7 @@ class _ManageVehiclesPageState extends State<ManageVehiclesPage> {
                     ),
                     title: Text("${vehicle['make']} ${vehicle['model']}"),
                     subtitle: Text(
-                      "${vehicle['year']} • ${vehicle['maxCapacity']} Seats",
+                      "${vehicle['year']} • ${vehicle['maxCapacity']} Места",
                     ),
                     trailing: IconButton(
                       icon: const Icon(Icons.delete_outline, color: Colors.red),
@@ -166,7 +166,7 @@ class _ManageVehiclesPageState extends State<ManageVehiclesPage> {
         onPressed: () => navigateAndAddVehicle(),
         backgroundColor: Colors.deepPurple,
         icon: const Icon(Icons.add, color: Colors.white),
-        label: const Text("Add Vehicle", style: TextStyle(color: Colors.white)),
+        label: const Text("Добавяне на превозно средство", style: TextStyle(color: Colors.white)),
       ),
     );
   }
@@ -178,7 +178,7 @@ class _ManageVehiclesPageState extends State<ManageVehiclesPage> {
         children: [
           Icon(Icons.car_rental, size: 80, color: Colors.grey.shade300),
           const Text(
-            "No vehicles added yet",
+            "Все още няма добавени превозни средства",
             style: TextStyle(color: Colors.grey, fontSize: 18),
           ),
         ],
@@ -196,7 +196,7 @@ class _ManageVehiclesPageState extends State<ManageVehiclesPage> {
         context,
       ).showSnackBar(
         const SnackBar(
-          content: Text("Vehicle removed"),
+          content: Text("Превозното средство е премахнато"),
           dismissDirection: DismissDirection.horizontal,
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.red,
@@ -210,14 +210,14 @@ class _ManageVehiclesPageState extends State<ManageVehiclesPage> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text("Remove Vehicle"),
+        title: const Text("Премахване на превозно средство"),
         content: Text(
-          "Are you sure you want to remove the ${userVehicles[index]['make']} ${userVehicles[index]['model']}?",
+          "Сигурни ли сте, че искате да премахнете ${userVehicles[index]['make']} ${userVehicles[index]['model']}?",
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text("Cancel"),
+            child: const Text("Отказ"),
           ),
           ElevatedButton(
             onPressed: () {
@@ -228,7 +228,7 @@ class _ManageVehiclesPageState extends State<ManageVehiclesPage> {
               backgroundColor: Colors.red,
               foregroundColor: Colors.white,
             ),
-            child: const Text("Remove"),
+            child: const Text("Премахване"),
           ),
         ],
       ),
@@ -240,28 +240,28 @@ class _ManageVehiclesPageState extends State<ManageVehiclesPage> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text("Action Required"),
+        title: const Text("Необходимо действие"),
         content: const Text(
-          "You have active offers using this vehicle. You must add a new vehicle before you can remove this one.",
+          "Имате активни оферти, използващи това превозно средство. Трябва да добавите ново превозно средство, преди да можете да премахнете това.",
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text("Cancel"),
+            child: const Text("Отказ"),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.pop(ctx);
               navigateAndAddVehicle();
             },
-            child: const Text("Add New Vehicle"),
+            child: const Text("Добавяне на ново превозно средство"),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.pop(ctx);
               navigateAndAddVehicle();
             },
-            child: const Text("Cancel Offer"),
+            child: const Text("Отказ от офертата"),
           ),
         ],
       ),
@@ -280,12 +280,12 @@ class _ManageVehiclesPageState extends State<ManageVehiclesPage> {
       context: context,
       builder: (ctx) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
-          title: const Text("Transfer Offers"),
+          title: const Text("Премести оферта"),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "You have ${dependentOffers.length} offer(s) using this vehicle. Select a replacement:",
+                "Имате ${dependentOffers.length} оферта(и), използваща(и) това превозно средство. Изберете заместващо:",
               ),
               const SizedBox(height: 15),
               DropdownButton<int>(
@@ -307,7 +307,7 @@ class _ManageVehiclesPageState extends State<ManageVehiclesPage> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx),
-              child: const Text("Cancel"),
+              child: const Text("Отказ"),
             ),
             ElevatedButton(
               onPressed: () async {
@@ -320,7 +320,7 @@ class _ManageVehiclesPageState extends State<ManageVehiclesPage> {
                 Navigator.pop(ctx);
                 performDelete(index);
               },
-              child: const Text("Replace & Remove"),
+              child: const Text("Замяна и премахване"),
             ),
           ],
         ),
