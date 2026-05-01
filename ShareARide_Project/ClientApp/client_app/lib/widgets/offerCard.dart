@@ -4,6 +4,7 @@ import '../controllers/bookingUtils.dart';
 import '../infoPopupModals/userDetailsModal.dart';
 import '../widgets/rideMapPreview.dart';
 import '../entity/city.dart';
+import '../controllers/notificationService.dart';
 
 class OfferCard extends StatefulWidget {
   final Map<String, dynamic> offer;
@@ -447,18 +448,26 @@ class _OfferCardState extends State<OfferCard> {
               );
 
               if (success) {
-                onRequestConfirm();
-                if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Booking successful!"),
-                      backgroundColor: Colors.green,
-                      behavior: SnackBarBehavior.floating,
-                      dismissDirection: DismissDirection.horizontal,
-                    ),
-                  );
-                }
-              } else {
+              onRequestConfirm();
+            
+              final DateTime departureTime = DateTime.parse(offer['date']);
+            
+              await NotificationService.scheduleRideReminder(
+                notificationId: offer["id"],
+                departureTime: departureTime,
+              );
+            
+              if (mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Booking successful! Reminder notification scheduled."),
+                    backgroundColor: Colors.green,
+                    behavior: SnackBarBehavior.floating,
+                    dismissDirection: DismissDirection.horizontal,
+                  ),
+                );
+              }
+            } else {
                 // Handle error (400 or connection)
                 if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
