@@ -1,4 +1,4 @@
-﻿using Core.Others;
+using Core.Others;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
