@@ -28,7 +28,7 @@ class DashboardPage extends StatelessWidget {
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(
-                "Welcome back, ${user?.firstName ?? 'Traveler'}",
+                "Добре дошъл отново, ${user?.firstName ??}",
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -73,7 +73,7 @@ class DashboardPage extends StatelessWidget {
 
                   const SizedBox(height: 30),
                   const Text(
-                    "Quick Actions",
+                    "Бързи действия",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 12),
@@ -83,7 +83,7 @@ class DashboardPage extends StatelessWidget {
                     children: [
                       buildActionCard(
                         context,
-                        "Create Offer",
+                        "Създаване на оферта",
                         Icons.add_circle_outline,
                         () => Navigator.push(
                           context,
@@ -96,7 +96,7 @@ class DashboardPage extends StatelessWidget {
                       const SizedBox(width: 10),
                       buildActionCard(
                         context,
-                        "Find Offer",
+                        "Намерете оферта",
                         Icons.search,
                         () => Navigator.push(
                           context,
@@ -106,7 +106,7 @@ class DashboardPage extends StatelessWidget {
                       const SizedBox(width: 10),
                       buildActionCard(
                         context,
-                        "My Garage",
+                        "Моят гараж",
                         Icons.garage_outlined,
                         () => Navigator.push(
                           context,
@@ -120,7 +120,7 @@ class DashboardPage extends StatelessWidget {
 
                   const SizedBox(height: 30),
                   const Text(
-                    "Your Activity",
+                    "Вашата активност",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 15),
@@ -129,14 +129,14 @@ class DashboardPage extends StatelessWidget {
                   Row(
                     children: [
                       buildStatCard(
-                        "Total Trips",
+                        "Общо пътувания",
                         "12",
                         Icons.route,
                         Colors.blue,
                       ),
                       const SizedBox(width: 15),
                        buildStatCard(
-                        "Rating", 
+                        "Рейтинг", 
                         "4.9", 
                         Icons.star, 
                         Colors.orange
@@ -146,7 +146,7 @@ class DashboardPage extends StatelessWidget {
                  
                   const SizedBox(height: 30),
                   const Text(
-                    "Travel Info",
+                    "Информация за пътуване",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
@@ -159,14 +159,14 @@ class DashboardPage extends StatelessWidget {
                         Icons.notifications_active,
                         color: Colors.deepPurple,
                       ),
-                      title: Text("Next trip in 2 days"),
-                      subtitle: Text("Sofia to Plovdiv at 09:00"),
+                      title: Text("Следващото пътуване след 2 дни"),
+                      subtitle: Text("София до Пловдив в 09:00"),
                       trailing: Icon(Icons.arrow_forward_ios, size: 14),
                     ),
                   ),
                   const SizedBox(height: 30),
                   const Text(
-                    "Account Actions",
+                    "Действия в акаунта",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
@@ -190,8 +190,8 @@ class DashboardPage extends StatelessWidget {
                       },
                       child: const ListTile(
                         leading: Icon(Icons.logout, color: Colors.deepPurple),
-                        title: Text("Logout"),
-                        subtitle: Text("Sign out of your account"),
+                        title: Text("Изход"),
+                        subtitle: Text("Излезте от профила си"),
                         trailing: Icon(Icons.arrow_forward_ios, size: 14),
                       ),
                     ),
