@@ -58,73 +58,142 @@ class UserUtils {
     currentUser = null;
   }
 
-  static Future<bool> Register(
-    String username,
-    String firstName,
-    String lastName,
-    String phoneNumber,
-    String email,
-    String birthDate,
-    int age,
-    int sex,
-    String password,
-    File? imageFile,
-  ) async {
-    final url = Uri.parse('http://${Utils().ip}:5205/api/users/register');
+  // static Future<bool> Register(
+  //   String username,
+  //   String firstName,
+  //   String lastName,
+  //   String phoneNumber,
+  //   String email,
+  //   String birthDate,
+  //   int age,
+  //   int sex,
+  //   String password,
+  //   File? imageFile,
+  // ) async {
+  //   final url = Uri.parse('http://${Utils().ip}:5205/api/users/register');
 
-    try {
-      var request = http.MultipartRequest('POST', url);
+  //   try {
+  //     var request = http.MultipartRequest('POST', url);
 
-      request.fields['username'] = username;
-      request.fields['firstName'] = firstName;
-      request.fields['lastName'] = lastName;
-      request.fields['phoneNumber'] = phoneNumber;
-      request.fields['email'] = email;
-      request.fields['birthDate'] = birthDate;
-      request.fields['age'] = age.toString();
-      request.fields['sex'] = sex.toString();
-      request.fields['password'] = password;
+  //     request.fields['username'] = username;
+  //     request.fields['firstName'] = firstName;
+  //     request.fields['lastName'] = lastName;
+  //     request.fields['phoneNumber'] = phoneNumber;
+  //     request.fields['email'] = email;
+  //     request.fields['birthDate'] = birthDate;
+  //     request.fields['age'] = age.toString();
+  //     request.fields['sex'] = sex.toString();
+  //     request.fields['password'] = password;
      
-      // request.fields['HomeCity.name'] = 'Haskovo';
+  //     // request.fields['HomeCity.name'] = 'Haskovo';
 
-      if (imageFile != null) {
-        request.files.add(
-          await http.MultipartFile.fromPath(
-            'ProfilePicture',
-            imageFile.path,
-          ),
-        );
-      }
+  //     if (imageFile != null) {
+  //       request.files.add(
+  //         await http.MultipartFile.fromPath(
+  //           'ProfilePicture',
+  //           imageFile.path,
+  //         ),
+  //       );
+  //     }
 
-      var streamedResponse = await request.send();
+  //     var streamedResponse = await request.send();
       
-      var response = await http.Response.fromStream(streamedResponse);
+  //     var response = await http.Response.fromStream(streamedResponse);
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        var userData = jsonDecode(response.body);
+  //     if (response.statusCode == 200 || response.statusCode == 201) {
+  //       var userData = jsonDecode(response.body);
         
-        currentUser = User(
-          id: userData['id'],
-          username: userData['userName'],
-          firstName: userData['firstName'],
-          lastName: userData['lastName'],
-          age: userData['age'],
-          email: userData['email'],
-          phoneNumber: userData['phoneNumber'],
-          profilePicturePath: userData['profilePicturePath']
-        );
+  //       currentUser = User(
+  //         id: userData['id'],
+  //         username: userData['userName'],
+  //         firstName: userData['firstName'],
+  //         lastName: userData['lastName'],
+  //         age: userData['age'],
+  //         email: userData['email'],
+  //         phoneNumber: userData['phoneNumber'],
+  //         profilePicturePath: userData['profilePicturePath']
+  //       );
 
-        print('Registration Success! Welcome ${userData['username']}');
-        return true;
-      } else {
-        print('Server Error: ${response.statusCode} - ${response.body}');
-        return false;
-      }
-    } catch (e) {
-      print('Connection Error: $e');
-      return false;
+  //       print('Registration Success! Welcome ${userData['username']}');
+  //       return true;
+  //     } else {
+  //       print('Server Error: ${response.statusCode} - ${response.body}');
+  //       return false;
+  //     }
+  //   } catch (e) {
+  //     print('Connection Error: $e');
+  //     return false;
+  //   }
+  // }
+
+  static Future<Map<String, dynamic>> Register(
+  String username,
+  String firstName,
+  String lastName,
+  String phoneNumber,
+  String email,
+  String birthDate,
+  int age,
+  int sex,
+  String password,
+  File? imageFile,
+) async {
+  final url = Uri.parse('http://${Utils().ip}:5205/api/users/register');
+
+  try {
+    var request = http.MultipartRequest('POST', url);
+
+    request.fields['username'] = username;
+    request.fields['firstName'] = firstName;
+    request.fields['lastName'] = lastName;
+    request.fields['phoneNumber'] = phoneNumber;
+    request.fields['email'] = email;
+    request.fields['birthDate'] = birthDate;
+    request.fields['age'] = age.toString();
+    request.fields['sex'] = sex.toString();
+    request.fields['password'] = password;
+
+    if (imageFile != null) {
+      request.files.add(
+        await http.MultipartFile.fromPath(
+          'ProfilePicture', 
+          imageFile.path,
+        ),
+      );
     }
+   
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print(response.body);
+      var responseBodyObj = jsonDecode(response.body);
+      // currentUser = User(
+      //   id: userData['id'],
+      //   username: userData['userName'],
+      //   firstName: userData['firstName'],
+      //   lastName: userData['lastName'],
+      //   age: userData['age'],
+      //   email: userData['email'],
+      //   phoneNumber: userData['phoneNumber'],
+      //   profilePicturePath: userData['profilePicturePath']
+      // );
+
+      return {'success': true, 'message': responseBodyObj['message']};
+    } else {
+      // API ERROR (Like "Username already taken")
+      // Since you returned return BadRequest("message"), response.body contains that string
+      return {
+        'success': false, 
+        'message': response.body.isNotEmpty ? response.body : 'An unknown error occurred'
+      };
+    }
+  } catch (e) {
+    // CONNECTION ERROR
+    print(e);
+    return {'success': false, 'message': 'Cannot connect to server. Check your internet.'};
   }
+}
 
    static Future<User?> getUser(int id) async {
     final url = Uri.parse('http://${Utils().ip}:5205/api/users/$id');

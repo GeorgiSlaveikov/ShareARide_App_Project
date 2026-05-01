@@ -29,7 +29,7 @@ class VehicleDetailModal extends StatelessWidget {
   Widget build(BuildContext context) {
     // 1. Ensure path doesn't have double slashes
     String path = vehicle.vehiclePicturePath ?? "";
-    print('file path: $path' );
+    
     if (path.startsWith('/')) {
       path = path.substring(1);
     }
@@ -58,11 +58,9 @@ class VehicleDetailModal extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
           ),
-
-          // Vehicle Image Container
           SizedBox(
             width: double.infinity, // Force full width
-            height: 220,
+            height: 360,
             child: Stack(
               children: [
                 Positioned.fill(

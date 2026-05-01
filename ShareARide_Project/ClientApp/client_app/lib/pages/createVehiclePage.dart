@@ -59,20 +59,6 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
     }
   }
 
-  // // Add the image to your submission logic
-  // void _submitForm() {
-  //   if (_formKey.currentState!.validate()) {
-  //     final vehicleData = {
-  //       "make": _selectedMake?.name,
-  //       "model": _selectedModel,
-  //       "year": _selectedYear,
-  //       "maxCapacity": _seats,
-  //       "image": _vehicleImage?.path, // Store the local path or handle upload
-  //     };
-  //     // ... rest of your code
-  //   }
-  // }
-
   // Form Values
   VehicleMake? _selectedMake;
   String? _selectedModel;

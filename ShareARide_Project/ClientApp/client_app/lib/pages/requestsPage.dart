@@ -95,13 +95,14 @@ class _RequestsPageState extends State<RequestsPage> {
             leading: InkWell(
               onTap: () async {
                 var user = await UserUtils.getUser(req['requesterId']);
-                UserDetailModal.show(context, {
-                  "fullName": "${user?.firstName} ${user?.lastName}",
-                  "username": user?.username,
-                  "email": user?.email,
-                  "age": user?.age,
-                  "phoneNumber": user?.phoneNumber,
-                });
+                // UserDetailModal.show(context, {
+                //   "fullName": "${user?.firstName} ${user?.lastName}",
+                //   "username": user?.username,
+                //   "email": user?.email,
+                //   "age": user?.age,
+                //   "phoneNumber": user?.phoneNumber,
+                // });
+                UserDetailModal.show(context, user!);
               },
               child: const CircleAvatar(child: Icon(Icons.person)),
             ),

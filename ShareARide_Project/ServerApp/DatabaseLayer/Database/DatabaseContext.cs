@@ -1,4 +1,5 @@
 ﻿using Core.Model;
+using DatabaseLayer.DatabaseControllers;
 using DatabaseLayer.DatabaseModels;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -31,7 +32,7 @@ namespace DatabaseLayer.Database
             optionsBuilder.UseSqlite($"Data Source={databasePath}");
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override async void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DatabaseUser>().Ignore(u => u.ProfilePicture);
           
@@ -100,7 +101,7 @@ namespace DatabaseLayer.Database
                 FirstName = "Admin",
                 LastName = "Admin",
                 Email = "admin@gmail.com",
-                Password = "0000",
+                Password = DatabaseUserController.HashPassword("0000"),
                 PhoneNumber = "0888888888"
             };
 

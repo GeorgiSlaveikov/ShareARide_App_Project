@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\REST_API.csproj": {}
+    "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\REST_API.csproj": {}
   },
   "projects": {
-    "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\Core\\Core.csproj": {
+    "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\Core\\Core.csproj",
+        "projectUniqueName": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\Core\\Core.csproj",
         "projectName": "Core",
-        "projectPath": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\Core\\Core.csproj",
+        "projectPath": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\Core\\Core.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\Core\\obj\\",
+        "outputPath": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -75,14 +75,14 @@
         }
       }
     },
-    "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseLayer.csproj": {
+    "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseLayer.csproj",
+        "projectUniqueName": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseLayer.csproj",
         "projectName": "DatabaseLayer",
-        "projectPath": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseLayer.csproj",
+        "projectPath": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseLayer.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\DatabaseLayer\\obj\\",
+        "outputPath": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\DatabaseLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -103,8 +103,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\Core\\Core.csproj": {
-                "projectPath": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\Core\\Core.csproj"
+              "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\Core\\Core.csproj": {
+                "projectPath": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\Core\\Core.csproj"
               }
             }
           }
@@ -125,6 +125,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[9.0.14, )"
@@ -170,14 +174,14 @@
         }
       }
     },
-    "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\REST_API.csproj": {
+    "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\REST_API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\REST_API.csproj",
+        "projectUniqueName": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\REST_API.csproj",
         "projectName": "REST_API",
-        "projectPath": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\REST_API.csproj",
+        "projectPath": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\REST_API.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\obj\\",
+        "outputPath": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -198,8 +202,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseLayer.csproj": {
-                "projectPath": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseLayer.csproj"
+              "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseLayer.csproj": {
+                "projectPath": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseLayer.csproj"
               }
             }
           }

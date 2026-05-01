@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Core\\Model",
+    "\\REST_API",
+    "\\ServerApp\\bin\\Debug",
+    "\\ServerApp\\Model"
+  ],
+  "SelectedNode": "\\REST_API\\Program.cs",
+  "PreviewInSolutionExplorer": false
+}

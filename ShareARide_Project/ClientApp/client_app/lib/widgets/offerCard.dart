@@ -126,14 +126,15 @@ class _OfferCardState extends State<OfferCard> {
                         InkWell(
                           onTap: () async {
                             var user = await UserUtils.getUser(offer['driverId']);
-                            UserDetailModal.show(context, {
-                              "fullName":
-                                  "${user?.firstName} ${user?.lastName}",
-                              "username": user?.username,
-                              "email": user?.email,
-                              "age": user?.age,
-                              "phoneNumber": user?.phoneNumber,
-                            });
+                            // UserDetailModal.show(context, {
+                            //   "fullName":
+                            //       "${user?.firstName} ${user?.lastName}",
+                            //   "username": user?.username,
+                            //   "email": user?.email,
+                            //   "age": user?.age,
+                            //   "phoneNumber": user?.phoneNumber,
+                            // });
+                            UserDetailModal.show(context, user!);
                           },
                           child: const CircleAvatar(
                             radius: 12,

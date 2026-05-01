@@ -960,6 +960,7 @@
             "multipart/form-data": {
               "schema": {
                 "required": [
+                  "Email",
                   "FirstName",
                   "LastName",
                   "Password",
@@ -979,8 +980,7 @@
                     "type": "string"
                   },
                   "Email": {
-                    "type": "string",
-                    "format": "email"
+                    "type": "string"
                   },
                   "Password": {
                     "minLength": 8,

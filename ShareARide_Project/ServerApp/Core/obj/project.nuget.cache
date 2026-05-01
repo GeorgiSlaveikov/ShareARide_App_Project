@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "e9M52Mr/1zY=",
+  "dgSpecHash": "VrYFTkXXYZ8=",
   "success": true,
-  "projectFilePath": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\Core\\Core.csproj",
+  "projectFilePath": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\Core\\Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.3.0\\microsoft.aspnetcore.http.features.2.3.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512"

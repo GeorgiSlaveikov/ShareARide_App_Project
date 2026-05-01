@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     "net9.0": {
+      "BCrypt.Net-Next/4.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.1/BCrypt.Net-Next.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/BCrypt.Net-Next.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Antiforgery/2.3.0": {
         "type": "package",
         "dependencies": {
@@ -3070,6 +3083,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
+          "BCrypt.Net-Next": "4.1.0",
           "Core": "1.0.0",
           "Microsoft.EntityFrameworkCore": "9.0.14",
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.14",
@@ -3106,6 +3120,35 @@
     }
   },
   "libraries": {
+    "BCrypt.Net-Next/4.1.0": {
+      "sha512": "5YT3DKllmtkyW68PjURu/V1TOe4MKiByKwsRNVcfYE1S5KuFTeozdmKzyNzolKiQF391OXCaQtINvYT3j1ERzQ==",
+      "type": "package",
+      "path": "bcrypt.net-next/4.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bcrypt.net-next.4.1.0.nupkg.sha512",
+        "bcrypt.net-next.nuspec",
+        "ico.png",
+        "lib/net10.0/BCrypt.Net-Next.dll",
+        "lib/net10.0/BCrypt.Net-Next.xml",
+        "lib/net20/BCrypt.Net-Next.dll",
+        "lib/net20/BCrypt.Net-Next.xml",
+        "lib/net35/BCrypt.Net-Next.dll",
+        "lib/net35/BCrypt.Net-Next.xml",
+        "lib/net462/BCrypt.Net-Next.dll",
+        "lib/net462/BCrypt.Net-Next.xml",
+        "lib/net472/BCrypt.Net-Next.dll",
+        "lib/net472/BCrypt.Net-Next.xml",
+        "lib/net48/BCrypt.Net-Next.dll",
+        "lib/net48/BCrypt.Net-Next.xml",
+        "lib/netstandard2.0/BCrypt.Net-Next.dll",
+        "lib/netstandard2.0/BCrypt.Net-Next.xml",
+        "lib/netstandard2.1/BCrypt.Net-Next.dll",
+        "lib/netstandard2.1/BCrypt.Net-Next.xml",
+        "readme.md"
+      ]
+    },
     "Microsoft.AspNetCore.Antiforgery/2.3.0": {
       "sha512": "C4o0buZnlzyhCpBny7//4Z9sKcxpVdFo0TRfE14q9Lac6+xkgwunPON+47FWzyqbUXu52SaABEoAiHC5lMam0A==",
       "type": "package",
@@ -8755,11 +8798,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\Main\\Main.csproj",
+      "projectUniqueName": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\Main\\Main.csproj",
       "projectName": "Main",
-      "projectPath": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\Main\\Main.csproj",
+      "projectPath": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\Main\\Main.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\Main\\obj\\",
+      "outputPath": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\Main\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -8780,14 +8823,14 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\Core\\Core.csproj": {
-              "projectPath": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\Core\\Core.csproj"
+            "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\Core\\Core.csproj": {
+              "projectPath": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\Core\\Core.csproj"
             },
-            "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseLayer.csproj": {
-              "projectPath": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseLayer.csproj"
+            "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseLayer.csproj": {
+              "projectPath": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseLayer.csproj"
             },
-            "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\REST_API.csproj": {
-              "projectPath": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\REST_API.csproj"
+            "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\REST_API.csproj": {
+              "projectPath": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\REST_API.csproj"
             }
           }
         }

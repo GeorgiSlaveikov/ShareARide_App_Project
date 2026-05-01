@@ -30,7 +30,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _birthDateController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   bool _isConnected = false;
   bool _isLoading = false;
@@ -39,7 +40,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final ImagePicker _picker = ImagePicker();
 
   var cities = [];
-
 
   Sex? _selectedSex = Sex.Male;
 
@@ -373,14 +373,6 @@ class _RegisterPageState extends State<RegisterPage> {
                               return;
                             }
                             handleRegister();
-                            Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MyApp(),
-                          ),
-                          (route) =>
-                              false, // This clears the entire navigation history
-                        );
                           },
                           isLoading: _isLoading,
                           text: "REGISTER",
@@ -423,8 +415,16 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void handleRegister() async {
+    if (_selectedSex == null) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Please select a gender")));
+      return;
+    }
+
     setState(() => _isLoading = true);
-    bool response = await UserUtils.Register(
+
+    var response = await UserUtils.Register(
       _usernameController.text,
       _firstNameController.text,
       _lastNameController.text,
@@ -433,30 +433,40 @@ class _RegisterPageState extends State<RegisterPage> {
       _birthDateController.text,
       _calculateAge(
         _birthDateController.text.isNotEmpty
-            ? DateTime.parse(_birthDateController.text)
+            ? DateTime.tryParse(_birthDateController.text) ??
+                  DateTime(2000, 1, 1)
             : DateTime(2000, 1, 1),
       ),
-      _selectedSex!.index,
+      _selectedSex!.index, // Safe now because of check above
       _passwordController.text,
-      _selectedImage
+      _selectedImage,
     );
+
     setState(() => _isLoading = false);
 
-    if (response) {
+    // 2. Handle the response safely
+    final bool success = response['success'] ?? false;
+    // Ensure we use the correct key (match this to what UserUtils returns)
+    final String message =
+        response['message'] ?? 'Unknown response from server';
+
+    if (success) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Registration Success!"),
-          backgroundColor: Colors.green,
-        ),
+        SnackBar(content: Text(message), backgroundColor: Colors.green),
+      );
+
+      // Navigate away on success
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const MyApp()),
+        (route) => false,
       );
     } else {
-      // Shakes the card or shows error
+      // Show error without crashing using fallback string
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Invalid Credentials"),
-          backgroundColor: Colors.redAccent,
-        ),
+        SnackBar(content: Text(message), backgroundColor: Colors.redAccent),
       );
+      return;
     }
   }
 }

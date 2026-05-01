@@ -70,11 +70,9 @@ namespace REST_API.Controllers
 
             if (user == null)
             {
-                Console.WriteLine("Not Logged in");
                 return Unauthorized(new { message = "Invalid username or password" });
             }
 
-            Console.WriteLine("Logged in");
             return Ok(new UserResponse()
             {
                 Id = user.Id,
@@ -93,54 +91,57 @@ namespace REST_API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<DatabaseUser>> RegisterUser([FromForm] UserCreateRequest request)
         {
-            string? imagePath = null;
-
-            if (request.ProfilePicture != null && request.ProfilePicture.Length > 0)
-            {
-                // Define where to save (ensure this folder exists in your project)
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/profiles");
-                if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
-
-                // Create a unique filename to prevent overwriting
-                var fileName = $"{Guid.NewGuid()}_{request.ProfilePicture.FileName}";
-                var fullPath = Path.Combine(uploadsFolder, fileName);
-
-                // Save the file to the server disk
-                using (var stream = new FileStream(fullPath, FileMode.Create))
-                {
-                    await request.ProfilePicture.CopyToAsync(stream);
-                }
-
-                // This is the path we save to the DB (relative URL)
-                imagePath = $"/uploads/profiles/{fileName}";
-            }
-
-            DatabaseUser newUser = new DatabaseUser()
-            {
-                Username = request.Username,
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                Email = request.Email,
-                Password = request.Password,
-                BirthDate = request.BirthDate,
-                Sex = request.Sex,
-                PhoneNumber = request.PhoneNumber,
-                ProfilePicturePath = imagePath,
-            };
-
             try
             {
+                if (await DatabaseUserController.IsUsernameFree(request.Username) == false)
+                    return BadRequest("This username is already taken! Try another one.");
+
+                if (await DatabaseUserController.IsEmailValid(request.Email) == false)
+                    return BadRequest("This email address is not in the correct format!");
+
+                string? imagePath = null;
+
+                if (request.ProfilePicture != null && request.ProfilePicture.Length > 0)
+                {
+                    // Define where to save (ensure this folder exists in your project)
+                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/profiles");
+                    if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
+
+                    // Create a unique filename to prevent overwriting
+                    var fileName = $"{Guid.NewGuid()}_{request.ProfilePicture.FileName}";
+                    var fullPath = Path.Combine(uploadsFolder, fileName);
+
+                    // Save the file to the server disk
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        await request.ProfilePicture.CopyToAsync(stream);
+                    }
+
+                    // This is the path we save to the DB (relative URL)
+                    imagePath = $"/uploads/profiles/{fileName}";
+                }
+
+                DatabaseUser newUser = new DatabaseUser()
+                {
+                    Username = request.Username,
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    Email = request.Email,
+                    Password = request.Password,
+                    BirthDate = request.BirthDate,
+                    Sex = request.Sex,
+                    PhoneNumber = request.PhoneNumber,
+                    ProfilePicturePath = imagePath,
+                };
+
                 _context.Users.Add(newUser);
                 await _context.SaveChangesAsync();
-                return Ok();
+                return Ok(new { message = "Registration successful" });
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return BadRequest();
-                throw;
+                return StatusCode(500, $"Error");
             }
-
-            //return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
         }
 
         [HttpPatch("{id}")]

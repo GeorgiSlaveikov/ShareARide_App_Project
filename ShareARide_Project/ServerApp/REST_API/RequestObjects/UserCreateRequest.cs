@@ -15,7 +15,7 @@ namespace REST_API.RequestObjects
         [Required]
         public string LastName { get; set; }
 
-        [EmailAddress]
+        [Required]
         public string Email { get; set; }
 
         [Required]

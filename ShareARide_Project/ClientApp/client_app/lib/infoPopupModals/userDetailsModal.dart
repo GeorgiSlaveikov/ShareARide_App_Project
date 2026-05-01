@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import '../entity/user.dart';
+import '../controllers/utils.dart';
 
 class UserDetailModal extends StatelessWidget {
-  final Map<String, dynamic> user;
+  // final Map<String, dynamic> user;
+  final User user;
 
   const UserDetailModal({super.key, required this.user});
 
   // Helper to show the modal from anywhere
-  static void show(BuildContext context, Map<String, dynamic> user) {
+  static void show(BuildContext context, User user) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -17,6 +20,8 @@ class UserDetailModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String fullImageUrl = "http://${Utils().ip}:5205${user.profilePicturePath}";
+    
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -38,21 +43,40 @@ class UserDetailModal extends StatelessWidget {
           const SizedBox(height: 20),
           
           // Header: Avatar and Name
+          // CircleAvatar(
+          //   radius: 40,
+          //   backgroundColor: Colors.deepPurple,
+          //   child: Text(
+          //     //  user['fullName']?[0] ?? '?',
+          //     "${user.firstName} ${user.lastName}",
+          //     style: const TextStyle(fontSize: 30, color: Colors.white),
+          //   ),
+          // ),
           CircleAvatar(
-            radius: 40,
-            backgroundColor: Colors.deepPurple,
-            child: Text(
-               user['fullName']?[0] ?? '?',
-              style: const TextStyle(fontSize: 30, color: Colors.white),
+            radius: 55,
+            backgroundColor: Colors.white,
+            child: CircleAvatar(
+              radius: 52,
+              backgroundColor: Colors.grey.shade200,
+              backgroundImage: (user.profilePicturePath != null && user.profilePicturePath!.isNotEmpty)
+                  ? NetworkImage(fullImageUrl)
+                  : null,
+              child: (user.profilePicturePath == null || user.profilePicturePath!.isEmpty)
+                  ? Icon(
+                      Icons.person_rounded,
+                      size: 55,
+                      color: Colors.grey.shade400,
+                    )
+                  : null,
             ),
           ),
           const SizedBox(height: 10),
           Text(
-            "${user['fullName']}",
+            "${user.firstName} ${user.lastName}",
             style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
           Text(
-            "@${user['fullName']}",
+            "@${user.username}",
             style: TextStyle(color: Colors.grey[600], fontSize: 14),
           ),
           
@@ -81,9 +105,9 @@ class UserDetailModal extends StatelessWidget {
           const Divider(height: 40),
 
           // Details Grid
-          _buildInfoRow(Icons.email, "Email", user['email']),
-          _buildInfoRow(Icons.phone, "Phone", user['phoneNumber']),
-          _buildInfoRow(Icons.cake, "Age", "${user['age']} years old"),
+          _buildInfoRow(Icons.email, "Email", user.email),
+          _buildInfoRow(Icons.phone, "Phone", user.phoneNumber),
+          _buildInfoRow(Icons.cake, "Age", "${user.age} years old"),
           
 
           const SizedBox(height: 30),

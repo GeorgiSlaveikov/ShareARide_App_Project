@@ -125,6 +125,7 @@ namespace REST_API.Controllers
                 }
 
                 imagePath = $"/uploads/vehicles/{fileName}";
+                // comment for test
             }
 
             DatabaseVehicle newVehicle = new DatabaseVehicle()
