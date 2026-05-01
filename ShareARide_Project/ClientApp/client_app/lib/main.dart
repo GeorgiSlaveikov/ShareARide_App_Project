@@ -4,8 +4,13 @@ import 'package:client_app/pages/homePage.dart';
 // import 'package:client_app/pages/bookedOffersPage.dart'; // Booked List
 import 'package:client_app/pages/loginPage.dart';
 import 'package:flutter/material.dart';
+import 'package:client_app/controllers/notificationService.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await NotificationService.init();
+
   runApp(const MyApp());
 }
 
