@@ -3,7 +3,43 @@
   "WorkspaceRootPath": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\",
   "Documents": [
     {
+<<<<<<< HEAD
       "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\githubuploads\\sharearide_app_project\\sharearide_project\\serverapp\\rest_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+=======
+      "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\sharearide_project\\serverapp\\rest_api\\controllers\\vehiclescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\controllers\\vehiclescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\sharearide_project\\serverapp\\rest_api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\sharearide_project\\serverapp\\rest_api\\responseobjects\\vehicleresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\responseobjects\\vehicleresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\sharearide_project\\serverapp\\rest_api\\responseobjects\\userresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\responseobjects\\userresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|d:\\webdevelop\\sharearide_project\\serverapp\\databaselayer\\databasemodels\\databasevehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|solutionrelative:databaselayer\\databasemodels\\databasevehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6AE7E2B-A51B-4370-8C29-1885105643E4}|Core\\Core.csproj|d:\\webdevelop\\sharearide_project\\serverapp\\core\\model\\vehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6AE7E2B-A51B-4370-8C29-1885105643E4}|Core\\Core.csproj|solutionrelative:core\\model\\vehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\sharearide_project\\serverapp\\rest_api\\requestobjects\\vehiclecreaterequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\requestobjects\\vehiclecreaterequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|d:\\webdevelop\\sharearide_project\\serverapp\\databaselayer\\databasemodels\\databaseuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|solutionrelative:databaselayer\\databasemodels\\databaseuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\sharearide_project\\serverapp\\rest_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+>>>>>>> parent of 06b2a69 (Commit - 009)
       "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -46,6 +82,7 @@
           "Children": [
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 1,
               "Title": "City.cs",
               "DocumentMoniker": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\Core\\Model\\City.cs",
@@ -67,6 +104,83 @@
               "ViewState": "AgIAADQAAAAAAAAAAAAhwEMAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-01T16:02:41.878Z"
+=======
+              "DocumentIndex": 6,
+              "Title": "VehicleCreateRequest.cs",
+              "DocumentMoniker": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\RequestObjects\\VehicleCreateRequest.cs",
+              "RelativeDocumentMoniker": "REST_API\\RequestObjects\\VehicleCreateRequest.cs",
+              "ToolTip": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\RequestObjects\\VehicleCreateRequest.cs",
+              "RelativeToolTip": "REST_API\\RequestObjects\\VehicleCreateRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T22:47:22.394Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserResponse.cs",
+              "DocumentMoniker": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\ResponseObjects\\UserResponse.cs",
+              "RelativeDocumentMoniker": "REST_API\\ResponseObjects\\UserResponse.cs",
+              "ToolTip": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\ResponseObjects\\UserResponse.cs",
+              "RelativeToolTip": "REST_API\\ResponseObjects\\UserResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T22:34:14.61Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\Program.cs",
+              "RelativeDocumentMoniker": "REST_API\\Program.cs",
+              "ToolTip": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\Program.cs",
+              "RelativeToolTip": "REST_API\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T22:32:48.944Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "VehicleResponse.cs",
+              "DocumentMoniker": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\ResponseObjects\\VehicleResponse.cs",
+              "RelativeDocumentMoniker": "REST_API\\ResponseObjects\\VehicleResponse.cs",
+              "ToolTip": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\ResponseObjects\\VehicleResponse.cs",
+              "RelativeToolTip": "REST_API\\ResponseObjects\\VehicleResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T22:32:34.879Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "VehiclesController.cs",
+              "DocumentMoniker": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\Controllers\\VehiclesController.cs",
+              "RelativeDocumentMoniker": "REST_API\\Controllers\\VehiclesController.cs",
+              "ToolTip": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\Controllers\\VehiclesController.cs",
+              "RelativeToolTip": "REST_API\\Controllers\\VehiclesController.cs",
+              "ViewState": "AgIAAGkAAAAAAAAAAAAAAHwAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T22:30:37.088Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "REST_API\\Controllers\\UsersController.cs",
+              "ToolTip": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\REST_API\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "REST_API\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAQwGEAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T22:30:36.047Z",
+              "EditorCaption": ""
+>>>>>>> parent of 06b2a69 (Commit - 009)
             },
             {
               "$type": "Document",
@@ -78,7 +192,38 @@
               "RelativeToolTip": "DatabaseLayer\\Database\\DatabaseContext.cs",
               "ViewState": "AgIAAF8AAAAAAAAAAAAwwGYAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+<<<<<<< HEAD
               "WhenOpened": "2026-05-01T15:33:28.034Z"
+=======
+              "WhenOpened": "2026-04-30T22:30:15.772Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DatabaseUser.cs",
+              "DocumentMoniker": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseModels\\DatabaseUser.cs",
+              "RelativeDocumentMoniker": "DatabaseLayer\\DatabaseModels\\DatabaseUser.cs",
+              "ToolTip": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseModels\\DatabaseUser.cs",
+              "RelativeToolTip": "DatabaseLayer\\DatabaseModels\\DatabaseUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T21:56:00.088Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\Core\\Model\\User.cs",
+              "RelativeDocumentMoniker": "Core\\Model\\User.cs",
+              "ToolTip": "D:\\WebDevelop\\ShareARide_Project\\ServerApp\\Core\\Model\\User.cs",
+              "RelativeToolTip": "Core\\Model\\User.cs",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAAACoAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T22:30:03.823Z",
+              "EditorCaption": ""
+>>>>>>> parent of 06b2a69 (Commit - 009)
             },
             {
               "$type": "Document",
@@ -90,6 +235,7 @@
               "RelativeToolTip": "REST_API\\RequestObjects\\UserCreateRequest.cs",
               "ViewState": "AgIAAAgAAAAAAAAAAAAQwBEAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+<<<<<<< HEAD
               "WhenOpened": "2026-05-01T15:08:42.624Z"
             },
             {
@@ -139,6 +285,9 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-01T11:07:17.252Z",
+=======
+              "WhenOpened": "2026-04-30T22:30:03.095Z",
+>>>>>>> parent of 06b2a69 (Commit - 009)
               "EditorCaption": ""
             }
           ]

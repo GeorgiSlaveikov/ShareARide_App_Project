@@ -37,7 +37,11 @@ class DashboardPage extends StatelessWidget {
               centerTitle: true,
               titlePadding: const EdgeInsets.only(bottom: 16),
               title: Text(
+<<<<<<< HEAD
                 "Добре дошъл, ${user?.firstName ?? 'Пътешественик'}",
+=======
+                "Добре дошъл отново, ${user?.firstName ??}",
+>>>>>>> parent of 06b2a69 (Commit - 009)
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -112,6 +116,7 @@ class DashboardPage extends StatelessWidget {
                     // --- PENDING REQUESTS ---
                     PendingRequestsPreview(context: context),
 
+<<<<<<< HEAD
                     const SizedBox(height: 35),
                     buildSectionHeader("Бързи действия"),
                     const SizedBox(height: 16),
@@ -119,6 +124,23 @@ class DashboardPage extends StatelessWidget {
                     Row(
                       children: [
                         buildActionCard(
+=======
+                  const SizedBox(height: 30),
+                  const Text(
+                    "Бързи действия",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 12),
+
+                  // --- UPDATED QUICK ACTIONS ROW ---
+                  Row(
+                    children: [
+                      buildActionCard(
+                        context,
+                        "Създаване на оферта",
+                        Icons.add_circle_outline,
+                        () => Navigator.push(
+>>>>>>> parent of 06b2a69 (Commit - 009)
                           context,
                           "Създай оферта",
                           Icons.add_circle_rounded,
@@ -129,6 +151,7 @@ class DashboardPage extends StatelessWidget {
                             ),
                           ),
                         ),
+<<<<<<< HEAD
                         const SizedBox(width: 12),
                         buildActionCard(
                           context,
@@ -141,6 +164,96 @@ class DashboardPage extends StatelessWidget {
                         ),
                         const SizedBox(width: 12),
                         buildActionCard(
+=======
+                      ),
+                      const SizedBox(width: 10),
+                      buildActionCard(
+                        context,
+                        "Намерете оферта",
+                        Icons.search,
+                        () => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const OffersPage()),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      buildActionCard(
+                        context,
+                        "Моят гараж",
+                        Icons.garage_outlined,
+                        () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const ManageVehiclesPage(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 30),
+                  const Text(
+                    "Вашата активност",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 15),
+
+                  // --- STATS GRID ---
+                  Row(
+                    children: [
+                      buildStatCard(
+                        "Общо пътувания",
+                        "12",
+                        Icons.route,
+                        Colors.blue,
+                      ),
+                      const SizedBox(width: 15),
+                       buildStatCard(
+                        "Рейтинг", 
+                        "4.9", 
+                        Icons.star, 
+                        Colors.orange
+                      ),
+                    ],
+                  ),
+                 
+                  const SizedBox(height: 30),
+                  const Text(
+                    "Информация за пътуване",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: const ListTile(
+                      leading: Icon(
+                        Icons.notifications_active,
+                        color: Colors.deepPurple,
+                      ),
+                      title: Text("Следващото пътуване след 2 дни"),
+                      subtitle: Text("София до Пловдив в 09:00"),
+                      trailing: Icon(Icons.arrow_forward_ios, size: 14),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  const Text(
+                    "Действия в акаунта",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    // clipBehavior ensures the ripple effect stays inside the rounded corners
+                    clipBehavior: Clip.antiAlias,
+                    child: InkWell(
+                      onTap: () {
+                        UserUtils.logout();
+                        Navigator.pushAndRemoveUntil(
+>>>>>>> parent of 06b2a69 (Commit - 009)
                           context,
                           "Моят гараж",
                           Icons.garage_rounded,
@@ -148,8 +261,21 @@ class DashboardPage extends StatelessWidget {
                             context,
                             MaterialPageRoute(builder: (_) => const ManageVehiclesPage()),
                           ),
+<<<<<<< HEAD
                         ),
                       ],
+=======
+                          (route) =>
+                              false, // This clears the entire navigation history
+                        );
+                      },
+                      child: const ListTile(
+                        leading: Icon(Icons.logout, color: Colors.deepPurple),
+                        title: Text("Изход"),
+                        subtitle: Text("Излезте от профила си"),
+                        trailing: Icon(Icons.arrow_forward_ios, size: 14),
+                      ),
+>>>>>>> parent of 06b2a69 (Commit - 009)
                     ),
 
                     const SizedBox(height: 35),

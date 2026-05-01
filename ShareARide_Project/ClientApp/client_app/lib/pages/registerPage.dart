@@ -452,6 +452,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     if (success) {
       ScaffoldMessenger.of(context).showSnackBar(
+<<<<<<< HEAD
 
         SnackBar(content: Text(message), backgroundColor: Colors.green),
       );
@@ -467,10 +468,17 @@ class _RegisterPageState extends State<RegisterPage> {
         //   backgroundColor: Colors.green,
         // ),
 
+=======
+        const SnackBar(
+          content: Text("Успешна регистрация!"),
+          backgroundColor: Colors.green,
+        ),
+>>>>>>> parent of 06b2a69 (Commit - 009)
       );
     } else {
       // Show error without crashing using fallback string
       ScaffoldMessenger.of(context).showSnackBar(
+<<<<<<< HEAD
 
         SnackBar(content: Text(message), backgroundColor: Colors.redAccent),
 
@@ -478,6 +486,12 @@ class _RegisterPageState extends State<RegisterPage> {
         //   content: Text("Невалидни данни"),
         //   backgroundColor: Colors.redAccent,
         // ),
+=======
+        const SnackBar(
+          content: Text("Невалидни данни"),
+          backgroundColor: Colors.redAccent,
+        ),
+>>>>>>> parent of 06b2a69 (Commit - 009)
       );
       return;
     }

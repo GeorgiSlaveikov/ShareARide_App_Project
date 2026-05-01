@@ -7,7 +7,11 @@ import '../controllers/userUtils.dart';
 
 import '../widgets/pageEmptyState.dart';
 
+<<<<<<< HEAD
 import '../infoPopupModals/userDetailModal.dart';
+=======
+import '../widgets/userDetails.dart';
+>>>>>>> parent of 06b2a69 (Commit - 009)
 
 class RequestsPage extends StatefulWidget {
   const RequestsPage({super.key});

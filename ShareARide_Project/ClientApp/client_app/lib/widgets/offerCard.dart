@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../controllers/userUtils.dart';
 import '../controllers/bookingUtils.dart';
+<<<<<<< HEAD
 
 import '../infoPopupModals/userDetailModal.dart';
 import '../widgets/rideMapPreview.dart';
@@ -8,6 +9,9 @@ import '../entity/city.dart';
 import '../controllers/notificationService.dart';
 
 // import '../infoPopupModals/userDetailModal.dart';
+=======
+import '../widgets/userDetails.dart';
+>>>>>>> parent of 06b2a69 (Commit - 009)
 
 class OfferCard extends StatefulWidget {
   final Map<String, dynamic> offer;
