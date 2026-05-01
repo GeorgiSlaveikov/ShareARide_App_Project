@@ -29,12 +29,12 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
           children: [
             ListTile(
               leading: const Icon(Icons.camera_alt),
-              title: const Text('Направете снимка'),
+              title: const Text('Take a Photo'),
               onTap: () => handleImageSource(ImageSource.camera),
             ),
             ListTile(
               leading: const Icon(Icons.photo_library),
-              title: const Text('Изберете от галерия'),
+              title: const Text('Chose from Gallery'),
               onTap: () => handleImageSource(ImageSource.gallery),
             )
           ],
@@ -102,7 +102,6 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
 
   void submitForm() {
     if (_formKey.currentState!.validate()) {
-      // Logic to save the vehicle to your database/API
       final vehicleData = {
         "make": _selectedMake?.name,
         "model": _selectedModel,
@@ -115,7 +114,7 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Превозното средство е създадено успешно!"),
+          content: Text("Vehicle created successfully!"),
           dismissDirection: DismissDirection.horizontal,
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.green,
@@ -128,7 +127,7 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Добавяне на ново превозно средство"),
+        title: const Text("Add New Vehicle"),
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
       ),
@@ -140,38 +139,38 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Детайли за превозното средство",
+                "Vehicle Details",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
 
               // --- MAKE DROPDOWN ---
-              buildLabel("Направи превозно средство"),
+              buildLabel("Vehicle Make"),
               DropdownButtonFormField<VehicleMake>(
-                decoration: _inputDecoration("Изберете марка"),
+                decoration: _inputDecoration("Select Brand"),
                 value: _selectedMake,
                 items: VehicleMake.values.map((make) {
                   return DropdownMenuItem(value: make, child: Text(make.name));
                 }).toList(),
                 onChanged: handleMakeChange,
                 validator: (value) =>
-                    value == null ? "Моля, изберете направи" : null,
+                    value == null ? "Please select a make" : null,
               ),
 
               const SizedBox(height: 20),
 
               // --- MODEL DROPDOWN ---
-              buildLabel("Модел на превозното средство"),
+              buildLabel("Vehicle Model"),
               DropdownButtonFormField<String>(
-                decoration: _inputDecoration("Изберете модел"),
+                decoration: _inputDecoration("Select Model"),
                 value: _selectedModel,
-                disabledHint: const Text("Изберете направи първо"),
+                disabledHint: const Text("Select a make first"),
                 items: _availableModels.map((model) {
                   return DropdownMenuItem(value: model, child: Text(model));
                 }).toList(),
                 onChanged: (val) => setState(() => _selectedModel = val),
                 validator: (value) =>
-                    value == null ? "Моля, изберете модел" : null,
+                    value == null ? "Please select a model" : null,
               ),
 
               const SizedBox(height: 20),
@@ -183,7 +182,7 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        buildLabel("Година"),
+                        buildLabel("Year"),
                         DropdownButtonFormField<int>(
                           decoration: _inputDecoration(null),
                           value: _selectedYear,
@@ -205,14 +204,14 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        buildLabel("Места"),
+                        buildLabel("Seats"),
                         DropdownButtonFormField<int>(
                           decoration: _inputDecoration(null),
                           value: _seats,
                           items: [2, 4, 5, 7, 8, 9].map((s) {
                             return DropdownMenuItem(
                               value: s,
-                              child: Text("$s Места"),
+                              child: Text("$s Seats"),
                             );
                           }).toList(),
                           onChanged: (val) => setState(() => _seats = val!),
@@ -224,7 +223,7 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
               ),
               // --- VEHICLE PHOTO ---
               const SizedBox(height: 20),
-              buildLabel("Снимка на превозно средство"),
+              buildLabel("Vehicle Photo"),
               Center(
                 child: GestureDetector(
                   onTap: pickImage,
@@ -253,7 +252,7 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
                               ),
                               const SizedBox(height: 8),
                               const Text(
-                                "Качете снимка",
+                                "Upload Photo",
                                 style: TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,
@@ -300,7 +299,7 @@ class _CreateVehiclePageState extends State<CreateVehiclePage> {
                     ),
                   ),
                   child: const Text(
-                    "Добавете превозно средство",
+                    "Add Vehicle",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),

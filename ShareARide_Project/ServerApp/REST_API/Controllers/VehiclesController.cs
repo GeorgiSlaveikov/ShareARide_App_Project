@@ -113,7 +113,7 @@ namespace REST_API.Controllers
 
             if (request.VehiclePicture != null && request.VehiclePicture.Length > 0)
             {
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/profiles");
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/vehicles");
                 if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
 
                 var fileName = $"{Guid.NewGuid()}_{request.VehiclePicture.FileName}";

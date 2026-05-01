@@ -121,7 +121,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text("Офертата е публикувана успешно!"),
+            content: Text("Offer Posted Successfully!"),
             backgroundColor: Colors.green,
             dismissDirection: DismissDirection.horizontal,
             behavior: SnackBarBehavior.floating,
@@ -132,7 +132,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text("Публикуването на офертата не бе успешно."),
+            content: Text("Failed to post offer."),
             backgroundColor: Colors.red,
             dismissDirection: DismissDirection.horizontal,
             behavior: SnackBarBehavior.floating,
@@ -148,7 +148,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
         title: const Text(
-          "Създаване на оферта за пътуване",
+          "Create Travel Offer",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -163,7 +163,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildSectionTitle("Информация за маршрута"),
+              _buildSectionTitle("Route Information"),
               Card(
                 elevation: 2,
                 shape: RoundedRectangleBorder(
@@ -176,7 +176,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                       DropdownButtonFormField<int>(
                         value: fromCityId,
                         decoration: inputStyle(
-                          "Град на заминаване",
+                          "Departure City",
                           Icons.location_on_outlined,
                         ),
                         items: cities.map<DropdownMenuItem<int>>((city) {
@@ -189,13 +189,13 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                           fromCityId = val;
                           if (fromCityId == toCityId) toCityId = null;
                         }),
-                        validator: (v) => v == null ? "Задължително" : null,
+                        validator: (v) => v == null ? "Required" : null,
                       ),
                       const SizedBox(height: 20),
                       DropdownButtonFormField<int>(
                         value: toCityId,
                         decoration: inputStyle(
-                          "Град на дестинация",
+                          "Destination City",
                           Icons.flag_outlined,
                         ),
                         items: cities
@@ -208,14 +208,14 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                             })
                             .toList(),
                         onChanged: (val) => setState(() => toCityId = val),
-                        validator: (v) => v == null ? "Задължително" : null,
+                        validator: (v) => v == null ? "Required" : null,
                       ),
                     ],
                   ),
                 ),
               ),
               const SizedBox(height: 30),
-              _buildSectionTitle("Детайли за пътуването"),
+              _buildSectionTitle("Trip Details"),
               Card(
                 elevation: 2,
                 shape: RoundedRectangleBorder(
@@ -228,7 +228,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                       DropdownButtonFormField<int>(
                         value: selectedVehicleId,
                         decoration: inputStyle(
-                          "Изберете превозно средство",
+                          "Select Vehicle",
                           Icons.directions_car_filled_outlined,
                         ),
                         items: userVehicles.map((vehicle) {
@@ -244,7 +244,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                           handleVehicleChange(val);
                         }),
                         validator: (v) =>
-                            v == null ? "Моля, изберете превозно средство" : null,
+                            v == null ? "Please select a vehicle" : null,
                       ),
                       const SizedBox(height: 20),
                       Container(
@@ -267,7 +267,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                             ),
                             const SizedBox(width: 12),
                             Text(
-                              "Предлагани места",
+                              "Seats to offer",
                               style: TextStyle(
                                 color: Colors.grey.shade700,
                                 fontSize: 16,
@@ -318,9 +318,9 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                       TextFormField(
                         controller: priceController,
                         keyboardType: TextInputType.number,
-                        decoration: inputStyle("Цена за място", Icons.euro),
+                        decoration: inputStyle("Price per Seat", Icons.euro),
                         validator: (v) =>
-                            (v == null || v.isEmpty) ? "Задължително" : null,
+                            (v == null || v.isEmpty) ? "Required" : null,
                       ),
                       const SizedBox(height: 10),
                       const Divider(),
@@ -334,7 +334,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                           ),
                         ),
                         title: const Text(
-                          "Време на тръгване",
+                          "Departure Time",
                           style: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                         subtitle: Text(
@@ -363,7 +363,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                   elevation: 5,
                 ),
                 child: const Text(
-                  "ПУБЛИКУВАЙТЕ ОФЕРТА",
+                  "POST OFFER",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,

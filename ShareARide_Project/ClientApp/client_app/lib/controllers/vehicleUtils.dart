@@ -32,8 +32,9 @@ class VehicleUtils {
     try {
       final response = await http.get(url).timeout(const Duration(seconds: 5));
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         var vehicles = jsonDecode(response.body);
+        // print(vehicles);
         var vehiclesList = (vehicles as List)
             .map((vehicle) => Vehicle.fromJson(vehicle))
             .toList();

@@ -88,7 +88,7 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 const SizedBox(height: 16),
                 const Text(
-                  "ДОБРЕ ДОШЛИ ОТНОВО",
+                  "WELCOME BACK",
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -97,7 +97,7 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                 ),
                 const Text(
-                  "Влизане във вашия акаунт",
+                  "Log in to your account",
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.white70,
@@ -125,14 +125,14 @@ class _LoginFormState extends State<LoginForm> {
                         // 4. Modern Input Fields
                         TextFieldElement(
                           controller: _usernameController,
-                          label: "Прякор",
+                          label: "Username",
                           icon: Icons.person_outline,
                           color: themeColor,
                         ),
                         const SizedBox(height: 16),
                         TextFieldElement(
                           controller: _passwordController,
-                          label: "Парола",
+                          label: "Password",
                           icon: Icons.lock_outline,
                           color: themeColor,
                           obscureText: true,
@@ -143,7 +143,7 @@ class _LoginFormState extends State<LoginForm> {
                         MainButtonElement(
                           onPressed: _handleLogin,
                           isLoading: _isLoading,
-                          text: "Влизане",
+                          text: "LOG IN",
                           color: themeColor,
                         ),
                         const SizedBox(height: 16),
@@ -161,11 +161,11 @@ class _LoginFormState extends State<LoginForm> {
                           },
                           child: RichText(
                             text: TextSpan(
-                              text: "Няма те акаунт? ",
+                              text: "Don't have an account? ",
                               style: const TextStyle(color: Colors.black54),
                               children: [
                                 TextSpan(
-                                  text: "Регистрация",
+                                  text: "Register",
                                   style: TextStyle(
                                       color: themeColor,
                                       fontWeight: FontWeight.bold),
@@ -197,7 +197,7 @@ class _LoginFormState extends State<LoginForm> {
     if (response) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Успешно влизане!"),
+          content: Text("Login Success!"),
           backgroundColor: Colors.green,
           behavior: SnackBarBehavior.floating,
           dismissDirection: DismissDirection.horizontal,
@@ -214,7 +214,7 @@ class _LoginFormState extends State<LoginForm> {
       // Shakes the card or shows error
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Невалидни данни"),
+          content: Text("Invalid Credentials"),
           backgroundColor: Colors.redAccent,
           behavior: SnackBarBehavior.floating,
           dismissDirection: DismissDirection.horizontal,

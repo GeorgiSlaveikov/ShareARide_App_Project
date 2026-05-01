@@ -153,7 +153,7 @@ class _OffersPageState extends State<OffersPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Публикувани оферти",
+          "Posted Offers",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.deepPurple,
@@ -170,7 +170,7 @@ class _OffersPageState extends State<OffersPage> {
                   child: TextField(
                     controller: searchController,
                     decoration: InputDecoration(
-                      hintText: "Търсене по град, шофьор и др.",
+                      hintText: "Search by city, driver, etc.",
                       prefixIcon: const Icon(Icons.search),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -190,7 +190,7 @@ class _OffersPageState extends State<OffersPage> {
             child: Row(
               children: [
                 buildTabButton(
-                  label: "Други оферти",
+                  label: "Other Offers",
                   isActive: !showMyOffers,
                   onTap: () {
                     setState(() => showMyOffers = false);
@@ -198,7 +198,7 @@ class _OffersPageState extends State<OffersPage> {
                 ),
                 const SizedBox(width: 8),
                 buildTabButton(
-                  label: "Моите оферти",
+                  label: "My Offers",
                   isActive: showMyOffers,
                   onTap: () {
                     setState(() => showMyOffers = true);
@@ -210,7 +210,7 @@ class _OffersPageState extends State<OffersPage> {
           Expanded(
             child: currentOffers.isEmpty ? 
             pageEmptyState(
-              Icons.checklist_rtl_rounded, Colors.grey.shade300, "Няма оферти", Colors.grey) : ListView.builder(
+              Icons.checklist_rtl_rounded, Colors.grey.shade300, "No offers", Colors.grey) : ListView.builder(
               padding: const EdgeInsets.all(8.0),
               itemCount: currentOffers.length,
               itemBuilder: (context, index) {

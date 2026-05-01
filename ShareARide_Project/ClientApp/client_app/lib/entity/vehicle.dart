@@ -20,13 +20,16 @@ class Vehicle {
   });
 
   factory Vehicle.fromJson(Map<String, dynamic> json) {
+    // print(json);
+    // print("vehicle path: {$json}");
     return Vehicle(
       id: json['id'],
       make: parseMake(json['make']?.toString() ?? "0"),
       model: json['model'] ?? 'Unknown',
       year: json['year'] ?? 0,
       maxCapacity: json['maxCapacity'] ?? 0,
-      ownerId: json['ownerId'] ?? 0
+      ownerId: json['ownerId'] ?? 0,
+      vehiclePicturePath: json['vehiclePicturePath']
     );
   }
 
@@ -131,6 +134,6 @@ class Vehicle {
 
   @override
   String toString() {
-    return 'Make: $make\nModel: $model\nYear: $year\nMax Capacity: $maxCapacity\nOwner ID: $ownerId';
+    return 'Make: $make\nModel: $model\nYear: $year\nMax Capacity: $maxCapacity\nOwner ID: $ownerId\n Path: $vehiclePicturePath\n' ;
   }
 }

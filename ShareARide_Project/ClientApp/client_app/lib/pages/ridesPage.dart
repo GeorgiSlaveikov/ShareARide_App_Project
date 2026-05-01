@@ -46,7 +46,7 @@ class _RidesPageState extends State<RidesPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Моите пътувания", style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text("My Rides", style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
         elevation: 0,
@@ -60,13 +60,13 @@ class _RidesPageState extends State<RidesPage> {
             child: Row(
               children: [
                 buildTabButton(
-                  label: "Предстоящи",
+                  label: "Upcoming",
                   isActive: showUpcoming,
                   onTap: () => setState(() => showUpcoming = true),
                 ),
                 const SizedBox(width: 8),
                 buildTabButton(
-                  label: "Минали пътувания",
+                  label: "Past Rides",
                   isActive: !showUpcoming,
                   onTap: () => setState(() => showUpcoming = false),
                 ),
@@ -135,7 +135,7 @@ class _RidesPageState extends State<RidesPage> {
         children: [
           Icon(Icons.directions_car_filled_outlined, size: 80, color: Colors.grey.shade300),
           const SizedBox(height: 16),
-          Text("Няма ${showUpcoming ? 'предстоящи' : 'минали'} намерени пътувания", 
+          Text("No ${showUpcoming ? 'upcoming' : 'past'} rides found", 
             style: const TextStyle(color: Colors.grey, fontSize: 16)),
         ],
       ),
@@ -165,11 +165,11 @@ class _RidesPageState extends State<RidesPage> {
                     border: Border.all(color: isDriver ? Colors.deepPurple : Colors.teal),
                   ),
                   child: Text(
-                    isDriver ? "шофьор" : "пътник",
+                    isDriver ? "DRIVING" : "PASSENGER",
                     style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: isDriver ? Colors.deepPurple : Colors.teal),
                   ),
                 ),
-                Text("${ride['pricePerSeat']} EURO", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.green)),
+                Text("${ride['pricePerSeat']} BGN", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.green)),
               ],
             ),
           ),
@@ -184,9 +184,9 @@ class _RidesPageState extends State<RidesPage> {
               children: [
                 const Icon(Icons.directions_car, size: 16, color: Colors.grey),
                 const SizedBox(width: 8),
-                Text(ride['vehicle'] ?? "Информация за превозното средство"),
+                Text(ride['vehicle'] ?? "Vehicle Info"),
                 const Spacer(),
-                Text("${ride['passengersCount']} заети"),
+                Text("${ride['passengersCount']} occupied"),
               ],
             ),
           ),
