@@ -59,12 +59,16 @@ namespace DatabaseLayer.InternalControllers
                     });
 
                     foreach (var c in DatabaseCityController.cities)
-                    {
-                        context.Add<DatabaseCity>(new DatabaseCity()
                         {
-                            Name = c.ToString()
-                        });
-                    }
+                            var coordinates = DatabaseCityController.GetCoordinates(c);
+                        
+                            context.Add<DatabaseCity>(new DatabaseCity()
+                            {
+                                Name = c,
+                                Latitude = coordinates.Latitude,
+                                Longitude = coordinates.Longitude
+                            });
+                        }
 
                     context.SaveChanges();
                     //var users = context.Users.ToList();
