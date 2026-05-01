@@ -1,34 +1,60 @@
 class City {
-  int? id; 
+  int? id;
   String name;
+  double latitude;
+  double longitude;
 
-  // Standard Constructor
   City({
     this.id,
-    required this.name
+    required this.name,
+    this.latitude = 0,
+    this.longitude = 0,
   });
 
-  // 1. Factory constructor to create a User from a JSON Map
-  // This is what you use when receiving data from the .NET API
   factory City.fromJson(Map<String, dynamic> json) {
     return City(
       id: json['id'],
-      name: json['name'] ?? ''
+      name: json['name'] ?? '',
+      latitude: _toDouble(json['latitude']),
+      longitude: _toDouble(json['longitude']),
     );
   }
 
-  // 2. Method to convert User object to a JSON Map
-  // This is what you use when sending data TO the .NET API (like Register)
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'name': name
+      'name': name,
+      'latitude': latitude,
+      'longitude': longitude,
     };
   }
 
-  
+  static double _toDouble(dynamic value) {
+    if (value == null) {
+      return 0;
+    }
+
+    if (value is double) {
+      return value;
+    }
+
+    if (value is int) {
+      return value.toDouble();
+    }
+
+    if (value is String) {
+      return double.tryParse(value) ?? 0;
+    }
+
+    return 0;
+  }
+
+  bool get hasCoordinates {
+    return latitude != 0 && longitude != 0;
+  }
+
   @override
   String toString() {
-    return 'Name: $name\n';
+    return 'Name: $name\nLatitude: $latitude\nLongitude: $longitude\n';
   }
 }
