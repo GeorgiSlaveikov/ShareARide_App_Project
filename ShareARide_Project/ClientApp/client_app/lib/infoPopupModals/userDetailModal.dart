@@ -3,7 +3,6 @@ import '../entity/user.dart';
 import '../controllers/utils.dart';
 
 class UserDetailModal extends StatelessWidget {
-  // final Map<String, dynamic> user;
   final User user;
 
   const UserDetailModal({super.key, required this.user});
@@ -41,17 +40,6 @@ class UserDetailModal extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          
-          // Header: Avatar and Name
-          // CircleAvatar(
-          //   radius: 40,
-          //   backgroundColor: Colors.deepPurple,
-          //   child: Text(
-          //     //  user['fullName']?[0] ?? '?',
-          //     "${user.firstName} ${user.lastName}",
-          //     style: const TextStyle(fontSize: 30, color: Colors.white),
-          //   ),
-          // ),
           CircleAvatar(
             radius: 55,
             backgroundColor: Colors.white,
@@ -104,15 +92,12 @@ class UserDetailModal extends StatelessWidget {
 
           const Divider(height: 40),
 
-          // Details Grid
-          _buildInfoRow(Icons.email, "Email", user.email),
-          _buildInfoRow(Icons.phone, "Phone", user.phoneNumber),
-          _buildInfoRow(Icons.cake, "Age", "${user.age} years old"),
-          
-
+          _buildInfoRow(Icons.email, "Имейл", user.email),
+          _buildInfoRow(Icons.phone, "Телефонен номер", user.phoneNumber),
+          _buildInfoRow(Icons.cake, "Възраст", "${user.age} години"),
+           
           const SizedBox(height: 30),
           
-          // Close Button
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
@@ -123,7 +108,7 @@ class UserDetailModal extends StatelessWidget {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 padding: const EdgeInsets.symmetric(vertical: 15),
               ),
-              child: const Text("Close Profile"),
+              child: const Text("Затвори"),
             ),
           ),
           const SizedBox(height: 20),

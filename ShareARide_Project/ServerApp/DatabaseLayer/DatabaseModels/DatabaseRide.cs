@@ -22,35 +22,32 @@ namespace DatabaseLayer.DatabaseModels
 
         public virtual ICollection<DatabaseBooking> DatabaseBookings { get; set; } = new List<DatabaseBooking>();
 
-        public void AddBooking(DatabaseBooking booking)
-        {
-            if (booking == null)
-                throw new ArgumentNullException(nameof(booking));
+        //public void AddBooking(DatabaseBooking booking)
+        //{
+        //    if (booking == null)
+        //        throw new ArgumentNullException(nameof(booking));
 
-            if (DatabaseOffer.AvailableSeats < 1)
-                throw new InvalidOperationException("No available seats.");
+        //    if (DatabaseOffer.AvailableSeats < 1)
+        //        throw new InvalidOperationException("No available seats.");
 
-            DatabaseBookings.Add(booking);
-            PassengersCount = CalculatePassengersCount();
-        }
+        //    DatabaseBookings.Add(booking);
+        //    PassengersCount = CalculatePassengersCount();
+        //}
 
-        public void RemoveBooking(DatabaseBooking booking)
-        {
-            if (booking == null)
-                throw new ArgumentNullException(nameof(booking));
+        //public void RemoveBooking(DatabaseBooking booking)
+        //{
+        //    if (booking == null)
+        //        throw new ArgumentNullException(nameof(booking));
 
-            DatabaseBookings.Remove(booking);
-            PassengersCount = CalculatePassengersCount();
-        }
+        //    DatabaseBookings.Remove(booking);
+        //    PassengersCount = CalculatePassengersCount();
+        //}
 
         public int CalculatePassengersCount()
         {
-            int sum = 0;
-            foreach (var item in DatabaseBookings)
-            {
-                sum += item.BookedSeats;
-            }
-            return sum;
+            return DatabaseBookings
+                .Where(b => b.Status == Core.Others.BookingStatus.Accepted)
+                .Sum(b => b.BookedSeats);
         }
     }
 }

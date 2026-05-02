@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import '../controllers/userUtils.dart';
 import '../controllers/utils.dart';
 
-// import '../styles/mainColors.dart';
-
 import '../elements/textFieldElement.dart';
 import '../elements/connectionBadgeElement.dart';
 import '../elements/mainButtonElement.dart';
@@ -43,21 +41,51 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Sex? _selectedSex = Sex.Male;
 
-  void _verifyConnection() async {
-    bool status = await Utils.checkConnection();
-    setState(() {
-      _isConnected = status;
-    });
+  DateTime get _latestAllowedBirthDate {
+    final now = DateTime.now();
+    return DateTime(now.year - 18, now.month, now.day);
   }
 
   @override
   void initState() {
     super.initState();
+
+    final defaultBirthDate = _latestAllowedBirthDate;
+    _birthDateController.text =
+        "${defaultBirthDate.year}-${defaultBirthDate.month.toString().padLeft(2, '0')}-${defaultBirthDate.day.toString().padLeft(2, '0')}";
+
     _verifyConnection();
+
     CityUtils.getCities().then((data) {
+      if (!mounted) return;
+
       setState(() {
         cities = data;
       });
+    });
+  }
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _emailController.dispose();
+    _phoneNumberController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _birthDateController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+
+    super.dispose();
+  }
+
+  void _verifyConnection() async {
+    bool status = await Utils.checkConnection();
+
+    if (!mounted) return;
+
+    setState(() {
+      _isConnected = status;
     });
   }
 
@@ -65,9 +93,9 @@ class _RegisterPageState extends State<RegisterPage> {
     try {
       final XFile? pickedFile = await _picker.pickImage(
         source: source,
-        maxWidth: 1000, // Optimize image size
+        maxWidth: 1000,
         maxHeight: 1000,
-        imageQuality: 85, // Compress slightly for faster upload
+        imageQuality: 85,
       );
 
       if (pickedFile != null) {
@@ -80,7 +108,6 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  // This creates the "Alert/Action Sheet" at the bottom
   void _showImagePickerOptions() {
     showModalBottomSheet(
       context: context,
@@ -123,17 +150,23 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future<void> _selectDate(BuildContext context) async {
-    DateTime? picked = await showDatePicker(
+    final latestAllowedDate = _latestAllowedBirthDate;
+
+    DateTime? initialDate;
+
+    if (_birthDateController.text.isNotEmpty) {
+      initialDate = DateTime.tryParse(_birthDateController.text);
+    }
+
+    final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1900), // Adjust based on your needs
-      lastDate: DateTime.now(),
+      initialDate: initialDate ?? latestAllowedDate,
+      firstDate: DateTime(1900),
+      lastDate: latestAllowedDate,
     );
 
     if (picked != null) {
       setState(() {
-        // _selectedBirthDate = picked; // Store the actual DateTime object
-        // Format it for the UI
         _birthDateController.text =
             "${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
       });
@@ -143,11 +176,23 @@ class _RegisterPageState extends State<RegisterPage> {
   int _calculateAge(DateTime birthDate) {
     DateTime today = DateTime.now();
     int age = today.year - birthDate.year;
+
     if (today.month < birthDate.month ||
         (today.month == birthDate.month && today.day < birthDate.day)) {
       age--;
     }
+
     return age;
+  }
+
+  bool _isBirthDateValid() {
+    final birthDate = DateTime.tryParse(_birthDateController.text);
+
+    if (birthDate == null) {
+      return false;
+    }
+
+    return !birthDate.isAfter(_latestAllowedBirthDate);
   }
 
   @override
@@ -156,7 +201,6 @@ class _RegisterPageState extends State<RegisterPage> {
     final secondaryColor = Colors.blueAccent;
 
     return Scaffold(
-      // 1. Cool Gradient Background
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -172,14 +216,13 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
         ),
         child: Center(
-          // Makes the content scrollable on small screens
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(24.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                  onTap: _showImagePickerOptions, // Trigger the alert
+                  onTap: _showImagePickerOptions,
                   child: Stack(
                     children: [
                       Container(
@@ -204,7 +247,6 @@ class _RegisterPageState extends State<RegisterPage> {
                               : null,
                         ),
                       ),
-                      // Little camera icon badge
                       Positioned(
                         bottom: 0,
                         right: 0,
@@ -221,21 +263,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     ],
                   ),
                 ),
-                // // 2. Stylish App Icon/Logo Placeholder
-                // Container(
-                //   padding: const EdgeInsets.all(16),
-                //   decoration: BoxDecoration(
-                //     color: Colors.white.withOpacity(0.1),
-                //     shape: BoxShape.circle,
-                //     border: Border.all(color: Colors.white24, width: 2),
-                //   ),
-                //   child: const Icon(
-                //     Icons.account_circle,
-                //     size: 80,
-                //     color: Colors.white,
-                //   ),
-                // ),
+
                 const SizedBox(height: 16),
+
                 const Text(
                   "ДОБРЕ ДОШЛИ",
                   style: TextStyle(
@@ -245,13 +275,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     letterSpacing: 1.5,
                   ),
                 ),
+
                 const Text(
                   "Създайте си акаунт",
                   style: TextStyle(fontSize: 16, color: Colors.white70),
                 ),
+
                 const SizedBox(height: 32),
 
-                // 3. Floating Card Container for the Form
                 Card(
                   elevation: 12,
                   shadowColor: Colors.black45,
@@ -266,46 +297,55 @@ class _RegisterPageState extends State<RegisterPage> {
                     constraints: const BoxConstraints(maxWidth: 450),
                     child: Column(
                       children: [
-                        // Connection Status Indicator (Styled)
                         ConnectionBadgeElement(_isConnected),
+
                         const SizedBox(height: 24),
 
-                        // 4. Modern Input Fields
                         TextFieldElement(
                           controller: _usernameController,
                           label: "Прякор",
                           icon: Icons.person_outline,
                           color: themeColor,
                         ),
+
                         const SizedBox(height: 16),
+
                         TextFieldElement(
                           controller: _emailController,
                           label: "Емейл",
-                          icon: Icons.person_outline,
+                          icon: Icons.email_outlined,
                           color: themeColor,
                         ),
+
                         const SizedBox(height: 16),
+
                         TextFieldElement(
                           controller: _phoneNumberController,
                           label: "Телефонен номер",
                           icon: Icons.phone,
                           color: themeColor,
                         ),
+
                         const SizedBox(height: 32),
+
                         TextFieldElement(
                           controller: _firstNameController,
                           label: "Първо име",
                           icon: Icons.person_outline,
                           color: themeColor,
                         ),
+
                         const SizedBox(height: 16),
+
                         TextFieldElement(
                           controller: _lastNameController,
                           label: "Фамилия",
                           icon: Icons.person_outline,
                           color: themeColor,
                         ),
+
                         const SizedBox(height: 16),
+
                         TextFieldElement(
                           onTap: () => _selectDate(context),
                           controller: _birthDateController,
@@ -314,7 +354,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           color: themeColor,
                           obscureText: false,
                         ),
+
                         const SizedBox(height: 16),
+
                         DropdownButtonFormField<int>(
                           value: _selectedSex?.index,
                           decoration: InputDecoration(
@@ -341,7 +383,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           validator: (value) =>
                               value == null ? "Моля, изберете пол" : null,
                         ),
+
                         const SizedBox(height: 32),
+
                         TextFieldElement(
                           controller: _passwordController,
                           label: "Парола",
@@ -349,7 +393,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           color: themeColor,
                           obscureText: true,
                         ),
+
                         const SizedBox(height: 16),
+
                         TextFieldElement(
                           controller: _confirmPasswordController,
                           label: "Потвърдете паролата",
@@ -372,12 +418,26 @@ class _RegisterPageState extends State<RegisterPage> {
                               );
                               return;
                             }
+
+                            if (!_isBirthDateValid()) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    "Трябва да сте навършили поне 18 години.",
+                                  ),
+                                  backgroundColor: Colors.redAccent,
+                                ),
+                              );
+                              return;
+                            }
+
                             handleRegister();
                           },
                           isLoading: _isLoading,
                           text: "Регистрация",
                           color: themeColor,
                         ),
+
                         const SizedBox(height: 16),
 
                         TextButton(
@@ -416,9 +476,34 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void handleRegister() async {
     if (_selectedSex == null) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Please select a gender")));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Моля, изберете пол."),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+      return;
+    }
+
+    if (!_isBirthDateValid()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Трябва да сте навършили поне 18 години."),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+      return;
+    }
+
+    final birthDate = DateTime.tryParse(_birthDateController.text);
+
+    if (birthDate == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Моля, изберете валидна дата на раждане."),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
       return;
     }
 
@@ -431,69 +516,40 @@ class _RegisterPageState extends State<RegisterPage> {
       _phoneNumberController.text,
       _emailController.text,
       _birthDateController.text,
-      _calculateAge(
-        _birthDateController.text.isNotEmpty
-            ? DateTime.tryParse(_birthDateController.text) ??
-                  DateTime(2000, 1, 1)
-            : DateTime(2000, 1, 1),
-      ),
-      _selectedSex!.index, // Safe now because of check above
+      _calculateAge(birthDate),
+      _selectedSex!.index,
       _passwordController.text,
       _selectedImage,
     );
 
+    if (!mounted) return;
+
     setState(() => _isLoading = false);
 
-    // 2. Handle the response safely
     final bool success = response['success'] ?? false;
-    // Ensure we use the correct key (match this to what UserUtils returns)
     final String message =
         response['message'] ?? 'Unknown response from server';
 
     if (success) {
       ScaffoldMessenger.of(context).showSnackBar(
-
-
-        SnackBar(content: Text(message), backgroundColor: Colors.green),
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Colors.green,
+        ),
       );
 
-      // Navigate away on success
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => const MyApp()),
         (route) => false,
-
-        // const SnackBar(
-        //   content: Text("Успешна регистрация!"),
-        //   backgroundColor: Colors.green,
-        // ),
-
-
-        // const SnackBar(
-        //   content: Text("Успешна регистрация!"),
-        //   backgroundColor: Colors.green,
-        // ),
-
       );
     } else {
-      // Show error without crashing using fallback string
       ScaffoldMessenger.of(context).showSnackBar(
-
-
-        SnackBar(content: Text(message), backgroundColor: Colors.redAccent),
-
-        // SnackBar(
-        //   content: Text("Невалидни данни"),
-        //   backgroundColor: Colors.redAccent,
-        // ),
-
-        // const SnackBar(
-        //   content: Text("Невалидни данни"),
-        //   backgroundColor: Colors.redAccent,
-        // ),
-
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Colors.redAccent,
+        ),
       );
-      return;
     }
   }
 }

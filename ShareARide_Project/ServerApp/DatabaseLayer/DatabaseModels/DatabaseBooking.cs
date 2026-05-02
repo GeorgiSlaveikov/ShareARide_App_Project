@@ -15,8 +15,9 @@ namespace DatabaseLayer.DatabaseModels
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public override int Id { get; set; }
         public int OfferId { get; set; }
-        public int RequestorId { get; set; }
+        public int RequesterId { get; set; }
         public int RequestedForId { get; set; }
+        public int? RideId { get; set; }
 
 
         [ForeignKey("OfferId")]
@@ -28,7 +29,7 @@ namespace DatabaseLayer.DatabaseModels
         [ForeignKey("RequestedForId")]
         public virtual DatabaseUser DatabaseRequestedFor { get; set; }
 
-        //// Many-to-Many relationship for Passengers
-        //public virtual ICollection<DatabaseUser> DatabasePassengers { get; set; } = new List<DatabaseUser>();
+        [ForeignKey("RideId")]
+        public virtual DatabaseRide? DatabaseRide { get; set; }
     }
 }

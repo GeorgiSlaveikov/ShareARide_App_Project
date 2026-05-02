@@ -1,5 +1,6 @@
 ﻿using Core.Model;
 using DatabaseLayer.Database;
+using DatabaseLayer.DatabaseControllers;
 using DatabaseLayer.DatabaseModelControllers;
 using DatabaseLayer.DatabaseModels;
 using System;
@@ -34,26 +35,42 @@ namespace DatabaseLayer.InternalControllers
                 try
                 {
                     context.Database.EnsureCreated();
-                    DatabaseUser user = null;
-                    if (!context.Users.Any(u => u.Username == "georgi.slaveykov"))
+                    DatabaseUser user1 = null;
+                    if (!context.Users.Any(u => u.Username == "georgi"))
                     {
-                        user = new DatabaseUser()
+                        user1 = new DatabaseUser()
                         {
-                            Username = "georgi.slaveykov",
+                            Username = "georgi",
                             FirstName = "Georgi",
                             LastName = "Slaveykov",
                             Email = "georgi.slaveykov@gmail.com",
-                            Password = "0000",
+                            Password = DatabaseUserController.HashPassword("0000"),
                             PhoneNumber = "0886586117"
 
                         };
-                        context.Add<DatabaseUser>(user);
+                        context.Add<DatabaseUser>(user1);
+                    }
+
+                    DatabaseUser user2 = null;
+                    if (!context.Users.Any(u => u.Username == "rostislav"))
+                    {
+                        user2 = new DatabaseUser()
+                        {
+                            Username = "rostislav",
+                            FirstName = "Rostislav",
+                            LastName = "Stoyanov",
+                            Email = "rostislav.stoyanov@gmail.com",
+                            Password = DatabaseUserController.HashPassword("0000"),
+                            PhoneNumber = "0886586117"
+
+                        };
+                        context.Add<DatabaseUser>(user2);
                     }
 
                     context.Add<DatabaseVehicle>(new DatabaseVehicle() { 
                         Make = Core.Others.VehicleMake.Audi,
                         Model = "A7",
-                        DatabaseOwner = user,
+                        DatabaseOwner = user1,
                         Year = 2015,
                         MaxCapacity = 4
                     });
@@ -71,7 +88,6 @@ namespace DatabaseLayer.InternalControllers
                         }
 
                     context.SaveChanges();
-                    //var users = context.Users.ToList();
                 }
                 catch (Exception e)
                 {

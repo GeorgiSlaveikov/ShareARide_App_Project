@@ -91,7 +91,8 @@ class BookingUtils {
   static Future<bool> createBooking(
     int requestedForId,
     int requesterId,
-    int offerId
+    int offerId,
+    int bookedSeats
   ) async {
     final url = Uri.parse('http://${Utils().ip}:5205/api/bookings/create');
 
@@ -105,7 +106,8 @@ class BookingUtils {
         body: jsonEncode({
           "requestedForId": requestedForId,
           "requesterId": requesterId,
-          "offerId": offerId
+          "offerId": offerId,
+          "bookedSeats": bookedSeats
         }),
       );
 
@@ -117,6 +119,62 @@ class BookingUtils {
       }
     } catch (e) {
       print('Connection Error: $e');
+      return false;
+    }
+  }
+
+  static Future<bool> acceptBooking(int bookingId) async {
+    final url = Uri.parse('http://${Utils().ip}:5205/api/bookings/accept');
+
+    try {
+      final response = await http
+          .put(
+            url,
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json",
+            },
+            body: jsonEncode({"bookingId": bookingId}),
+          )
+          .timeout(const Duration(seconds: 5));
+
+      if (response.statusCode == 200) {
+        return true;
+      }
+
+      print("Accept booking failed: ${response.statusCode}");
+      print(response.body);
+      return false;
+    } catch (e) {
+      print("Accept booking error: $e");
+      return false;
+    }
+  }
+
+  static Future<bool> rejectBooking(int bookingId) async {
+    final url = Uri.parse('http://${Utils().ip}:5205/api/bookings/reject');
+
+    try {
+      final response = await http
+          .put(
+            url,
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json",
+            },
+            body: jsonEncode({"bookingId": bookingId}),
+          )
+          .timeout(const Duration(seconds: 5));
+
+      if (response.statusCode == 200) {
+        return true;
+      }
+
+      print("Reject booking failed: ${response.statusCode}");
+      print(response.body);
+      return false;
+    } catch (e) {
+      print("Reject booking error: $e");
       return false;
     }
   }

@@ -1,4 +1,5 @@
 import 'package:client_app/controllers/offerUtils.dart';
+import 'package:client_app/controllers/rideUtils.dart';
 import 'package:client_app/controllers/userUtils.dart';
 import 'package:flutter/material.dart';
 import '../controllers/cityUtils.dart';
@@ -108,7 +109,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
 
   void submitOffer() async {
     if (formKey.currentState!.validate()) {
-      bool success = await OfferUtils.createOffer(
+      var offer = await OfferUtils.createOffer(
         UserUtils.getCurrentUserId(),
         selectedVehicleId!,
         selectedDateTime.toIso8601String(),
@@ -118,7 +119,12 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
         int.parse(availableSeatsController.text),
       );
 
-      if (success) {
+      bool rideSuccess = await RideUtils.createRide(
+        offer!.id!,
+        UserUtils.getCurrentUserId(),
+      );
+
+      if (rideSuccess) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text("Офертата е публикувана успешно!"),
@@ -163,7 +169,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildSectionTitle("Информация за маршрута"),
+              buildSectionTitle("Информация за маршрута"),
               Card(
                 elevation: 2,
                 shape: RoundedRectangleBorder(
@@ -215,7 +221,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                 ),
               ),
               const SizedBox(height: 30),
-              _buildSectionTitle("Детайли за пътуването"),
+              buildSectionTitle("Детайли за пътуването"),
               Card(
                 elevation: 2,
                 shape: RoundedRectangleBorder(
@@ -345,7 +351,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                             color: Colors.black,
                           ),
                         ),
-                        onTap: _pickDateTime,
+                        onTap: pickDateTime,
                       ),
                     ],
                   ),
@@ -378,7 +384,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
     );
   }
 
-  Widget _buildSectionTitle(String title) {
+  Widget buildSectionTitle(String title) {
     return Padding(
       padding: const EdgeInsets.only(left: 4, bottom: 10),
       child: Text(
@@ -392,7 +398,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
     );
   }
 
-  Future<void> _pickDateTime() async {
+  Future<void> pickDateTime() async {
     DateTime? d = await showDatePicker(
       context: context,
       initialDate: selectedDateTime,

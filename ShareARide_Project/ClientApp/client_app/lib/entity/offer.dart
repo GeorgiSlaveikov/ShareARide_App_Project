@@ -58,33 +58,27 @@ class Offer {
       departureCityName: json['departureCityName'] ?? '',
       destinationCityName: json['destinationCityName'] ?? '',
       departureCity: json['departureCity'] != null
-      ? City.fromJson(json['departureCity'])
-      : null,
+          ? City.fromJson(json['departureCity'])
+          : null,
       destinationCity: json['destinationCity'] != null
-      ? City.fromJson(json['destinationCity'])
-      : null,
+          ? City.fromJson(json['destinationCity'])
+          : null,
       pricePerSeat: json['pricePerSeat']?.toDouble() ?? 0.0,
       availableSeats: json['availableSeats'] ?? 0,
-      createdAt: DateTime.parse(json['createdAt']),
-      expiresOn: DateTime.parse(json['expiresOn']),
-      status: parseOfferStatus(json['offerStatus'].toString())
+      createdAt: json['createdAt'] != null
+          ? DateTime.tryParse(json['createdAt'])
+          : null,
+      expiresOn: json['expiresOn'] != null
+          ? DateTime.tryParse(json['expiresOn'])
+          : null,
+      status: parseOfferStatus(
+        (json['status'] ?? json['offerStatus'] ?? 0).toString(),
+      ),
+      // status: parseOfferStatus(json['status'].toString())
     );
   }
 
   Map<String, dynamic> toJson() {
-    // return {
-    //   'id': id,
-    //   'driverId': driverId,
-    //   'vehicleId': vehicleId,
-    //   'departureTime': departureTime.toIso8601String(),
-    //   'departureCityId': departureCityId,
-    //   'destinationCityId': destinationCityId,
-    //   'pricePerSeat': pricePerSeat,
-    //   'createdAt': createdAt?.toIso8601String(),
-    //   'expiresOn': expiresOn?.toIso8601String(),
-    //   'status': 0,
-    // };
-
     return {
       'id': id,
       'driverName': driverName,
@@ -112,7 +106,7 @@ class Offer {
         offerStatus = OfferStatus.Cancelled;
         break;
       default:
-        offerStatus = OfferStatus.Active; 
+        offerStatus = OfferStatus.Active;
     }
     return offerStatus;
   }

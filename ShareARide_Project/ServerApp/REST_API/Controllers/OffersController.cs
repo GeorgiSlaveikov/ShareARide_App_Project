@@ -3,6 +3,7 @@ using DatabaseLayer.DatabaseModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using REST_API.Objects;
+using REST_API.RequestObjects;
 using REST_API.ResponseObjects;
 
 namespace REST_API.Controllers
@@ -28,6 +29,7 @@ namespace REST_API.Controllers
                   DriverId = o.DriverId,
                   DriverName = o.DatabaseDriver.FirstName + " " + o.DatabaseDriver.LastName,
                   DriverAge = o.DatabaseDriver.Age,
+                  VehicleId = o.VehicleId,
                   VehicleMake = o.DatabaseVehicle.Make.ToString(),
                   VehicleModel = o.DatabaseVehicle.Model,
                   VehicleYear = o.DatabaseVehicle.Year,
@@ -50,6 +52,8 @@ namespace REST_API.Controllers
                   },
                   PricePerSeat = o.PricePerSeat,
                   AvailableSeats = o.AvailableSeats,
+                  CreatedAt = o.CreatedAt,
+                  ExpiresOn = o.ExpiresOn,
                   Status = o.OfferStatus
               }).ToListAsync();
         }
@@ -66,6 +70,7 @@ namespace REST_API.Controllers
                     DriverId = o.DriverId,
                     DriverName = o.DatabaseDriver.FirstName + " " + o.DatabaseDriver.LastName,
                     DriverAge = o.DatabaseDriver.Age,
+                    VehicleId = o.VehicleId,
                     VehicleMake = o.DatabaseVehicle.Make.ToString(),
                     VehicleModel = o.DatabaseVehicle.Model,
                     VehicleYear = o.DatabaseVehicle.Year,
@@ -88,6 +93,8 @@ namespace REST_API.Controllers
                     },
                     PricePerSeat = o.PricePerSeat,
                     AvailableSeats = o.AvailableSeats,
+                    CreatedAt = o.CreatedAt,
+                    ExpiresOn = o.ExpiresOn,
                     Status = o.OfferStatus
                 }).FirstOrDefaultAsync();
 
@@ -112,6 +119,7 @@ namespace REST_API.Controllers
             DriverId = o.DriverId,
             DriverName = o.DatabaseDriver.FirstName + " " + o.DatabaseDriver.LastName,
             DriverAge = o.DatabaseDriver.Age,
+            VehicleId = o.VehicleId,
             VehicleMake = o.DatabaseVehicle.Make.ToString(),
             VehicleModel = o.DatabaseVehicle.Model,
             VehicleYear = o.DatabaseVehicle.Year,
@@ -134,6 +142,8 @@ namespace REST_API.Controllers
             },
             PricePerSeat = o.PricePerSeat,
             AvailableSeats = o.AvailableSeats,
+            CreatedAt = o.CreatedAt,
+            ExpiresOn = o.ExpiresOn,
             Status = o.OfferStatus
         })
         .ToListAsync();
@@ -151,6 +161,7 @@ namespace REST_API.Controllers
             DriverId = o.DriverId,
             DriverName = o.DatabaseDriver.FirstName + " " + o.DatabaseDriver.LastName,
             DriverAge = o.DatabaseDriver.Age,
+            VehicleId = o.VehicleId,
             VehicleMake = o.DatabaseVehicle.Make.ToString(),
             VehicleModel = o.DatabaseVehicle.Model,
             VehicleYear = o.DatabaseVehicle.Year,
@@ -173,66 +184,176 @@ namespace REST_API.Controllers
             },
             PricePerSeat = o.PricePerSeat,
             AvailableSeats = o.AvailableSeats,
+            CreatedAt = o.CreatedAt,
+            ExpiresOn = o.ExpiresOn,
             Status = o.OfferStatus
         })
         .ToListAsync();
         }
 
         [HttpPost("create")]
-        public async Task<ActionResult<DatabaseOffer>> CreateOffer([FromBody] OfferCreateRequest request)
+        public async Task<ActionResult<OfferResponse>> CreateOffer([FromBody] OfferCreateRequest request)
         {
-            DatabaseOffer newOffer = new DatabaseOffer()
+            var driver = await _context.Users.FirstOrDefaultAsync(u => u.Id == request.DriverId);
+            if (driver == null)
+            {
+                return BadRequest("Driver does not exist.");
+            }
+
+            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == request.VehicleId);
+            if (vehicle == null)
+            {
+                return BadRequest("Vehicle does not exist.");
+            }
+
+            var departureCity = await _context.Cities.FirstOrDefaultAsync(c => c.Id == request.DepartureCityId);
+            if (departureCity == null)
+            {
+                return BadRequest("Departure city does not exist.");
+            }
+
+            var destinationCity = await _context.Cities.FirstOrDefaultAsync(c => c.Id == request.DestinationCityId);
+            if (destinationCity == null)
+            {
+                return BadRequest("Destination city does not exist.");
+            }
+
+            var newOffer = new DatabaseOffer
             {
                 DriverId = request.DriverId,
-                DatabaseDriver = _context.Users.FirstOrDefault(u => u.Id == request.DriverId) ?? new DatabaseUser(),
                 VehicleId = request.VehicleId,
-                DatabaseVehicle = _context.Vehicles.FirstOrDefault(v => v.Id == request.VehicleId) ?? new DatabaseVehicle(),
                 DepartureTime = request.DepartureTime,
                 DepartureCityId = request.DepartureCityId,
-                DatabaseDestinationCity = _context.Cities.FirstOrDefault(c => c.Id == request.DestinationCityId) ?? new DatabaseCity(),
                 DestinationCityId = request.DestinationCityId,
-                DatabaseDepartureCity = _context.Cities.FirstOrDefault(c => c.Id == request.DepartureCityId) ?? new DatabaseCity(),
                 PricePerSeat = request.PricePerSeat,
                 AvailableSeats = request.AvailableSeats,
                 CreatedAt = DateTime.Now,
+                ExpiresOn = request.DepartureTime.AddHours(-2),
                 OfferStatus = Core.Others.OfferStatus.Active
             };
 
             _context.Offers.Add(newOffer);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetOffer), new { id = newOffer.Id }, newOffer);
+
+            var response = new OfferResponse
+            {
+                Id = newOffer.Id,
+                DriverId = newOffer.DriverId,
+                DriverName = driver.FirstName + " " + driver.LastName,
+                DriverAge = driver.Age,
+
+                VehicleId = newOffer.VehicleId,
+                VehicleMake = vehicle.Make.ToString(),
+                VehicleModel = vehicle.Model,
+                VehicleYear = vehicle.Year,
+
+                DepartureTime = newOffer.DepartureTime,
+
+                DepartureCityName = departureCity.Name,
+                DestinationCityName = destinationCity.Name,
+
+                DepartureCity = new CityResponse
+                {
+                    Id = departureCity.Id,
+                    Name = departureCity.Name,
+                    Latitude = departureCity.Latitude,
+                    Longitude = departureCity.Longitude
+                },
+
+                DestinationCity = new CityResponse
+                {
+                    Id = destinationCity.Id,
+                    Name = destinationCity.Name,
+                    Latitude = destinationCity.Latitude,
+                    Longitude = destinationCity.Longitude
+                },
+
+                PricePerSeat = newOffer.PricePerSeat,
+                AvailableSeats = newOffer.AvailableSeats,
+                CreatedAt = newOffer.CreatedAt,
+                ExpiresOn = newOffer.ExpiresOn,
+                Status = newOffer.OfferStatus
+            };
+
+            return CreatedAtAction(nameof(GetOffer), new { id = newOffer.Id }, response);
         }
 
         [HttpPut("update_vehicle")]
-        public async Task<IActionResult> UpdateVehicle([FromBody] OfferVehicleApiObject offerVehicleApiObject)
+        public async Task<IActionResult> UpdateVehicle([FromBody] OfferVehicleUpdateRequest request)
         {
-            // 1. Find the offer in the database
-            var offer = await _context.Offers.FindAsync(offerVehicleApiObject.OfferId);
+            var offer = await _context.Offers.FindAsync(request.OfferId);
 
             if (offer == null)
             {
                 return NotFound("Offer not found.");
             }
 
-            // 2. Validate that the new vehicle exists (Optional but recommended)
-            var vehicleExists = await _context.Vehicles.AnyAsync(v => v.Id == offerVehicleApiObject.VehicleId);
+            var vehicleExists = await _context.Vehicles.AnyAsync(v => v.Id == request.VehicleId);
             if (!vehicleExists)
             {
                 return BadRequest("The selected vehicle does not exist.");
             }
 
-            // 3. Update the vehicle ID
-            offer.VehicleId = offerVehicleApiObject.VehicleId;
+            offer.VehicleId = request.VehicleId;
 
             try
             {
                 await _context.SaveChangesAsync();
-                return Ok(); // Returns HTTP 200 as expected by your Flutter code
+                return Ok(); 
             }
             catch (Exception ex)
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
+        }
+
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateOffer([FromBody] OfferUpdateRequest request)
+        {
+            var offer = await _context.Offers.FirstOrDefaultAsync(o => o.Id == request.OfferId);
+
+            if (offer == null)
+                return NotFound("Offer not found.");
+
+            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == request.VehicleId);
+
+            if (vehicle == null)
+                return BadRequest("Selected vehicle does not exist.");
+
+            var departureCity = await _context.Cities.FirstOrDefaultAsync(c => c.Id == request.DepartureCityId);
+
+            if (departureCity == null)
+                return BadRequest("Departure city does not exist.");
+
+            var destinationCity = await _context.Cities.FirstOrDefaultAsync(c => c.Id == request.DestinationCityId);
+
+            if (destinationCity == null)
+                return BadRequest("Destination city does not exist.");
+
+            if (request.DepartureCityId == request.DestinationCityId)
+                return BadRequest("Departure city and destination city cannot be the same.");
+
+            if (request.PricePerSeat <= 0)
+                return BadRequest("Price per seat must be greater than zero.");
+
+            if (request.AvailableSeats <= 0)
+                return BadRequest("Available seats must be greater than zero.");
+
+            if (request.AvailableSeats > vehicle.MaxCapacity)
+                return BadRequest("Available seats cannot be greater than vehicle capacity.");
+
+            offer.VehicleId = request.VehicleId;
+            offer.DepartureTime = request.DepartureTime;
+            offer.DepartureCityId = request.DepartureCityId;
+            offer.DestinationCityId = request.DestinationCityId;
+            offer.PricePerSeat = request.PricePerSeat;
+            offer.AvailableSeats = request.AvailableSeats;
+
+            offer.ExpiresOn = request.DepartureTime.AddHours(-2);
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
         }
     }
 }

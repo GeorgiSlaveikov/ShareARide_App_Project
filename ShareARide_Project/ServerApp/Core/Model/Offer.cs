@@ -62,6 +62,5 @@ namespace Core.Model
             Console.WriteLine("Calculating expiration time!");
             return DepartureTime.AddHours(-2);
         }
-
     }
 }

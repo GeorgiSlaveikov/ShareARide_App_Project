@@ -258,6 +258,68 @@
         }
       }
     },
+    "/api/Bookings/accept": {
+      "put": {
+        "tags": [
+          "Bookings"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingDecisionRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingDecisionRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingDecisionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Bookings/reject": {
+      "put": {
+        "tags": [
+          "Bookings"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingDecisionRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingDecisionRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingDecisionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Cities": {
       "get": {
         "tags": [
@@ -588,17 +650,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/DatabaseOffer"
+                  "$ref": "#/components/schemas/OfferResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DatabaseOffer"
+                  "$ref": "#/components/schemas/OfferResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DatabaseOffer"
+                  "$ref": "#/components/schemas/OfferResponse"
                 }
               }
             }
@@ -615,17 +677,48 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OfferVehicleApiObject"
+                "$ref": "#/components/schemas/OfferVehicleUpdateRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/OfferVehicleApiObject"
+                "$ref": "#/components/schemas/OfferVehicleUpdateRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/OfferVehicleApiObject"
+                "$ref": "#/components/schemas/OfferVehicleUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Offers/update": {
+      "put": {
+        "tags": [
+          "Offers"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OfferUpdateRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OfferUpdateRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OfferUpdateRequest"
               }
             }
           }
@@ -650,7 +743,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/BookingResponse"
+                    "$ref": "#/components/schemas/RideResponse"
                   }
                 }
               },
@@ -658,7 +751,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/BookingResponse"
+                    "$ref": "#/components/schemas/RideResponse"
                   }
                 }
               },
@@ -666,7 +759,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/BookingResponse"
+                    "$ref": "#/components/schemas/RideResponse"
                   }
                 }
               }
@@ -697,17 +790,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/DatabaseBooking"
+                  "$ref": "#/components/schemas/DatabaseRide"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DatabaseBooking"
+                  "$ref": "#/components/schemas/DatabaseRide"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DatabaseBooking"
+                  "$ref": "#/components/schemas/DatabaseRide"
                 }
               }
             }
@@ -724,17 +817,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BookingCreateRequest"
+                "$ref": "#/components/schemas/RideCreateRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/BookingCreateRequest"
+                "$ref": "#/components/schemas/RideCreateRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/BookingCreateRequest"
+                "$ref": "#/components/schemas/RideCreateRequest"
               }
             }
           }
@@ -745,20 +838,115 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/DatabaseOffer"
+                  "$ref": "#/components/schemas/RideResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DatabaseOffer"
+                  "$ref": "#/components/schemas/RideResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DatabaseOffer"
+                  "$ref": "#/components/schemas/RideResponse"
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/Rides/related_to_user/{userId}": {
+      "get": {
+        "tags": [
+          "Rides"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RideResponse"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RideResponse"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RideResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Rides/{id}/cancel": {
+      "put": {
+        "tags": [
+          "Rides"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Rides/{id}/finish": {
+      "put": {
+        "tags": [
+          "Rides"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -1304,6 +1492,20 @@
           "offerId": {
             "type": "integer",
             "format": "int32"
+          },
+          "bookedSeats": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BookingDecisionRequest": {
+        "type": "object",
+        "properties": {
+          "bookingId": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -1452,13 +1654,18 @@
             "type": "integer",
             "format": "int32"
           },
-          "requestorId": {
+          "requesterId": {
             "type": "integer",
             "format": "int32"
           },
           "requestedForId": {
             "type": "integer",
             "format": "int32"
+          },
+          "rideId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
           },
           "databaseOffer": {
             "$ref": "#/components/schemas/DatabaseOffer"
@@ -1468,6 +1675,9 @@
           },
           "databaseRequestedFor": {
             "$ref": "#/components/schemas/DatabaseUser"
+          },
+          "databaseRide": {
+            "$ref": "#/components/schemas/DatabaseRide"
           }
         },
         "additionalProperties": false
@@ -1560,6 +1770,37 @@
           },
           "databaseDestinationCity": {
             "$ref": "#/components/schemas/DatabaseCity"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DatabaseRide": {
+        "type": "object",
+        "properties": {
+          "passengersCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "$ref": "#/components/schemas/RideStatus"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "offerId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "databaseOffer": {
+            "$ref": "#/components/schemas/DatabaseOffer"
+          },
+          "databaseBookings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DatabaseBooking"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1728,6 +1969,10 @@
             "type": "integer",
             "format": "int32"
           },
+          "vehicleId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "vehicleMake": {
             "type": "string",
             "nullable": true
@@ -1789,7 +2034,41 @@
         "type": "integer",
         "format": "int32"
       },
-      "OfferVehicleApiObject": {
+      "OfferUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "offerId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vehicleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "departureTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "departureCityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "destinationCityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pricePerSeat": {
+            "type": "number",
+            "format": "double"
+          },
+          "availableSeats": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OfferVehicleUpdateRequest": {
         "type": "object",
         "properties": {
           "offerId": {
@@ -1802,6 +2081,103 @@
           }
         },
         "additionalProperties": false
+      },
+      "RideCreateRequest": {
+        "type": "object",
+        "properties": {
+          "driverId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "offerId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RideResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "offerId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "passengersCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "$ref": "#/components/schemas/RideStatus"
+          },
+          "availableSeats": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pricePerSeat": {
+            "type": "number",
+            "format": "double"
+          },
+          "driverId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "driverName": {
+            "type": "string",
+            "nullable": true
+          },
+          "departureTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "departureCityName": {
+            "type": "string",
+            "nullable": true
+          },
+          "destinationCityName": {
+            "type": "string",
+            "nullable": true
+          },
+          "vehicleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vehicleMake": {
+            "type": "string",
+            "nullable": true
+          },
+          "vehicleModel": {
+            "type": "string",
+            "nullable": true
+          },
+          "vehicleYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "databaseBookings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DatabaseBooking"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RideStatus": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "type": "integer",
+        "format": "int32"
       },
       "Sex": {
         "enum": [

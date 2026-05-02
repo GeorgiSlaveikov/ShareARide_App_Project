@@ -88,51 +88,145 @@ class OfferUtils {
     return null;
   }
 
-  static Future<bool> createOffer(
-    int driverId,
-    int vehicleId,
-    String departureTime,
-    int departureCityId,
-    int destinationCityId,
-    double pricePerSeat,
-    int availableSeats
-  ) async {
-    final url = Uri.parse('http://${Utils().ip}:5205/api/offers/create');
+  // static Future<bool> createOffer(
+  //   int driverId,
+  //   int vehicleId,
+  //   String departureTime,
+  //   int departureCityId,
+  //   int destinationCityId,
+  //   double pricePerSeat,
+  //   int availableSeats
+  // ) async {
+  //   final url = Uri.parse('http://${Utils().ip}:5205/api/offers/create');
 
-    try {
-      final response = await http.post(
-        url,
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        },
-        body: jsonEncode({
-          "driverId": driverId,
-          "vehicleId": vehicleId,
-          "departureTime": departureTime,
-          "departureCityId": departureCityId,
-          "destinationCityId": destinationCityId,
-          "pricePerSeat": pricePerSeat,
-          "availableSeats": availableSeats
-        }),
-      );
+  //   try {
+  //     final response = await http.post(
+  //       url,
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "Accept": "application/json",
+  //       },
+  //       body: jsonEncode({
+  //         "driverId": driverId,
+  //         "vehicleId": vehicleId,
+  //         "departureTime": departureTime,
+  //         "departureCityId": departureCityId,
+  //         "destinationCityId": destinationCityId,
+  //         "pricePerSeat": pricePerSeat,
+  //         "availableSeats": availableSeats
+  //       }),
+  //     );
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        print('Offer created successfully!');
-        return true;
-        // TODO: Save userData['id'] to SharedPreferences here
-      } else if (response.statusCode == 401) {
-        print('Error: Invalid credentials');
-        return false;
-      } else {
-        print('Server Error: ${response.statusCode}');
-        return false;
-      }
-    } catch (e) {
-      print('Connection Error: $e');
+  //     if (response.statusCode == 200 || response.statusCode == 201) {
+  //       print('Offer created successfully!');
+  //       return true;
+  //     } else if (response.statusCode == 401) {
+  //       print('Error: Invalid credentials');
+  //       return false;
+  //     } else {
+  //       print('Server Error: ${response.statusCode}');
+  //       return false;
+  //     }
+  //   } catch (e) {
+  //     print('Connection Error: $e');
+  //     return false;
+  //   }
+  // }
+
+  static Future<Offer?> createOffer(
+  int driverId,
+  int vehicleId,
+  String departureTime,
+  int departureCityId,
+  int destinationCityId,
+  double pricePerSeat,
+  int availableSeats,
+) async {
+  final url = Uri.parse('http://${Utils().ip}:5205/api/offers/create');
+
+  try {
+    final response = await http
+        .post(
+          url,
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+          },
+          body: jsonEncode({
+            "driverId": driverId,
+            "vehicleId": vehicleId,
+            "departureTime": departureTime,
+            "departureCityId": departureCityId,
+            "destinationCityId": destinationCityId,
+            "pricePerSeat": pricePerSeat,
+            "availableSeats": availableSeats,
+          }),
+        )
+        .timeout(const Duration(seconds: 5));
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      final decoded = jsonDecode(response.body);
+      final offer = Offer.fromJson(decoded);
+
+      print('Offer created successfully!');
+      print(offer);
+
+      return offer;
+    } else {
+      print('Create offer failed: ${response.statusCode}');
+      print(response.body);
+      return null;
+    }
+  } catch (e) {
+    print('Create offer error: $e');
+    return null;
+  }
+}
+
+static Future<bool> updateOffer({
+  required int offerId,
+  required int vehicleId,
+  required String departureTime,
+  required int departureCityId,
+  required int destinationCityId,
+  required double pricePerSeat,
+  required int availableSeats,
+}) async {
+  final url = Uri.parse('http://${Utils().ip}:5205/api/offers/update');
+
+  try {
+    final response = await http
+        .put(
+          url,
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+          },
+          body: jsonEncode({
+            "offerId": offerId,
+            "vehicleId": vehicleId,
+            "departureTime": departureTime,
+            "departureCityId": departureCityId,
+            "destinationCityId": destinationCityId,
+            "pricePerSeat": pricePerSeat,
+            "availableSeats": availableSeats,
+          }),
+        )
+        .timeout(const Duration(seconds: 5));
+
+    if (response.statusCode == 200) {
+      print("Offer updated successfully!");
+      return true;
+    } else {
+      print("Update offer failed: ${response.statusCode}");
+      print(response.body);
       return false;
     }
+  } catch (e) {
+    print("Update offer error: $e");
+    return false;
   }
+}
 
   static Future<bool> updateOfferVehicle(int offerId, int newVehicleId) async {
     final url = Uri.parse(

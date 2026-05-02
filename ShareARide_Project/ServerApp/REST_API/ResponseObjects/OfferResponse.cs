@@ -8,6 +8,7 @@ namespace REST_API.ResponseObjects
         public int DriverId { get; set; }
         public string DriverName { get; set; }
         public int DriverAge { get; set; }
+        public int VehicleId { get; set; }
         public string VehicleMake { get; set; }
         public string VehicleModel { get; set; }
         public int VehicleYear { get; set; }

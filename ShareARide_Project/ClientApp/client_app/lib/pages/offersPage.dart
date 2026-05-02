@@ -1,8 +1,271 @@
+// import 'package:client_app/widgets/pageEmptyState.dart';
+// import 'package:flutter/material.dart';
+// import '../controllers/offerUtils.dart';
+// import '../controllers/userUtils.dart';
+
+// import '../widgets/offerCard.dart';
+
+// class OffersPage extends StatefulWidget {
+//   const OffersPage({super.key});
+
+//   @override
+//   State<OffersPage> createState() => _OffersPageState();
+// }
+
+// class _OffersPageState extends State<OffersPage> {
+//   final searchController = TextEditingController();
+
+//   var myOffers = [];
+//   var otherOffers = [];
+
+//   bool showMyOffers = false;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     fetchOtherOffers();
+//     fetchMyOffers();
+//   }
+
+//   void fetchMyOffers() async {
+//     var offers = await OfferUtils.getMyOffers(UserUtils.getCurrentUserId());
+//     var mappedOffers = await Future.wait(
+//       offers.map((offer) async {
+//         final fromCityName = offer.departureCityName;
+//         final toCityName = offer.destinationCityName;
+//         final driverName = offer.driverName;
+//         final vehicleMake = offer.vehicleMake;
+//         final vehicleModel = offer.vehicleModel;
+//         final vhicleYear = offer.vehicleYear;
+
+//         return {
+//           "id": offer.id,
+//           "from": fromCityName,
+//           "to": toCityName,
+//           "departureCity": offer.departureCity,
+//           "destinationCity": offer.destinationCity,
+//           "date": offer.departureTime.toString(),
+//           "driver": driverName,
+//           "driverId": offer.driverId,
+//           "price": offer.pricePerSeat.toStringAsFixed(2),
+//           "availableSeats": offer.availableSeats,
+//           "createdAt": offer.createdAt.toString(),
+//           "vehicle": {
+//             "make": vehicleMake,
+//             "model": vehicleModel,
+//             "year": vhicleYear,
+//           },
+//         };
+//       }).toList()
+//     );
+
+//     mappedOffers.sort((a, b) {
+//       return (DateTime.parse(
+//         b['createdAt'].toString(),
+//       )).compareTo(DateTime.parse(a['createdAt'].toString()));
+//     });
+
+//     setState(() {
+//       myOffers = mappedOffers;
+//     });
+//   }
+
+//   void fetchOtherOffers() async {
+//     var offers = await OfferUtils.getOtherOffers(UserUtils.getCurrentUserId());
+//     var mappedOffers = await Future.wait(
+//       offers.map((offer) async {
+//         final fromCityName = offer.departureCityName;
+//         final toCityName = offer.destinationCityName;
+//         final driverName = offer.driverName;
+//         final vehicleMake = offer.vehicleMake;
+//         final vehicleModel = offer.vehicleModel;
+//         final vhicleYear = offer.vehicleYear;
+
+//         return {
+//           "id": offer.id,
+//           "from": fromCityName,
+//           "to": toCityName,
+//           "departureCity": offer.departureCity,
+//           "destinationCity": offer.destinationCity,
+//           "date": offer.departureTime.toString(),
+//           "driver": driverName,
+//           "driverId": offer.driverId,
+//           "price": offer.pricePerSeat.toStringAsFixed(2),
+//           "availableSeats": offer.availableSeats,
+//           "createdAt": offer.createdAt.toString(),
+//           "vehicle": {
+//             "make": vehicleMake,
+//             "model": vehicleModel,
+//             "year": vhicleYear,
+//           },
+//         };
+//       }).toList(),
+//     );
+
+//     mappedOffers.sort((a, b) {
+//       return (DateTime.parse(
+//         b['createdAt'].toString(),
+//       )).compareTo(DateTime.parse(a['createdAt'].toString()));
+//     });
+
+//     setState(() {
+//       otherOffers = mappedOffers;
+//     });
+//   }
+
+//   void refresh() {
+//     if (showMyOffers) {
+//       fetchMyOffers();
+//     } else {
+//       fetchOtherOffers();
+//     }
+//   }
+
+//   void onSearch() {
+//     String query = searchController.text.toLowerCase();
+//     if (query.isEmpty) {
+//       refresh();
+//       return;
+//     }
+//     setState(() {
+//       if (showMyOffers) {
+//         myOffers = myOffers
+//             .where(
+//               (offer) =>
+//                   offer['from'].toLowerCase().contains(query) ||
+//                   offer['to'].toLowerCase().contains(query) ||
+//                   offer['driver'].toLowerCase().contains(query)
+//             )
+//             .toList();
+//       } else {
+//         otherOffers = otherOffers
+//             .where(
+//               (offer) =>
+//                   offer['from'].toLowerCase().contains(query) ||
+//                   offer['to'].toLowerCase().contains(query) ||
+//                   offer['driver'].toLowerCase().contains(query)
+//             )
+//             .toList();
+//       }
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final currentOffers = showMyOffers ? myOffers : otherOffers;
+
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text(
+//           "Публикувани оферти",
+//           style: TextStyle(fontWeight: FontWeight.bold),
+//         ),
+//         backgroundColor: Colors.deepPurple,
+//         foregroundColor: Colors.white,
+//       ),
+//       body: Column(
+//         children: [
+//           Container(
+//             padding: const EdgeInsets.all(16.0),
+//             color: Colors.deepPurple.withOpacity(0.1),
+//             child: Row(
+//               children: [
+//                 Expanded(
+//                   child: TextField(
+//                     controller: searchController,
+//                     decoration: InputDecoration(
+//                       hintText: "Търсене по град, шофьор и др.",
+//                       prefixIcon: const Icon(Icons.search),
+//                       border: OutlineInputBorder(
+//                         borderRadius: BorderRadius.circular(10),
+//                       ),
+//                       filled: true,
+//                       fillColor: Colors.white,
+//                     ),
+//                     onChanged: (value) => onSearch(),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//           Container(
+//             color: Colors.deepPurple.withOpacity(0.1),
+//             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+//             child: Row(
+//               children: [
+//                 buildTabButton(
+//                   label: "Други оферти",
+//                   isActive: !showMyOffers,
+//                   onTap: () {
+//                     setState(() => showMyOffers = false);
+//                   },
+//                 ),
+//                 const SizedBox(width: 8),
+//                 buildTabButton(
+//                   label: "Моите оферти",
+//                   isActive: showMyOffers,
+//                   onTap: () {
+//                     setState(() => showMyOffers = true);
+//                   },
+//                 ),
+//               ],
+//             ),
+//           ),
+//           Expanded(
+//             child: currentOffers.isEmpty ? 
+//             pageEmptyState(
+//               Icons.checklist_rtl_rounded, Colors.grey.shade300, "Няма оферти", Colors.grey) : ListView.builder(
+//               padding: const EdgeInsets.all(8.0),
+//               itemCount: currentOffers.length,
+//               itemBuilder: (context, index) {
+//                 final offer = currentOffers[index];
+//                 return OfferCard(
+//                   offer: offer, 
+//                   isMyOffer: showMyOffers, 
+//                   onOfferUpdate: showMyOffers ? fetchMyOffers : fetchOtherOffers,);
+//               },
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+// Widget buildTabButton({
+//   required String label,
+//   required bool isActive,
+//   required VoidCallback onTap,
+// }) {
+//   return Expanded(
+//     child: GestureDetector(
+//       onTap: onTap,
+//       child: Container(
+//         padding: const EdgeInsets.symmetric(vertical: 10),
+//         decoration: BoxDecoration(
+//           color: isActive ? Colors.deepPurple : Colors.white,
+//           borderRadius: BorderRadius.circular(10),
+//           border: Border.all(color: Colors.deepPurple),
+//         ),
+//         child: Text(
+//           label,
+//           textAlign: TextAlign.center,
+//           style: TextStyle(
+//             color: isActive ? Colors.white : Colors.deepPurple,
+//             fontWeight: FontWeight.bold,
+//           ),
+//         ),
+//       ),
+//     ),
+//   );
+// }
+
 import 'package:client_app/widgets/pageEmptyState.dart';
 import 'package:flutter/material.dart';
+
 import '../controllers/offerUtils.dart';
 import '../controllers/userUtils.dart';
-
+import '../entity/offer.dart';
 import '../widgets/offerCard.dart';
 
 class OffersPage extends StatefulWidget {
@@ -15,8 +278,11 @@ class OffersPage extends StatefulWidget {
 class _OffersPageState extends State<OffersPage> {
   final searchController = TextEditingController();
 
-  var myOffers = [];
-  var otherOffers = [];
+  List<Offer> myOffers = [];
+  List<Offer> otherOffers = [];
+
+  List<Offer> allMyOffers = [];
+  List<Offer> allOtherOffers = [];
 
   bool showMyOffers = false;
 
@@ -27,89 +293,45 @@ class _OffersPageState extends State<OffersPage> {
     fetchMyOffers();
   }
 
-  void fetchMyOffers() async {
-    var offers = await OfferUtils.getMyOffers(UserUtils.getCurrentUserId());
-    var mappedOffers = await Future.wait(
-      offers.map((offer) async {
-        final fromCityName = offer.departureCityName;
-        final toCityName = offer.destinationCityName;
-        final driverName = offer.driverName;
-        final vehicleMake = offer.vehicleMake;
-        final vehicleModel = offer.vehicleModel;
-        final vhicleYear = offer.vehicleYear;
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
 
-        return {
-          "id": offer.id,
-          "from": fromCityName,
-          "to": toCityName,
-          "departureCity": offer.departureCity,
-          "destinationCity": offer.destinationCity,
-          "date": offer.departureTime.toString(),
-          "driver": driverName,
-          "driverId": offer.driverId,
-          "price": offer.pricePerSeat.toStringAsFixed(2),
-          "availableSeats": offer.availableSeats,
-          "createdAt": offer.createdAt.toString(),
-          "vehicle": {
-            "make": vehicleMake,
-            "model": vehicleModel,
-            "year": vhicleYear,
-          },
-        };
-      }).toList()
-    );
+  Future<void> fetchMyOffers() async {
+    final userId = await UserUtils.getCurrentUserId();
+    final offers = await OfferUtils.getMyOffers(userId);
 
-    mappedOffers.sort((a, b) {
-      return (DateTime.parse(
-        b['createdAt'].toString(),
-      )).compareTo(DateTime.parse(a['createdAt'].toString()));
+    offers.sort((a, b) {
+      final bCreated = b.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+      final aCreated = a.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+      return bCreated.compareTo(aCreated);
     });
 
+    if (!mounted) return;
+
     setState(() {
-      myOffers = mappedOffers;
+      allMyOffers = offers;
+      myOffers = offers;
     });
   }
 
-  void fetchOtherOffers() async {
-    var offers = await OfferUtils.getOtherOffers(UserUtils.getCurrentUserId());
-    var mappedOffers = await Future.wait(
-      offers.map((offer) async {
-        final fromCityName = offer.departureCityName;
-        final toCityName = offer.destinationCityName;
-        final driverName = offer.driverName;
-        final vehicleMake = offer.vehicleMake;
-        final vehicleModel = offer.vehicleModel;
-        final vhicleYear = offer.vehicleYear;
+  Future<void> fetchOtherOffers() async {
+    final userId = await UserUtils.getCurrentUserId();
+    final offers = await OfferUtils.getOtherOffers(userId);
 
-        return {
-          "id": offer.id,
-          "from": fromCityName,
-          "to": toCityName,
-          "departureCity": offer.departureCity,
-          "destinationCity": offer.destinationCity,
-          "date": offer.departureTime.toString(),
-          "driver": driverName,
-          "driverId": offer.driverId,
-          "price": offer.pricePerSeat.toStringAsFixed(2),
-          "availableSeats": offer.availableSeats,
-          "createdAt": offer.createdAt.toString(),
-          "vehicle": {
-            "make": vehicleMake,
-            "model": vehicleModel,
-            "year": vhicleYear,
-          },
-        };
-      }).toList(),
-    );
-
-    mappedOffers.sort((a, b) {
-      return (DateTime.parse(
-        b['createdAt'].toString(),
-      )).compareTo(DateTime.parse(a['createdAt'].toString()));
+    offers.sort((a, b) {
+      final bCreated = b.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+      final aCreated = a.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+      return bCreated.compareTo(aCreated);
     });
 
+    if (!mounted) return;
+
     setState(() {
-      otherOffers = mappedOffers;
+      allOtherOffers = offers;
+      otherOffers = offers;
     });
   }
 
@@ -122,30 +344,33 @@ class _OffersPageState extends State<OffersPage> {
   }
 
   void onSearch() {
-    String query = searchController.text.toLowerCase();
-    if (query.isEmpty) {
-      refresh();
-      return;
-    }
+    final query = searchController.text.toLowerCase().trim();
+
     setState(() {
       if (showMyOffers) {
-        myOffers = myOffers
-            .where(
-              (offer) =>
-                  offer['from'].toLowerCase().contains(query) ||
-                  offer['to'].toLowerCase().contains(query) ||
-                  offer['driver'].toLowerCase().contains(query)
-            )
-            .toList();
+        if (query.isEmpty) {
+          myOffers = allMyOffers;
+        } else {
+          myOffers = allMyOffers.where((offer) {
+            return offer.departureCityName.toLowerCase().contains(query) ||
+                offer.destinationCityName.toLowerCase().contains(query) ||
+                offer.driverName.toLowerCase().contains(query) ||
+                offer.vehicleMake.toLowerCase().contains(query) ||
+                offer.vehicleModel.toLowerCase().contains(query);
+          }).toList();
+        }
       } else {
-        otherOffers = otherOffers
-            .where(
-              (offer) =>
-                  offer['from'].toLowerCase().contains(query) ||
-                  offer['to'].toLowerCase().contains(query) ||
-                  offer['driver'].toLowerCase().contains(query)
-            )
-            .toList();
+        if (query.isEmpty) {
+          otherOffers = allOtherOffers;
+        } else {
+          otherOffers = allOtherOffers.where((offer) {
+            return offer.departureCityName.toLowerCase().contains(query) ||
+                offer.destinationCityName.toLowerCase().contains(query) ||
+                offer.driverName.toLowerCase().contains(query) ||
+                offer.vehicleMake.toLowerCase().contains(query) ||
+                offer.vehicleModel.toLowerCase().contains(query);
+          }).toList();
+        }
       }
     });
   }
@@ -182,12 +407,13 @@ class _OffersPageState extends State<OffersPage> {
                       filled: true,
                       fillColor: Colors.white,
                     ),
-                    onChanged: (value) => onSearch(),
+                    onChanged: (_) => onSearch(),
                   ),
                 ),
               ],
             ),
           ),
+
           Container(
             color: Colors.deepPurple.withOpacity(0.1),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -197,7 +423,11 @@ class _OffersPageState extends State<OffersPage> {
                   label: "Други оферти",
                   isActive: !showMyOffers,
                   onTap: () {
-                    setState(() => showMyOffers = false);
+                    setState(() {
+                      showMyOffers = false;
+                      searchController.clear();
+                      otherOffers = allOtherOffers;
+                    });
                   },
                 ),
                 const SizedBox(width: 8),
@@ -205,23 +435,39 @@ class _OffersPageState extends State<OffersPage> {
                   label: "Моите оферти",
                   isActive: showMyOffers,
                   onTap: () {
-                    setState(() => showMyOffers = true);
+                    setState(() {
+                      showMyOffers = true;
+                      searchController.clear();
+                      myOffers = allMyOffers;
+                    });
                   },
                 ),
               ],
             ),
           ),
+
           Expanded(
-            child: currentOffers.isEmpty ? 
-            pageEmptyState(
-              Icons.checklist_rtl_rounded, Colors.grey.shade300, "Няма оферти", Colors.grey) : ListView.builder(
-              padding: const EdgeInsets.all(8.0),
-              itemCount: currentOffers.length,
-              itemBuilder: (context, index) {
-                final offer = currentOffers[index];
-                return OfferCard(offer: offer, isMyOffer: showMyOffers);
-              },
-            ),
+            child: currentOffers.isEmpty
+                ? pageEmptyState(
+                    Icons.checklist_rtl_rounded,
+                    Colors.grey.shade300,
+                    "Няма оферти",
+                    Colors.grey,
+                  )
+                : ListView.builder(
+                    padding: const EdgeInsets.all(8.0),
+                    itemCount: currentOffers.length,
+                    itemBuilder: (context, index) {
+                      final offer = currentOffers[index];
+
+                      return OfferCard(
+                        offer: offer,
+                        isMyOffer: showMyOffers,
+                        onOfferUpdate:
+                            showMyOffers ? fetchMyOffers : fetchOtherOffers,
+                      );
+                    },
+                  ),
           ),
         ],
       ),
