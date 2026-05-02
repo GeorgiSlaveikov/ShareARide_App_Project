@@ -2,8 +2,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz_data;
 import 'package:timezone/timezone.dart' as tz;
 
-// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
 class NotificationService {
   static final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
@@ -52,29 +50,6 @@ class NotificationService {
     }
   }
 
-  // static Future<void> _scheduleNotification({
-  //   required int id,
-  //   required DateTime scheduledTime,
-  // }) async {
-  //   await _plugin.zonedSchedule(
-  //     id: id,
-  //     title: 'Напомняне за пътуване',
-  //     body: 'Пътуването ви започва скоро.',
-  //     tz.TZDateTime.from(scheduledTime, tz.local),
-  //     const NotificationDetails(
-  //       android: AndroidNotificationDetails(
-  //         'ride_reminders_channel',
-  //         'Ride reminders',
-  //         channelDescription: 'Notifications for upcoming shared rides',
-  //         importance: Importance.high,
-  //         priority: Priority.high,
-  //         icon: '@mipmap/ic_launcher',
-  //       ),
-  //     ),
-  //     androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-  //   );
-  // }
-
   static Future<void> _scheduleNotification({
     required int id,
     required DateTime scheduledTime,
@@ -94,9 +69,6 @@ class NotificationService {
           icon: '@mipmap/ic_launcher',
         ),
       ),
-      // This enum is defined within the flutter_local_notifications package
-      // uiLocalNotificationDateInterpretation:
-      //     UILocalNotificationDateInterpretation.absoluteTime,
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
     );
   }
@@ -120,8 +92,6 @@ class NotificationService {
     ),
     );
   }
-
-  
 
   static Future<void> cancelRideReminder({
     required int notificationId,

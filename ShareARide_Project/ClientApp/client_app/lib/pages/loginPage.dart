@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import '../controllers/userUtils.dart';
-// import '../styles/mainColors.dart';
-
 import '../elements/textFieldElement.dart';
 import '../elements/connectionBadgeElement.dart';
 import '../elements/mainButtonElement.dart';
@@ -118,11 +116,8 @@ class _LoginFormState extends State<LoginForm> {
                     constraints: const BoxConstraints(maxWidth: 450),
                     child: Column(
                       children: [
-                        // Connection Status Indicator (Styled)
                         ConnectionBadgeElement(_isConnected, onTap: _verifyConnection),
                         const SizedBox(height: 24),
-
-                        // 4. Modern Input Fields
                         TextFieldElement(
                           controller: _usernameController,
                           label: "Прякор",
@@ -138,8 +133,6 @@ class _LoginFormState extends State<LoginForm> {
                           obscureText: true,
                         ),
                         const SizedBox(height: 32),
-
-                        // 5. Main Action Button (Login)
                         MainButtonElement(
                           onPressed: _handleLogin,
                           isLoading: _isLoading,
@@ -147,8 +140,6 @@ class _LoginFormState extends State<LoginForm> {
                           color: themeColor,
                         ),
                         const SizedBox(height: 16),
-
-                        // 6. Secondary Action (Register)
                         TextButton(
                           onPressed: _isLoading ? null : () {
 
@@ -206,10 +197,6 @@ class _LoginFormState extends State<LoginForm> {
 
       widget.onLoginSuccess();
 
-      // setState(() {
-      //     _usernameController.clear();
-      //     _passwordController.clear();
-      // });
     } else {
       // Shakes the card or shows error
       ScaffoldMessenger.of(context).showSnackBar(

@@ -13,7 +13,6 @@ class VehicleDetailModal extends StatelessWidget {
   });
 
   static void show(BuildContext context, Vehicle vehicle, VoidCallback onEditPhoto) {
-    // print(vehicle);
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -36,7 +35,6 @@ class VehicleDetailModal extends StatelessWidget {
     final String fullImageUrl = "http://${Utils().ip}:5205/$path";
 
     return Container(
-      // Force the modal to take full width of the screen
       width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -58,7 +56,7 @@ class VehicleDetailModal extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: double.infinity, // Force full width
+            width: double.infinity,
             height: 360,
             child: Stack(
               children: [
@@ -121,7 +119,6 @@ class VehicleDetailModal extends StatelessWidget {
 
           const SizedBox(height: 32),
 
-          // Close Button
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(

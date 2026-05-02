@@ -102,28 +102,14 @@ class UserUtils {
     if (response.statusCode == 200 || response.statusCode == 201) {
       print(response.body);
       var responseBodyObj = jsonDecode(response.body);
-      // currentUser = User(
-      //   id: userData['id'],
-      //   username: userData['userName'],
-      //   firstName: userData['firstName'],
-      //   lastName: userData['lastName'],
-      //   age: userData['age'],
-      //   email: userData['email'],
-      //   phoneNumber: userData['phoneNumber'],
-      //   profilePicturePath: userData['profilePicturePath']
-      // );
-
       return {'success': true, 'message': responseBodyObj['message']};
     } else {
-      // API ERROR (Like "Username already taken")
-      // Since you returned return BadRequest("message"), response.body contains that string
       return {
         'success': false, 
         'message': response.body.isNotEmpty ? response.body : 'An unknown error occurred'
       };
     }
   } catch (e) {
-    // CONNECTION ERROR
     print(e);
     return {'success': false, 'message': 'Cannot connect to server. Check your internet.'};
   }

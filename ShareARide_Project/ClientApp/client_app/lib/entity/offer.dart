@@ -77,7 +77,6 @@ class Offer {
       status: parseOfferStatus(
         (json['status'] ?? json['offerStatus'] ?? 0).toString(),
       ),
-      // status: parseOfferStatus(json['status'].toString())
     );
   }
 

@@ -1,7 +1,3 @@
-// import 'package:client_app/entity/offer.dart';
-// import 'package:client_app/entity/user.dart';
-// import '../controllers/userUtils.dart';
-// import '../controllers/offerUtils.dart';
 import 'bookingStatus.dart';
 
 class Booking {
@@ -39,7 +35,6 @@ class Booking {
     this.status,
   });
 
-  // Method to convert the object to a Map for the POST request body
   Map<String, dynamic> toJson() {
     return {
       'RequestedForId': requestedForId,
@@ -82,7 +77,7 @@ class Booking {
         status = BookingStatus.Rejected;
         break;
       default:
-        status = BookingStatus.Pending; // Default or throw an error
+        status = BookingStatus.Pending; 
     }
     return status;
   }

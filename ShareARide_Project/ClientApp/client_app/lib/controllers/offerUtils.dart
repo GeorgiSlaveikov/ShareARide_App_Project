@@ -1,7 +1,5 @@
 import 'dart:convert';
-// import 'package:client_app/entity/offerStatus.dart';
 import 'package:http/http.dart' as http;
-// import '../entity/user.dart';
 import '../entity/offer.dart';
 
 import 'utils.dart';

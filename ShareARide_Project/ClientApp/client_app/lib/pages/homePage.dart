@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dashboardPage.dart';
 import 'offersPage.dart';
 import 'ridesPage.dart';
-import 'requestsPage.dart'; // The new Driver Management page
+import 'requestsPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
