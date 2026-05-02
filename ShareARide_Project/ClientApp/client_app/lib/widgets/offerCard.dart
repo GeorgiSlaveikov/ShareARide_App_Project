@@ -28,30 +28,10 @@ class _OfferCardState extends State<OfferCard> {
   }
 
   void checkIfRequested() async {
-    // print('Offer card: ${widget.offer['id']}');
-    // var currentUserId = await UserUtils.getCurrentUserId();
-    // var bookings = await BookingUtils.getBookingsFromMe(currentUserId);
-    // var requestedOfferIds = bookings.map((b) => b.offerId).toList();
-    // print("Bookings for me: $requestedOfferIds");
-    // if (mounted && requestedOfferIds.contains(widget.offer['id'])) {
-    //   print(
-    //     'requested offer found: ${widget.offer['id']} - setting state to requested true',
-    //   );
-    //   setState(() {
-    //     isOfferRequested = true;
-    //   });
-    // }
     var currentUserId = await UserUtils.getCurrentUserId();
-    // Ensure this utility is actually hitting your API and returning List<Booking>
     var bookings = await BookingUtils.getBookingsFromMe(currentUserId);
 
-    // LOG THIS: See if the list is empty or if IDs are different types
-    print(
-      "DEBUG: Checking Offer ID ${widget.offer['id']} against user bookings: ${bookings.map((b) => b.offerId).toList()}",
-    );
-
     if (mounted) {
-      // Use .any to be safe with object comparison
       bool exists = bookings.any(
         (b) => b.offerId.toString() == widget.offer['id'].toString(),
       );
@@ -132,14 +112,6 @@ class _OfferCardState extends State<OfferCard> {
                         InkWell(
                           onTap: () async {
                             var user = await UserUtils.getUser(offer['driverId']);
-                            // UserDetailModal.show(context, {
-                            //   "fullName":
-                            //       "${user?.firstName} ${user?.lastName}",
-                            //   "username": user?.username,
-                            //   "email": user?.email,
-                            //   "age": user?.age,
-                            //   "phoneNumber": user?.phoneNumber,
-                            // });
                             UserDetailModal.show(context, user!);
                           },
                           child: const CircleAvatar(
@@ -150,7 +122,7 @@ class _OfferCardState extends State<OfferCard> {
                         const SizedBox(width: 8),
                         widget.isMyOffer
                             ? Text(
-                                "${offer['driver']} [You]",
+                                "${offer['driver']} [Вие]",
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -187,7 +159,7 @@ class _OfferCardState extends State<OfferCard> {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          "${offer['availableSeats']} seats left",
+                          "${offer['availableSeats']} свободни места",
                           style: const TextStyle(color: Colors.grey),
                         ),
                       ],
@@ -204,7 +176,7 @@ class _OfferCardState extends State<OfferCard> {
                             ),
                             SizedBox(width: 4),
                             Text(
-                              "View map",
+                              "Виж карта",
                               style: TextStyle(
                                 color: Colors.deepPurple,
                                 fontWeight: FontWeight.w500,
@@ -227,12 +199,12 @@ class _OfferCardState extends State<OfferCard> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        child: Text(isOfferRequested ? "Requested" : "Request"),
+                        child: Text(isOfferRequested ? "Заявено" : "Заяви"),
                       )
                     : ElevatedButton.icon(
                         onPressed: () {},
                         icon: const Icon(Icons.edit_note, size: 20),
-                        label: const Text("Edit Offer"),
+                        label: const Text("Редактирай"),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(
                             0xFF673AB7,
@@ -283,7 +255,7 @@ class _OfferCardState extends State<OfferCard> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    "Posted on ${formatDateTime(offer['createdAt'])}",
+                    "Качено на ${formatDateTime(offer['createdAt'])}",
                     style: TextStyle(
                       fontSize: 13,
                       color: Colors.grey[500],

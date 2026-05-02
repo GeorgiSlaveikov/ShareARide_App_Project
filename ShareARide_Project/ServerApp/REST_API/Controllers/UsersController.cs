@@ -94,30 +94,32 @@ namespace REST_API.Controllers
             try
             {
                 if (await DatabaseUserController.IsUsernameFree(request.Username) == false)
-                    return BadRequest("This username is already taken! Try another one.");
+                    return BadRequest("Този прякор е вече зает! Опитайте с друг.");
 
                 if (await DatabaseUserController.IsEmailValid(request.Email) == false)
-                    return BadRequest("This email address is not in the correct format!");
+                    return BadRequest("Имейл адресът не е в правилния форат [еmail@email.com]");
+
+                if (await DatabaseUserController.IsPasswordValid(request.Password) == false)
+                    return BadRequest("Паролата трябва да съдържа поне една главна буква и поне една малка буква, както и цифри!");
+
+                if (await DatabaseUserController.IsPhoneNumberValid(request.PhoneNumber) == false)
+                    return BadRequest("Въведеният телефонен номер не е валиден!");
 
                 string? imagePath = null;
 
                 if (request.ProfilePicture != null && request.ProfilePicture.Length > 0)
                 {
-                    // Define where to save (ensure this folder exists in your project)
                     var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/profiles");
                     if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
-
-                    // Create a unique filename to prevent overwriting
+                   
                     var fileName = $"{Guid.NewGuid()}_{request.ProfilePicture.FileName}";
                     var fullPath = Path.Combine(uploadsFolder, fileName);
-
-                    // Save the file to the server disk
+                    
                     using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
                         await request.ProfilePicture.CopyToAsync(stream);
                     }
-
-                    // This is the path we save to the DB (relative URL)
+                    
                     imagePath = $"/uploads/profiles/{fileName}";
                 }
 
@@ -127,7 +129,7 @@ namespace REST_API.Controllers
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     Email = request.Email,
-                    Password = request.Password,
+                    Password = DatabaseUserController.HashPassword(request.Password),
                     BirthDate = request.BirthDate,
                     Sex = request.Sex,
                     PhoneNumber = request.PhoneNumber,

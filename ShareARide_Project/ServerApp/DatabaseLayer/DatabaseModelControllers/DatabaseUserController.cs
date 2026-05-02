@@ -72,6 +72,29 @@ namespace DatabaseLayer.DatabaseControllers
             return await Task.FromResult(isValid);
         }
 
+        public static async Task<bool> IsPasswordValid(string password)
+        {
+            if (string.IsNullOrWhiteSpace(password))
+                return false;
+
+            bool hasUpper = password.Any(char.IsUpper);
+            bool hasLower = password.Any(char.IsLower);
+            bool hasDigit = password.Any(char.IsDigit);
+
+            return await Task.FromResult(hasUpper && hasLower && hasDigit);
+        }
+
+        public static async Task<bool> IsPhoneNumberValid(string phoneNumber)
+        {
+            if (string.IsNullOrWhiteSpace(phoneNumber))
+                return false;
+
+            bool isValid = Regex.IsMatch(phoneNumber, @"^0\d{9}$");
+
+            return await Task.FromResult(isValid);
+        }
+
+
         public static string HashPassword(string password)
         {
             return BCrypt.Net.BCrypt.HashPassword(password);
@@ -79,7 +102,17 @@ namespace DatabaseLayer.DatabaseControllers
 
         public static bool VerifyPassword(string password, string hashedPassword)
         {
-            return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+            if (string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(hashedPassword))
+                return false;
+
+            try
+            {
+                return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+            }
+            catch (BCrypt.Net.SaltParseException)
+            {
+                return false;
+            }
         }
     }
 }

@@ -983,7 +983,6 @@
                     "type": "string"
                   },
                   "Password": {
-                    "minLength": 8,
                     "type": "string"
                   },
                   "PhoneNumber": {
@@ -1415,6 +1414,14 @@
           "name": {
             "type": "string",
             "nullable": true
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false
@@ -1744,6 +1751,12 @@
           "destinationCityName": {
             "type": "string",
             "nullable": true
+          },
+          "departureCity": {
+            "$ref": "#/components/schemas/CityResponse"
+          },
+          "destinationCity": {
+            "$ref": "#/components/schemas/CityResponse"
           },
           "pricePerSeat": {
             "type": "number",

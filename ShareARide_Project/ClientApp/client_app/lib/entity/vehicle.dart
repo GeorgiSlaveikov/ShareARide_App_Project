@@ -131,6 +131,6 @@ class Vehicle {
 
   @override
   String toString() {
-    return 'Make: $make\nModel: $model\nYear: $year\nMax Capacity: $maxCapacity\nOwner ID: $ownerId';
+    return 'Make: $make\nModel: $model\nYear: $year\nMax Capacity: $maxCapacity\nOwner ID: $ownerId\nphoto: $vehiclePicturePath';
   }
 }

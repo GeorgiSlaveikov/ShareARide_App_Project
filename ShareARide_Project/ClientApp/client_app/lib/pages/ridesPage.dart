@@ -169,7 +169,13 @@ class _RidesPageState extends State<RidesPage> {
                     style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: isDriver ? Colors.deepPurple : Colors.teal),
                   ),
                 ),
-                Text("${ride['pricePerSeat']} EURO", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.green)),
+                Row(
+                  children: [
+                    Text("${ride['pricePerSeat']}", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.green)),
+                    const SizedBox(width: 6,),
+                    Icon(Icons.euro, size: 18, color: Colors.green,)
+                  ],
+                ),
               ],
             ),
           ),

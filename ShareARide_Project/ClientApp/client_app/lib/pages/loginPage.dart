@@ -97,7 +97,7 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                 ),
                 const Text(
-                  "Влизане във вашия акаунт",
+                  "Влизане във вашия профил",
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.white70,
@@ -161,7 +161,7 @@ class _LoginFormState extends State<LoginForm> {
                           },
                           child: RichText(
                             text: TextSpan(
-                              text: "Няма те акаунт? ",
+                              text: "Нямате профил? ",
                               style: const TextStyle(color: Colors.black54),
                               children: [
                                 TextSpan(

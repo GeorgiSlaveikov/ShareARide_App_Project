@@ -37,7 +37,6 @@ class _PendingRequestsPreviewState extends State<PendingRequestsPreview> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     fetchBookingRequestsForCurrentUser();
   }
@@ -51,7 +50,7 @@ class _PendingRequestsPreviewState extends State<PendingRequestsPreview> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text(
-              "Pending Requests",
+              "Нови заявки",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             if (requestCount > 0)
@@ -62,7 +61,7 @@ class _PendingRequestsPreviewState extends State<PendingRequestsPreview> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
-                  "$requestCount New",
+                  requestCount == 1 ? "$requestCount ново" : "$requestCount нови",
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 12,
@@ -92,14 +91,16 @@ class _PendingRequestsPreviewState extends State<PendingRequestsPreview> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     requestCount-1 > 0 ? Text(
-                      "$firstWaitingUserName and ${requestCount-1} other",
+                      requestCount-1 == 1 ? 
+                        "$firstWaitingUserName и още ${requestCount-1} друг" 
+                        : "$firstWaitingUserName и още ${requestCount-1} други",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ) : Text(
                       firstWaitingUserName,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "want to join your trip",
+                      "иска да се присъедини към вашето пътуване",
                       style: TextStyle(fontSize: 13, color: Colors.black54),
                     ),
                   ],
@@ -112,7 +113,7 @@ class _PendingRequestsPreviewState extends State<PendingRequestsPreview> {
                     MaterialPageRoute(builder: (_) => const RequestsPage()),
                   );
                 },
-                child: const Text("View All"),
+                child: const Text("Виж всички"),
               ),
             ],
           ),

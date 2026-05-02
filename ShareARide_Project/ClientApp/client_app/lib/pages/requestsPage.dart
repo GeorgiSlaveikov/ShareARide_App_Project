@@ -67,7 +67,7 @@ class _RequestsPageState extends State<RequestsPage> {
           ? pageEmptyState(
               Icons.checklist_rtl_rounded,
               Colors.grey.shade300,
-              "Няма чакащи заявки",
+              "Няма заявки",
               Colors.grey,
             )
           : ListView.builder(
@@ -95,13 +95,6 @@ class _RequestsPageState extends State<RequestsPage> {
             leading: InkWell(
               onTap: () async {
                 var user = await UserUtils.getUser(req['requesterId']);
-                // UserDetailModal.show(context, {
-                //   "fullName": "${user?.firstName} ${user?.lastName}",
-                //   "username": user?.username,
-                //   "email": user?.email,
-                //   "age": user?.age,
-                //   "phoneNumber": user?.phoneNumber,
-                // });
                 UserDetailModal.show(context, user!);
               },
               child: const CircleAvatar(child: Icon(Icons.person)),
@@ -119,11 +112,17 @@ class _RequestsPageState extends State<RequestsPage> {
           const Divider(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.info_outline, size: 16, color: Colors.grey),
-                const SizedBox(width: 8),
-                Text("Иска да се присъедини към вашия ${req['trip']} trip"),
+                Row(
+                  children: [
+                    const Icon(Icons.info_outline, size: 16, color: Colors.grey),
+                    const SizedBox(width: 8),
+                    Text("Иска да се присъедини към вашето пътувне"),
+                  ],
+                ),
+                Text("${req['trip']}"),
               ],
             ),
           ),

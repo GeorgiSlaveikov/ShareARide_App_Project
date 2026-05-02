@@ -37,7 +37,7 @@ class DashboardPage extends StatelessWidget {
               centerTitle: true,
               titlePadding: const EdgeInsets.only(bottom: 16),
               title: Text(
-                "Добре дошъл, ${user?.firstName ?? 'Пътешественик'}",
+                "Добре дошли, ${user?.firstName ?? 'Пътешественик'}",
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

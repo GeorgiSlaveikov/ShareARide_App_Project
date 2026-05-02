@@ -27,7 +27,6 @@ class VehicleDetailModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 1. Ensure path doesn't have double slashes
     String path = vehicle.vehiclePicturePath ?? "";
     
     if (path.startsWith('/')) {

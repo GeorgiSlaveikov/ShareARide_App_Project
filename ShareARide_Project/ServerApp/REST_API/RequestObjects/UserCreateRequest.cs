@@ -19,7 +19,6 @@ namespace REST_API.RequestObjects
         public string Email { get; set; }
 
         [Required]
-        [MinLength(8)]
         public string Password { get; set; }
 
         public string PhoneNumber { get; set; }
