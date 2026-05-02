@@ -200,32 +200,26 @@ namespace REST_API.Controllers
         {
             var driver = await _context.Users.FirstOrDefaultAsync(u => u.Id == request.DriverId);
             if (driver == null)
-            {
                 return BadRequest("Driver does not exist.");
-            }
 
             var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == request.VehicleId);
             if (vehicle == null)
-            {
                 return BadRequest("Vehicle does not exist.");
-            }
 
             var departureCity = await _context.Cities.FirstOrDefaultAsync(c => c.Id == request.DepartureCityId);
             if (departureCity == null)
-            {
                 return BadRequest("Departure city does not exist.");
-            }
 
             var destinationCity = await _context.Cities.FirstOrDefaultAsync(c => c.Id == request.DestinationCityId);
             if (destinationCity == null)
-            {
                 return BadRequest("Destination city does not exist.");
-            }
+
 
             var newOffer = new DatabaseOffer
             {
                 DriverId = request.DriverId,
                 VehicleId = request.VehicleId,
+                DatabaseDriver = driver,
                 DepartureTime = request.DepartureTime,
                 DepartureCityId = request.DepartureCityId,
                 DestinationCityId = request.DestinationCityId,

@@ -3,60 +3,20 @@
   "WorkspaceRootPath": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\githubuploads\\sharearide_app_project\\sharearide_project\\serverapp\\rest_api\\controllers\\offerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\controllers\\offerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\githubuploads\\sharearide_app_project\\sharearide_project\\serverapp\\rest_api\\responseobjects\\offerresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\responseobjects\\offerresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\githubuploads\\sharearide_app_project\\sharearide_project\\serverapp\\rest_api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|d:\\webdevelop\\githubuploads\\sharearide_app_project\\sharearide_project\\serverapp\\databaselayer\\databasemodelcontrollers\\databaseusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|solutionrelative:databaselayer\\databasemodelcontrollers\\databaseusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\githubuploads\\sharearide_app_project\\sharearide_project\\serverapp\\rest_api\\responseobjects\\userresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\responseobjects\\userresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F6AE7E2B-A51B-4370-8C29-1885105643E4}|Core\\Core.csproj|d:\\webdevelop\\githubuploads\\sharearide_app_project\\sharearide_project\\serverapp\\core\\model\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6AE7E2B-A51B-4370-8C29-1885105643E4}|Core\\Core.csproj|solutionrelative:core\\model\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\githubuploads\\sharearide_app_project\\sharearide_project\\serverapp\\rest_api\\controllers\\ridescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\controllers\\ridescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\githubuploads\\sharearide_app_project\\sharearide_project\\serverapp\\rest_api\\controllers\\bookingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\controllers\\bookingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|d:\\webdevelop\\githubuploads\\sharearide_app_project\\sharearide_project\\serverapp\\databaselayer\\databasemodels\\databaseride.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|solutionrelative:databaselayer\\databasemodels\\databaseride.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\githubuploads\\sharearide_app_project\\sharearide_project\\serverapp\\rest_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\githubuploads\\sharearide_app_project\\sharearide_project\\serverapp\\rest_api\\requestobjects\\bookingcreaterequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\requestobjects\\bookingcreaterequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\githubuploads\\sharearide_app_project\\sharearide_project\\serverapp\\rest_api\\controllers\\vehiclescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\controllers\\vehiclescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F6AE7E2B-A51B-4370-8C29-1885105643E4}|Core\\Core.csproj|d:\\webdevelop\\githubuploads\\sharearide_app_project\\sharearide_project\\serverapp\\core\\model\\booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6AE7E2B-A51B-4370-8C29-1885105643E4}|Core\\Core.csproj|solutionrelative:core\\model\\booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|d:\\webdevelop\\githubuploads\\sharearide_app_project\\sharearide_project\\serverapp\\rest_api\\responseobjects\\vehicleresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E54F41E-05A2-41D7-975C-24C9A899B9B4}|REST_API\\REST_API.csproj|solutionrelative:rest_api\\responseobjects\\vehicleresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|d:\\webdevelop\\githubuploads\\sharearide_app_project\\sharearide_project\\serverapp\\databaselayer\\database\\databasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|solutionrelative:databaselayer\\database\\databasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|d:\\webdevelop\\githubuploads\\sharearide_app_project\\sharearide_project\\serverapp\\databaselayer\\databasemodels\\databasebooking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|solutionrelative:databaselayer\\databasemodels\\databasebooking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|d:\\webdevelop\\githubuploads\\sharearide_app_project\\sharearide_project\\serverapp\\databaselayer\\databasemodels\\databasevehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5F9E310-CA65-499F-BDCA-EFE03FA097E0}|DatabaseLayer\\DatabaseLayer.csproj|solutionrelative:databaselayer\\databasemodels\\databasevehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -71,173 +31,54 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "OffersController.cs",
-              "DocumentMoniker": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\Controllers\\OffersController.cs",
-              "RelativeDocumentMoniker": "REST_API\\Controllers\\OffersController.cs",
-              "ToolTip": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\Controllers\\OffersController.cs",
-              "RelativeToolTip": "REST_API\\Controllers\\OffersController.cs",
-              "ViewState": "AgIAAPAAAAAAAAAAAAAmwPYAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-02T16:43:36.673Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "OfferResponse.cs",
-              "DocumentMoniker": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\ResponseObjects\\OfferResponse.cs",
-              "RelativeDocumentMoniker": "REST_API\\ResponseObjects\\OfferResponse.cs",
-              "ToolTip": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\ResponseObjects\\OfferResponse.cs",
-              "RelativeToolTip": "REST_API\\ResponseObjects\\OfferResponse.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-02T16:43:23.719Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UserResponse.cs",
-              "DocumentMoniker": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\ResponseObjects\\UserResponse.cs",
-              "RelativeDocumentMoniker": "REST_API\\ResponseObjects\\UserResponse.cs",
-              "ToolTip": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\ResponseObjects\\UserResponse.cs",
-              "RelativeToolTip": "REST_API\\ResponseObjects\\UserResponse.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-02T16:26:25.271Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "DatabaseUserController.cs",
-              "DocumentMoniker": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseModelControllers\\DatabaseUserController.cs",
-              "RelativeDocumentMoniker": "DatabaseLayer\\DatabaseModelControllers\\DatabaseUserController.cs",
-              "ToolTip": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseModelControllers\\DatabaseUserController.cs",
-              "RelativeToolTip": "DatabaseLayer\\DatabaseModelControllers\\DatabaseUserController.cs",
-              "ViewState": "AgIAAGYAAAAAAAAAAAA8wHUAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-02T15:48:56.605Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "REST_API\\Controllers\\UsersController.cs",
-              "ToolTip": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "REST_API\\Controllers\\UsersController.cs",
-              "ViewState": "AgIAAK4AAAAAAAAAAAAmwLkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-02T15:48:07.579Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "User.cs",
-              "DocumentMoniker": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\Core\\Model\\User.cs",
-              "RelativeDocumentMoniker": "Core\\Model\\User.cs",
-              "ToolTip": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\Core\\Model\\User.cs",
-              "RelativeToolTip": "Core\\Model\\User.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAAowDcAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-02T15:47:55.427Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "BookingCreateRequest.cs",
-              "DocumentMoniker": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\RequestObjects\\BookingCreateRequest.cs",
-              "RelativeDocumentMoniker": "REST_API\\RequestObjects\\BookingCreateRequest.cs",
-              "ToolTip": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\RequestObjects\\BookingCreateRequest.cs",
-              "RelativeToolTip": "REST_API\\RequestObjects\\BookingCreateRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAIAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-02T15:15:18.636Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "RidesController.cs",
-              "DocumentMoniker": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\Controllers\\RidesController.cs",
-              "RelativeDocumentMoniker": "REST_API\\Controllers\\RidesController.cs",
-              "ToolTip": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\Controllers\\RidesController.cs",
-              "RelativeToolTip": "REST_API\\Controllers\\RidesController.cs",
-              "ViewState": "AgIAAIUAAAAAAAAAAAAuwJEAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-02T14:56:13.523Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "DatabaseContext.cs",
-              "DocumentMoniker": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\DatabaseLayer\\Database\\DatabaseContext.cs",
-              "RelativeDocumentMoniker": "DatabaseLayer\\Database\\DatabaseContext.cs",
-              "ToolTip": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\DatabaseLayer\\Database\\DatabaseContext.cs",
-              "RelativeToolTip": "DatabaseLayer\\Database\\DatabaseContext.cs",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAAAFEAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-02T14:56:07.247Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\Program.cs",
               "RelativeDocumentMoniker": "REST_API\\Program.cs",
               "ToolTip": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\Program.cs",
               "RelativeToolTip": "REST_API\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-02T14:55:56.167Z"
+              "WhenOpened": "2026-05-02T19:26:04.585Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "DatabaseRide.cs",
-              "DocumentMoniker": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseModels\\DatabaseRide.cs",
-              "RelativeDocumentMoniker": "DatabaseLayer\\DatabaseModels\\DatabaseRide.cs",
-              "ToolTip": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseModels\\DatabaseRide.cs",
-              "RelativeToolTip": "DatabaseLayer\\DatabaseModels\\DatabaseRide.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAQwCEAAAA7AAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "VehiclesController.cs",
+              "DocumentMoniker": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\Controllers\\VehiclesController.cs",
+              "RelativeDocumentMoniker": "REST_API\\Controllers\\VehiclesController.cs",
+              "ToolTip": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\Controllers\\VehiclesController.cs",
+              "RelativeToolTip": "REST_API\\Controllers\\VehiclesController.cs",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAqwHEAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-02T14:43:27.137Z"
+              "WhenOpened": "2026-05-02T19:19:22.449Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "DatabaseBooking.cs",
-              "DocumentMoniker": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseModels\\DatabaseBooking.cs",
-              "RelativeDocumentMoniker": "DatabaseLayer\\DatabaseModels\\DatabaseBooking.cs",
-              "ToolTip": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseModels\\DatabaseBooking.cs",
-              "RelativeToolTip": "DatabaseLayer\\DatabaseModels\\DatabaseBooking.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAmwBkAAAAjAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "VehicleResponse.cs",
+              "DocumentMoniker": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\ResponseObjects\\VehicleResponse.cs",
+              "RelativeDocumentMoniker": "REST_API\\ResponseObjects\\VehicleResponse.cs",
+              "ToolTip": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\ResponseObjects\\VehicleResponse.cs",
+              "RelativeToolTip": "REST_API\\ResponseObjects\\VehicleResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-02T14:39:04.669Z"
+              "WhenOpened": "2026-05-02T19:19:07.631Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Booking.cs",
-              "DocumentMoniker": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\Core\\Model\\Booking.cs",
-              "RelativeDocumentMoniker": "Core\\Model\\Booking.cs",
-              "ToolTip": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\Core\\Model\\Booking.cs",
-              "RelativeToolTip": "Core\\Model\\Booking.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "DatabaseVehicle.cs",
+              "DocumentMoniker": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseModels\\DatabaseVehicle.cs",
+              "RelativeDocumentMoniker": "DatabaseLayer\\DatabaseModels\\DatabaseVehicle.cs",
+              "ToolTip": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\DatabaseLayer\\DatabaseModels\\DatabaseVehicle.cs",
+              "RelativeToolTip": "DatabaseLayer\\DatabaseModels\\DatabaseVehicle.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-02T14:37:25.215Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "BookingsController.cs",
-              "DocumentMoniker": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\Controllers\\BookingsController.cs",
-              "RelativeDocumentMoniker": "REST_API\\Controllers\\BookingsController.cs",
-              "ToolTip": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\Controllers\\BookingsController.cs",
-              "RelativeToolTip": "REST_API\\Controllers\\BookingsController.cs",
-              "ViewState": "AgIAAN8AAAAAAAAAAAAmwP4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-02T14:33:43.563Z"
+              "WhenOpened": "2026-05-02T19:19:04.143Z",
+              "EditorCaption": ""
             }
           ]
         }

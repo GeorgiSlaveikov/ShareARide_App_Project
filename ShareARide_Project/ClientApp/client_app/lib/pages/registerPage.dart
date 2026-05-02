@@ -372,7 +372,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           items: Sex.values.map((sex) {
                             return DropdownMenuItem<int>(
                               value: sex.index,
-                              child: Text(sex.toString().split('.').last),
+                              child: Text(sex.label),
                             );
                           }).toList(),
                           onChanged: (value) {

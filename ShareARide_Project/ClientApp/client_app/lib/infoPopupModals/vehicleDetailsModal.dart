@@ -114,7 +114,7 @@ class VehicleDetailModal extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
-              "Year: ${vehicle.year}  •  Capacity: ${vehicle.maxCapacity} Seats",
+              "Година: ${vehicle.year}  •  Капацитет: ${vehicle.maxCapacity} места",
               style: TextStyle(color: Colors.grey[700], fontSize: 15, fontWeight: FontWeight.w500),
             ),
           ),
@@ -133,7 +133,7 @@ class VehicleDetailModal extends StatelessWidget {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
-              child: const Text("Back to List", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: const Text("Назад", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(height: 20),
@@ -150,7 +150,7 @@ class VehicleDetailModal extends StatelessWidget {
         children: [
           Icon(Icons.directions_car_filled, size: 60, color: Colors.grey[400]),
           const SizedBox(height: 8),
-          Text("No Image Available", style: TextStyle(color: Colors.grey[500])),
+          Text("Не е намерено изображение", style: TextStyle(color: Colors.grey[500])),
         ],
       ),
     );

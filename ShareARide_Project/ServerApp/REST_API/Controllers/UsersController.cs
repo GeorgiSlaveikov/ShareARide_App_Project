@@ -38,6 +38,7 @@ namespace REST_API.Controllers
                     PhoneNumber = user.PhoneNumber,
                     Sex = user.Sex,
                     Rating = user.Rating,
+                    TripsCount = user.TripsCount,
                     ProfilePicturePath = user.ProfilePicturePath
                 }).ToListAsync();
         }
@@ -58,6 +59,7 @@ namespace REST_API.Controllers
                 PhoneNumber = user.PhoneNumber,
                 Sex = user.Sex,
                 Rating = user.Rating,
+                TripsCount = user.TripsCount,
                 ProfilePicturePath = user.ProfilePicturePath
             });
         }
@@ -84,6 +86,7 @@ namespace REST_API.Controllers
                 PhoneNumber = user.PhoneNumber,
                 Sex = user.Sex,
                 Rating = user.Rating,
+                TripsCount = user.TripsCount,
                 ProfilePicturePath = user.ProfilePicturePath
             });
         }
@@ -133,6 +136,8 @@ namespace REST_API.Controllers
                     BirthDate = request.BirthDate,
                     Sex = request.Sex,
                     Age = DatabaseUserController.CalculateAge(request.BirthDate),
+                    TripsCount = 0,
+                    Rating = 0,
                     PhoneNumber = request.PhoneNumber,
                     ProfilePicturePath = imagePath,
                 };

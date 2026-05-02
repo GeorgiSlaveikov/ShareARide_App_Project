@@ -24,6 +24,7 @@ namespace DatabaseLayer.Database
         public DbSet<DatabaseOffer> Offers { get; set; }
         public DbSet<DatabaseBooking> Bookings { get; set; }
         public DbSet<DatabaseRide> Rides { get; set; }
+        public DbSet<DatabaseRating> Ratings { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string solutionFolder = Environment.GetFolderPath(SpecialFolder.LocalApplicationData);
@@ -35,7 +36,7 @@ namespace DatabaseLayer.Database
         protected override async void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DatabaseUser>().Ignore(u => u.ProfilePicture);
-          
+
 
             modelBuilder.Ignore<User>();
             modelBuilder.Ignore<Booking>();
@@ -44,8 +45,6 @@ namespace DatabaseLayer.Database
             modelBuilder.Ignore<Ride>();
             modelBuilder.Ignore<Vehicle>();
 
-            // 1. DatabaseOffer -> DepartureCity & DestinationCity
-            // We must disable cascade delete because there are two paths to the Cities table.
             modelBuilder.Entity<DatabaseOffer>()
                 .HasOne(o => o.DatabaseDepartureCity)
                 .WithMany()
@@ -58,7 +57,6 @@ namespace DatabaseLayer.Database
                 .HasForeignKey(o => o.DestinationCityId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // 2. DatabaseOffer -> Driver (User)
             modelBuilder.Entity<DatabaseOffer>()
                 .HasOne(o => o.DatabaseDriver)
                 .WithMany()
@@ -71,24 +69,39 @@ namespace DatabaseLayer.Database
                 .HasForeignKey(o => o.VehicleId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // 3. DatabaseBooking -> Passengers (Many-to-Many)
-            // This creates a join table (e.g., BookingUser) automatically.
-            //modelBuilder.Entity<DatabaseBooking>()
-            //    .HasMany(b => b.DatabasePassengers)
-            //    .WithMany();
 
-            // 4. DatabaseBooking -> Requester (User)
             modelBuilder.Entity<DatabaseBooking>()
                 .HasOne(b => b.DatabaseRequester)
                 .WithMany()
                 .HasForeignKey(b => b.RequesterId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // 5. DatabaseVehicle -> Owner (User)
             modelBuilder.Entity<DatabaseVehicle>()
                 .HasOne(v => v.DatabaseOwner)
                 .WithMany()
                 .HasForeignKey(v => v.OwnerId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<DatabaseRating>()
+    .HasIndex(r => new { r.RatedUserId, r.RatedByUserId, r.RideId })
+    .IsUnique();
+
+            modelBuilder.Entity<DatabaseRating>()
+                .HasOne(r => r.RatedUser)
+                .WithMany()
+                .HasForeignKey(r => r.RatedUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<DatabaseRating>()
+                .HasOne(r => r.RatedByUser)
+                .WithMany()
+                .HasForeignKey(r => r.RatedByUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<DatabaseRating>()
+                .HasOne(r => r.Ride)
+                .WithMany()
+                .HasForeignKey(r => r.RideId)
                 .OnDelete(DeleteBehavior.Cascade);
 
 

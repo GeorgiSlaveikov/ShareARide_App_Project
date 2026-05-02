@@ -80,20 +80,6 @@ class VehicleUtils {
       var streamedResponse = await request.send();
       
       var response = await http.Response.fromStream(streamedResponse);
-      // final response = await http.post(
-      //   url,
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     "Accept": "application/json",
-      //   },
-      //   body: jsonEncode({
-      //     "make": make.name,
-      //     "model": model,
-      //     "year": year,
-      //     "maxCapacity": maxCapacity,
-      //     "ownerId": ownerId,
-      //   })
-      // );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         print('Vehicle created successfully!');
@@ -112,24 +98,88 @@ class VehicleUtils {
     }
   }
 
-  static Future<bool> deleteVehicle(int id) async {
-    final url = Uri.parse('http://${Utils().ip}:5205/api/vehicles/$id');
+  // static Future<bool> deleteVehicle(int id) async {
+  //   final url = Uri.parse('http://${Utils().ip}:5205/api/vehicles/$id');
 
-    try {
-      final response = await http.delete(url);
+  //   try {
+  //     final response = await http.delete(url);
 
-      if (response.statusCode == 200 || response.statusCode == 204) {
-        print('Vehicle deleted successfully!');
-        return true;
-      } else {
-        print('Server Error: ${response.statusCode}');
-        return false;
+  //     if (response.statusCode == 200 || response.statusCode == 204) {
+  //       print('Vehicle deleted successfully!');
+  //       return true;
+  //     } else {
+  //       print('Server Error: ${response.statusCode}');
+  //       return false;
+  //     }
+  //   } catch (e) {
+  //     print('Connection Error: $e');
+  //     return false;
+  //   }
+  // }
+
+//   static Future<bool> deleteVehicle(int id) async {
+//   final url = Uri.parse('http://${Utils().ip}:5205/api/vehicles/$id');
+
+//   try {
+//     final response = await http
+//         .delete(url)
+//         .timeout(const Duration(seconds: 5));
+
+//     if (response.statusCode == 200 || response.statusCode == 204) {
+//       print('Vehicle deleted successfully!');
+//       return true;
+//     }
+
+//     print('Delete vehicle failed: ${response.statusCode}');
+//     print('Response body: ${response.body}');
+//     return false;
+//   } catch (e) {
+//     print('Connection Error: $e');
+//     return false;
+//   }
+// }
+
+static Future<Map<String, dynamic>> deleteVehicle(int id) async {
+  final url = Uri.parse('http://${Utils().ip}:5205/api/vehicles/$id');
+
+  try {
+    final response = await http.delete(url).timeout(
+      const Duration(seconds: 5),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 204) {
+      if (response.body.isNotEmpty) {
+        final body = jsonDecode(response.body);
+
+        return {
+          "success": true,
+          "message": body["message"] ?? "Успешно.",
+          "archived": body["archived"] ?? false,
+        };
       }
-    } catch (e) {
-      print('Connection Error: $e');
-      return false;
+
+      return {
+        "success": true,
+        "message": "Превозното средство е премахнато.",
+        "archived": false,
+      };
     }
+
+    return {
+      "success": false,
+      "message": response.body.isNotEmpty
+          ? response.body
+          : "Грешка при премахване. Код: ${response.statusCode}",
+      "archived": false,
+    };
+  } catch (e) {
+    return {
+      "success": false,
+      "message": "Грешка при връзка със сървъра: $e",
+      "archived": false,
+    };
   }
+}
 
   static List<String> getModelsForMake(VehicleMake make) {
     switch (make) {

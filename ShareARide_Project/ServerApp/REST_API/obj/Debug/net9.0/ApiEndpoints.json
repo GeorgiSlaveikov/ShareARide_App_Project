@@ -404,6 +404,85 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "REST_API.Controllers.RatingsController",
+    "Method": "GetRatingByUserForRide",
+    "RelativePath": "api/Ratings/by_user_for_ride/{rideId}/{ratedByUserId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "rideId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "ratedByUserId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "REST_API.Controllers.RatingsController",
+    "Method": "CreateRating",
+    "RelativePath": "api/Ratings/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "REST_API.RequestObjects.RatingCreateRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "REST_API.Controllers.RatingsController",
+    "Method": "GetRatingsForUser",
+    "RelativePath": "api/Ratings/for_user/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[REST_API.ResponseObjects.RatingResponse, REST_API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "REST_API.Controllers.RatingsController",
+    "Method": "GetRatingSummary",
+    "RelativePath": "api/Ratings/summary/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "REST_API.Controllers.RidesController",
     "Method": "GetRides",
     "RelativePath": "api/Rides",

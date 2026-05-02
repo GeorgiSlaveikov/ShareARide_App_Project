@@ -6,6 +6,8 @@ class User {
   int age;
   String email;
   String phoneNumber;
+  int tripsCount;
+  double rating;
   String? profilePicturePath;
 
   User({
@@ -16,6 +18,8 @@ class User {
     required this.age,
     required this.email,
     required this.phoneNumber,
+    required this.tripsCount,
+    required this.rating,
     this.profilePicturePath,
   });
 
@@ -27,6 +31,8 @@ class User {
       lastName: json['lastName'] ?? '',
       age: json['age'] ?? 18,
       email: json['email'] ?? '',
+      tripsCount: json['tripsCount'] ?? 0,
+      rating: json['rating'] ?? 0.0,
       phoneNumber: json['phoneNumber'] ?? ''
     );
   }

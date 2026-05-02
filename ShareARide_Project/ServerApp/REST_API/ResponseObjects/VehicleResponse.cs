@@ -12,5 +12,6 @@ namespace REST_API.ResponseObjects
         public int OwnerId { get; set; }
         public string OwnerName { get; set; }
         public string? VehiclePicturePath { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

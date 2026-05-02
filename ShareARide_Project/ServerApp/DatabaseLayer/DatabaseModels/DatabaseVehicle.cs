@@ -20,5 +20,7 @@ namespace DatabaseLayer.DatabaseModels
         [ForeignKey("OwnerId")]
         public virtual DatabaseUser DatabaseOwner { get; set; }
         public string? VehiclePicturePath { get; set; }
+
+        public bool IsDeleted { get; set; } = false;
     }
 }

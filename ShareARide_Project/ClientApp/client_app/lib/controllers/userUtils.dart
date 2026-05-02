@@ -31,6 +31,8 @@ class UserUtils {
           age: userData['age'],
           email: userData['email'],
           phoneNumber: userData['phoneNumber'],
+          tripsCount: userData['tripsCount'],
+          rating: userData['rating'],
           profilePicturePath: userData['profilePicturePath']
         );
 
@@ -57,74 +59,6 @@ class UserUtils {
   static void logout() {
     currentUser = null;
   }
-
-  // static Future<bool> Register(
-  //   String username,
-  //   String firstName,
-  //   String lastName,
-  //   String phoneNumber,
-  //   String email,
-  //   String birthDate,
-  //   int age,
-  //   int sex,
-  //   String password,
-  //   File? imageFile,
-  // ) async {
-  //   final url = Uri.parse('http://${Utils().ip}:5205/api/users/register');
-
-  //   try {
-  //     var request = http.MultipartRequest('POST', url);
-
-  //     request.fields['username'] = username;
-  //     request.fields['firstName'] = firstName;
-  //     request.fields['lastName'] = lastName;
-  //     request.fields['phoneNumber'] = phoneNumber;
-  //     request.fields['email'] = email;
-  //     request.fields['birthDate'] = birthDate;
-  //     request.fields['age'] = age.toString();
-  //     request.fields['sex'] = sex.toString();
-  //     request.fields['password'] = password;
-     
-  //     // request.fields['HomeCity.name'] = 'Haskovo';
-
-  //     if (imageFile != null) {
-  //       request.files.add(
-  //         await http.MultipartFile.fromPath(
-  //           'ProfilePicture',
-  //           imageFile.path,
-  //         ),
-  //       );
-  //     }
-
-  //     var streamedResponse = await request.send();
-      
-  //     var response = await http.Response.fromStream(streamedResponse);
-
-  //     if (response.statusCode == 200 || response.statusCode == 201) {
-  //       var userData = jsonDecode(response.body);
-        
-  //       currentUser = User(
-  //         id: userData['id'],
-  //         username: userData['userName'],
-  //         firstName: userData['firstName'],
-  //         lastName: userData['lastName'],
-  //         age: userData['age'],
-  //         email: userData['email'],
-  //         phoneNumber: userData['phoneNumber'],
-  //         profilePicturePath: userData['profilePicturePath']
-  //       );
-
-  //       print('Registration Success! Welcome ${userData['username']}');
-  //       return true;
-  //     } else {
-  //       print('Server Error: ${response.statusCode} - ${response.body}');
-  //       return false;
-  //     }
-  //   } catch (e) {
-  //     print('Connection Error: $e');
-  //     return false;
-  //   }
-  // }
 
   static Future<Map<String, dynamic>> Register(
   String username,
@@ -212,6 +146,8 @@ class UserUtils {
           age: userData['age'],
           email: userData['email'],
           phoneNumber: userData['phoneNumber'],
+          tripsCount: userData['tripsCount'],
+          rating: userData['rating'],
           profilePicturePath: userData['profilePicturePath']
         );
       }

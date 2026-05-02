@@ -31,7 +31,8 @@ namespace REST_API.Controllers
                     MaxCapacity = v.MaxCapacity,
                     OwnerId = v.OwnerId,
                     OwnerName = v.DatabaseOwner.FirstName + " " + v.DatabaseOwner.LastName,
-                    VehiclePicturePath = v.VehiclePicturePath
+                    VehiclePicturePath = v.VehiclePicturePath,
+                    IsDeleted = v.IsDeleted
                 }).ToListAsync();
         }
 
@@ -50,7 +51,8 @@ namespace REST_API.Controllers
                     MaxCapacity = v.MaxCapacity,
                     OwnerId = v.OwnerId,
                     OwnerName = v.DatabaseOwner.FirstName + " " + v.DatabaseOwner.LastName,
-                    VehiclePicturePath = v.VehiclePicturePath
+                    VehiclePicturePath = v.VehiclePicturePath,
+                    IsDeleted = v.IsDeleted
                 })
                 .FirstOrDefaultAsync();
 
@@ -64,17 +66,43 @@ namespace REST_API.Controllers
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVehicle(int id)
-        {   
-            var vehicle = await _context.Vehicles.FindAsync(id);
+        {
+            var vehicle = await _context.Vehicles
+                .FirstOrDefaultAsync(v => v.Id == id);
 
             if (vehicle == null)
             {
-                return NotFound();
+                return NotFound("Vehicle not found.");
+            }
+
+            if (vehicle.IsDeleted)
+            {
+                return BadRequest("Vehicle is already archived.");
+            }
+
+            bool wasEverUsed = await _context.Offers
+                .AnyAsync(o => o.VehicleId == id);
+
+            if (wasEverUsed)
+            {
+                vehicle.IsDeleted = true;
+                await _context.SaveChangesAsync();
+
+                return Ok(new
+                {
+                    message = "Vehicle was used before, so it was archived instead of deleted.",
+                    archived = true
+                });
             }
 
             _context.Vehicles.Remove(vehicle);
             await _context.SaveChangesAsync();
-            return NoContent();
+
+            return Ok(new
+            {
+                message = "Vehicle deleted successfully.",
+                archived = false
+            });
         }
 
         [HttpGet("my_vehicles/{id}")]
@@ -92,7 +120,8 @@ namespace REST_API.Controllers
                     MaxCapacity = v.MaxCapacity,
                     OwnerId = v.OwnerId,
                     OwnerName = v.DatabaseOwner.FirstName + " " + v.DatabaseOwner.LastName,
-                    VehiclePicturePath = v.VehiclePicturePath
+                    VehiclePicturePath = v.VehiclePicturePath,
+                    IsDeleted = v.IsDeleted
                 }).ToListAsync(); ;
         }
 
@@ -125,7 +154,6 @@ namespace REST_API.Controllers
                 }
 
                 imagePath = $"/uploads/vehicles/{fileName}";
-                // comment for test
             }
 
             DatabaseVehicle newVehicle = new DatabaseVehicle()
@@ -136,6 +164,7 @@ namespace REST_API.Controllers
                 MaxCapacity = request.MaxCapacity,
                 OwnerId = request.OwnerId,
                 VehiclePicturePath = imagePath,
+                IsDeleted = false
             };
 
             _context.Vehicles.Add(newVehicle);

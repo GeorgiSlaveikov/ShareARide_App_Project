@@ -76,7 +76,7 @@ namespace REST_API.Controllers
                     VehicleModel = r.DatabaseOffer.DatabaseVehicle.Model,
                     VehicleYear = r.DatabaseOffer.DatabaseVehicle.Year,
                     DatabaseBookings = r.DatabaseBookings
-                    
+
                 }).FirstOrDefaultAsync();
 
             if (booking == null) return NotFound();
@@ -201,9 +201,52 @@ namespace REST_API.Controllers
             return Ok();
         }
 
+        //[HttpPut("{id}/finish")]
+        //public async Task<IActionResult> FinishRide(int id)
+        //{
+        //    var ride = await _context.Rides
+        //        .Include(r => r.DatabaseOffer)
+        //        .FirstOrDefaultAsync(r => r.Id == id);
+
+        //    if (ride == null)
+        //    {
+        //        return NotFound("Ride not found.");
+        //    }
+
+        //    if (ride.Status == Core.Others.RideStatus.Cancelled)
+        //    {
+        //        return BadRequest("Cancelled ride cannot be finished.");
+        //    }
+
+        //    ride.Status = Core.Others.RideStatus.Finished;
+
+        //    var driver = await _context.Users
+        //.FirstOrDefaultAsync(u => u.Id == ride.DatabaseOffer.DriverId);
+
+        //    if (driver == null)
+        //    {
+        //        return BadRequest("Driver does not exist.");
+        //    }
+
+        //    ride.Status = Core.Others.RideStatus.Finished;
+        //    driver.TripsCount++;
+
+
+        //    //if (ride.DatabaseOffer != null)
+        //    //{
+        //    //    ride.DatabaseOffer.OfferStatus = Core.Others.OfferStatus.;
+        //    //}
+
+        //    await _context.SaveChangesAsync();
+
+        //    return Ok();
+        //}
+
         [HttpPut("{id}/finish")]
         public async Task<IActionResult> FinishRide(int id)
         {
+
+            Console.WriteLine("finishing a ride");
             var ride = await _context.Rides
                 .Include(r => r.DatabaseOffer)
                 .FirstOrDefaultAsync(r => r.Id == id);
@@ -213,17 +256,31 @@ namespace REST_API.Controllers
                 return NotFound("Ride not found.");
             }
 
+            if (ride.DatabaseOffer == null)
+            {
+                return BadRequest("Ride offer is missing.");
+            }
+
             if (ride.Status == Core.Others.RideStatus.Cancelled)
             {
                 return BadRequest("Cancelled ride cannot be finished.");
             }
 
-            ride.Status = Core.Others.RideStatus.Finished;
+            if (ride.Status == Core.Others.RideStatus.Finished)
+            {
+                return BadRequest("Ride is already finished.");
+            }
 
-            //if (ride.DatabaseOffer != null)
-            //{
-            //    ride.DatabaseOffer.OfferStatus = Core.Others.OfferStatus.;
-            //}
+            var driver = await _context.Users
+                .FirstOrDefaultAsync(u => u.Id == ride.DatabaseOffer.DriverId);
+
+            if (driver == null)
+            {
+                return BadRequest("Driver does not exist.");
+            }
+
+            ride.Status = Core.Others.RideStatus.Finished;
+            driver.TripsCount++;
 
             await _context.SaveChangesAsync();
 

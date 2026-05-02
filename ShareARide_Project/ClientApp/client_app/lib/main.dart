@@ -1,7 +1,5 @@
 import 'package:client_app/controllers/userUtils.dart';
 import 'package:client_app/pages/homePage.dart';
-// import 'package:client_app/pages/offersPage.dart'; // Offers List
-// import 'package:client_app/pages/bookedOffersPage.dart'; // Booked List
 import 'package:client_app/pages/loginPage.dart';
 import 'package:flutter/material.dart';
 import 'package:client_app/controllers/notificationService.dart';

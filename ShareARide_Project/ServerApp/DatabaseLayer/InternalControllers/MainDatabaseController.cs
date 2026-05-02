@@ -75,7 +75,7 @@ namespace DatabaseLayer.InternalControllers
                         MaxCapacity = 4
                     });
 
-                    foreach (var c in DatabaseCityController.cities)
+                    foreach (var c in DatabaseCityController.citiesBg)
                         {
                             var coordinates = DatabaseCityController.GetCoordinates(c);
                         

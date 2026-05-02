@@ -23,25 +23,12 @@ namespace Core.Model
         private string email;
         private string password;
         private decimal rating;
+        private int tripsCount;
 
         [NotMapped]
         public IFormFile? ProfilePicture { get; set; }
 
         public User() { }
-
-        //public User(int id, string username, string firstName, string lastName, string email,
-        //   string password, string phoneNumber)
-        //{
-        //    Id = id;
-        //    Username = username;
-        //    FirstName = firstName;
-        //    LastName = lastName;
-        //    Email = email;
-        //    Password = password;
-        //    Age = 0;
-        //    PhoneNumber = phoneNumber;
-        //}
-
         public User(int id, string username, string firstName, string lastName, string email,
             string password, DateTime birthDate, Sex sex, string phoneNumber, decimal rating)
         {
@@ -69,6 +56,7 @@ namespace Core.Model
         public DateTime BirthDate { get => birthDate; set => birthDate = value; }
         public Sex Sex { get => sex; set => sex = value; }
         public decimal Rating { get => rating; set => rating = value; }
+        public int TripsCount { get => tripsCount; set => tripsCount = value; }
 
         public int CalculateAge() {
             return (DateTime.Now.Year - BirthDate.Year);

@@ -8,6 +8,7 @@ class Vehicle {
   int maxCapacity;
   int ownerId;
   String? vehiclePicturePath;
+  bool isDeleted;
 
   Vehicle({
     this.id,
@@ -17,6 +18,7 @@ class Vehicle {
     required this.maxCapacity,
     required this.ownerId,
     this.vehiclePicturePath,
+    this.isDeleted = false,
   });
 
   factory Vehicle.fromJson(Map<String, dynamic> json) {
@@ -26,7 +28,9 @@ class Vehicle {
       model: json['model'] ?? 'Unknown',
       year: json['year'] ?? 0,
       maxCapacity: json['maxCapacity'] ?? 0,
-      ownerId: json['ownerId'] ?? 0
+      ownerId: json['ownerId'] ?? 0,
+      vehiclePicturePath: json['vehiclePicturePath'],
+      isDeleted: json['isDeleted'] ?? false,
     );
   }
 
@@ -38,99 +42,67 @@ class Vehicle {
       'year': year,
       'maxCapacity': maxCapacity,
       'ownerId': ownerId,
+      'vehiclePicturePath': vehiclePicturePath,
+      'isDeleted': isDeleted,
     };
   }
 
   static VehicleMake parseMake(String makeId) {
-    VehicleMake make;
     switch (makeId) {
       case "0":
-        make = VehicleMake.Unknown;
-        break;
+        return VehicleMake.Unknown;
       case "1":
-        make = VehicleMake.Toyota;
-        break;
+        return VehicleMake.Toyota;
       case "2":
-        make = VehicleMake.Honda;
-        break;
+        return VehicleMake.Honda;
       case "3":
-        make = VehicleMake.Ford;
-        break;
+        return VehicleMake.Ford;
       case "4":
-        make = VehicleMake.Chevrolet;
-        break;
+        return VehicleMake.Chevrolet;
       case "5":
-        make = VehicleMake.Nissan;
-        break;
+        return VehicleMake.Nissan;
       case "6":
-        make = VehicleMake.BMW;
-        break;
+        return VehicleMake.BMW;
       case "7":
-        make = VehicleMake.MercedesBenz;
-        break;
+        return VehicleMake.MercedesBenz;
       case "8":
-        make = VehicleMake.Audi;
-        break;
+        return VehicleMake.Audi;
       case "9":
-        make = VehicleMake.Volkswagen;
-        break;
+        return VehicleMake.Volkswagen;
       case "10":
-        make = VehicleMake.Hyundai;
-        break;
+        return VehicleMake.Hyundai;
       case "11":
-        make = VehicleMake.Kia;
-        break;
+        return VehicleMake.Kia;
       case "12":
-        make = VehicleMake.Subaru;
-        break;
+        return VehicleMake.Subaru;
       case "13":
-        make = VehicleMake.Mazda;
-        break;
+        return VehicleMake.Mazda;
       case "14":
-        make = VehicleMake.Tesla;
-        break;
+        return VehicleMake.Tesla;
       case "15":
-        make = VehicleMake.Jeep;
-        break;
+        return VehicleMake.Jeep;
       case "16":
-        make = VehicleMake.Dodge;
-        break;
+        return VehicleMake.Dodge;
       case "17":
-        make = VehicleMake.Lexus;
-        break;
+        return VehicleMake.Lexus;
       case "18":
-        make = VehicleMake.GMC;
-        break;
+        return VehicleMake.GMC;
       case "19":
-        make = VehicleMake.Volvo;
-        break;
+        return VehicleMake.Volvo;
       case "20":
-        make = VehicleMake.Porsche;
-        break;
+        return VehicleMake.Porsche;
       case "21":
-        make = VehicleMake.Jaguar;
-        break;
+        return VehicleMake.Jaguar;
       case "22":
-        make = VehicleMake.LandRover;
-        break;
+        return VehicleMake.LandRover;
       case "23":
-        make = VehicleMake.Mitsubishi;
-        break;
+        return VehicleMake.Mitsubishi;
       case "24":
-        make = VehicleMake.Fiat;
-        break;
+        return VehicleMake.Fiat;
       case "25":
-        make = VehicleMake.AlfaRomeo;
-        break;
-
+        return VehicleMake.AlfaRomeo;
       default:
-        make = VehicleMake.Unknown; // Default or throw an error
+        return VehicleMake.Unknown;
     }
-    return make;
-  }
-
-  @override
-  String toString() {
-    return 'Make: $make\nModel: $model\nYear: $year\nMax Capacity: $maxCapacity\nOwner ID: $ownerId\nphoto: $vehiclePicturePath';
   }
 }

@@ -13,6 +13,7 @@ namespace REST_API.ResponseObjects
         public string PhoneNumber { get; set; }
         public Sex Sex {  get; set; }
         public decimal Rating { get; set; }
+        public int TripsCount { get; set; }
         public string? ProfilePicturePath { get; set; }
     }
 }
