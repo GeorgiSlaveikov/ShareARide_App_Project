@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../controllers/bookingUtils.dart';
 import '../controllers/userUtils.dart';
-import '../widgets/userDetails.dart';
+import '../infoPopupModals/userDetailModal.dart';
 
 class RequestCard extends StatelessWidget {
   final Map<String, dynamic> request;

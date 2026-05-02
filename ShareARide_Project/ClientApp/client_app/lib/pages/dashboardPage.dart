@@ -6,8 +6,7 @@ import 'offersPage.dart';
 import 'manageVehiclesPage.dart';
 import '../main.dart';
 import '../controllers/utils.dart';
-import '../widgets/userDetails.dart';
-
+import '../infoPopupModals/userDetailModal.dart';
 class DashboardPage extends StatelessWidget {
   final Function(int) onFindOffer;
   const DashboardPage({super.key, required this.onFindOffer});

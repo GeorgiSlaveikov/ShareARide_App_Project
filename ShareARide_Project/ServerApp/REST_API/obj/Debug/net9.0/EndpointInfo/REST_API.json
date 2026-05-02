@@ -1965,6 +1965,10 @@
             "type": "string",
             "nullable": true
           },
+          "driverPhoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
           "driverAge": {
             "type": "integer",
             "format": "int32"

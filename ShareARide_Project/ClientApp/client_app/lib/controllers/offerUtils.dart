@@ -76,8 +76,6 @@ class OfferUtils {
       final response = await http.get(url).timeout(const Duration(seconds: 5));
 
       if (response.statusCode == 200) {
-        // print("API is reachable!");
-        // print(response.body);
         var offer = jsonDecode(response.body);
         return Offer.fromJson(offer);
       }
@@ -87,51 +85,6 @@ class OfferUtils {
     }
     return null;
   }
-
-  // static Future<bool> createOffer(
-  //   int driverId,
-  //   int vehicleId,
-  //   String departureTime,
-  //   int departureCityId,
-  //   int destinationCityId,
-  //   double pricePerSeat,
-  //   int availableSeats
-  // ) async {
-  //   final url = Uri.parse('http://${Utils().ip}:5205/api/offers/create');
-
-  //   try {
-  //     final response = await http.post(
-  //       url,
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "Accept": "application/json",
-  //       },
-  //       body: jsonEncode({
-  //         "driverId": driverId,
-  //         "vehicleId": vehicleId,
-  //         "departureTime": departureTime,
-  //         "departureCityId": departureCityId,
-  //         "destinationCityId": destinationCityId,
-  //         "pricePerSeat": pricePerSeat,
-  //         "availableSeats": availableSeats
-  //       }),
-  //     );
-
-  //     if (response.statusCode == 200 || response.statusCode == 201) {
-  //       print('Offer created successfully!');
-  //       return true;
-  //     } else if (response.statusCode == 401) {
-  //       print('Error: Invalid credentials');
-  //       return false;
-  //     } else {
-  //       print('Server Error: ${response.statusCode}');
-  //       return false;
-  //     }
-  //   } catch (e) {
-  //     print('Connection Error: $e');
-  //     return false;
-  //   }
-  // }
 
   static Future<Offer?> createOffer(
   int driverId,

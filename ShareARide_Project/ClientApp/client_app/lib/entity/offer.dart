@@ -8,6 +8,7 @@ class Offer {
   int driverId;
   String driverName;
   int driverAge;
+  String driverPhoneNumber;
   int vehicleId;
   String vehicleMake;
   String vehicleModel;
@@ -28,6 +29,7 @@ class Offer {
     required this.driverId,
     required this.driverName,
     required this.driverAge,
+    required this.driverPhoneNumber,
     required this.vehicleId,
     required this.vehicleMake,
     required this.vehicleModel,
@@ -50,6 +52,7 @@ class Offer {
       driverId: json['driverId'] ?? 0,
       driverName: json['driverName'] ?? '',
       driverAge: json['driverAge'] ?? 18,
+      driverPhoneNumber: json['driverPhoneNumber'] ?? '0888888888',
       vehicleId: json['vehicleId'] ?? 0,
       vehicleMake: json['vehicleMake'] ?? '',
       vehicleModel: json['vehicleModel'] ?? '',
