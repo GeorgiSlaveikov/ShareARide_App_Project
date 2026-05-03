@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 
 class Utils {
-  var ip = '192.168.1.193';
+  var ip = '172.20.10.2';
 
    static Future<bool> checkConnection() async {
     final url = Uri.parse('http://${Utils().ip}:5205/api/base/check');

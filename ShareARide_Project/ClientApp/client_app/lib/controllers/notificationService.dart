@@ -8,16 +8,18 @@ class NotificationService {
 
   static const AndroidNotificationChannel _rideReminderChannel =
       AndroidNotificationChannel(
-    'ride_reminders_channel',
-    'Ride reminders',
-    description: 'Notifications for upcoming shared rides',
-    importance: Importance.high,
-  );
+        'ride_reminders_channel',
+        'Ride reminders',
+        description: 'Notifications for upcoming shared rides',
+        importance: Importance.high,
+      );
 
   static Future<void> init() async {
     tz_data.initializeTimeZones();
 
-    const androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
+    const androidSettings = AndroidInitializationSettings(
+      '@mipmap/ic_launcher',
+    );
 
     const initializationSettings = InitializationSettings(
       android: androidSettings,
@@ -25,9 +27,10 @@ class NotificationService {
 
     await _plugin.initialize(settings: initializationSettings);
 
-    final androidPlugin =
-        _plugin.resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>();
+    final androidPlugin = _plugin
+        .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin
+        >();
 
     await androidPlugin?.createNotificationChannel(_rideReminderChannel);
 
@@ -73,14 +76,35 @@ class NotificationService {
     );
   }
 
-  static Future<void> showRideReminderNow({
-    required int id,
-  }) async {
+  static Future<void> showRideReminderNow({required int id}) async {
     await _plugin.show(
       id: id,
       title: 'Напомняне за пътуване',
       body: 'Пътуването ви започва скоро.',
-      notificationDetails: const NotificationDetails( // Explicitly named 'notificationDetails'
+      notificationDetails: const NotificationDetails(
+        // Explicitly named 'notificationDetails'
+        android: AndroidNotificationDetails(
+          'ride_reminders_channel',
+          'Ride reminders',
+          channelDescription: 'Notifications for upcoming shared rides',
+          importance: Importance.high,
+          priority: Priority.high,
+          icon: '@mipmap/ic_launcher',
+        ),
+      ),
+    );
+  }
+
+  static Future<void> cancelRideReminder({required int notificationId}) async {
+    await _plugin.cancel(id: notificationId);
+  }
+
+  static Future<void> showRideRequestAccepted({required int id}) async {
+  await _plugin.show(
+    id: id,
+    title: 'Заявката е приета',
+    body: 'Вашата заявка за пътуване беше приета.',
+    notificationDetails: const NotificationDetails(
       android: AndroidNotificationDetails(
         'ride_reminders_channel',
         'Ride reminders',
@@ -90,12 +114,24 @@ class NotificationService {
         icon: '@mipmap/ic_launcher',
       ),
     ),
-    );
-  }
+  );
+}
 
-  static Future<void> cancelRideReminder({
-    required int notificationId,
-  }) async {
-    await _plugin.cancel(id: notificationId);
-  }
+static Future<void> showRideRequestRejected({required int id}) async {
+  await _plugin.show(
+    id: id,
+    title: 'Заявката е отказана',
+    body: 'Вашата заявка за пътуване беше отказана.',
+    notificationDetails: const NotificationDetails(
+      android: AndroidNotificationDetails(
+        'ride_reminders_channel',
+        'Ride reminders',
+        channelDescription: 'Notifications for upcoming shared rides',
+        importance: Importance.high,
+        priority: Priority.high,
+        icon: '@mipmap/ic_launcher',
+      ),
+    ),
+  );
+}
 }

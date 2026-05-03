@@ -273,7 +273,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                             ),
                             const SizedBox(width: 12),
                             Text(
-                              "Предлагани места",
+                              "Места",
                               style: TextStyle(
                                 color: Colors.grey.shade700,
                                 fontSize: 16,
@@ -344,7 +344,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                           style: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                         subtitle: Text(
-                          "${selectedDateTime.day}/${selectedDateTime.month} at ${selectedDateTime.hour.toString().padLeft(2, '0')}:${selectedDateTime.minute.toString().padLeft(2, '0')}",
+                          "На ${selectedDateTime.day}/${selectedDateTime.month} от ${selectedDateTime.hour.toString().padLeft(2, '0')}:${selectedDateTime.minute.toString().padLeft(2, '0')}",
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
