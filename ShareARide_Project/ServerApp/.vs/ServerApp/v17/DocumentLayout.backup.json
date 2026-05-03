@@ -54,8 +54,7 @@
               "RelativeToolTip": "DatabaseLayer\\DatabaseModelControllers\\DatabaseUserController.cs",
               "ViewState": "AgIAAEoAAAAAAAAAAAAIwH0AAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-03T06:50:12.816Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-03T06:50:12.816Z"
             },
             {
               "$type": "Document",
@@ -67,8 +66,7 @@
               "RelativeToolTip": "REST_API\\Controllers\\UsersController.cs",
               "ViewState": "AgIAAD4AAAAAAAAAAAAwwFQAAABKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-03T06:48:51.999Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-03T06:48:51.999Z"
             },
             {
               "$type": "Document",
@@ -80,8 +78,7 @@
               "RelativeToolTip": "DatabaseLayer\\InternalControllers\\MainDatabaseController.cs",
               "ViewState": "AgIAACQAAAAAAAAAAAAowD8AAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-03T06:39:31.641Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-03T06:39:31.641Z"
             },
             {
               "$type": "Document",
@@ -93,8 +90,7 @@
               "RelativeToolTip": "DatabaseLayer\\Database\\DatabaseContext.cs",
               "ViewState": "AgIAAC8AAAAAAAAAAAAswAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-03T06:39:29.406Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-03T06:39:29.406Z"
             },
             {
               "$type": "Document",
@@ -104,7 +100,7 @@
               "RelativeDocumentMoniker": "REST_API\\Program.cs",
               "ToolTip": "D:\\WebDevelop\\GitHubUploads\\ShareARide_App_Project\\ShareARide_Project\\ServerApp\\REST_API\\Program.cs",
               "RelativeToolTip": "REST_API\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA4AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-02T19:26:04.585Z",
               "EditorCaption": ""
