@@ -277,7 +277,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
 
                 const Text(
-                  "Създайте си акаунт",
+                  "Създайте акаунт",
                   style: TextStyle(fontSize: 16, color: Colors.white70),
                 ),
 
@@ -303,7 +303,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                         TextFieldElement(
                           controller: _usernameController,
-                          label: "Прякор",
+                          label: "Потребителско име",
                           icon: Icons.person_outline,
                           color: themeColor,
                         ),
@@ -312,7 +312,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                         TextFieldElement(
                           controller: _emailController,
-                          label: "Емейл",
+                          label: "Имейл",
                           icon: Icons.email_outlined,
                           color: themeColor,
                         ),
@@ -330,7 +330,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                         TextFieldElement(
                           controller: _firstNameController,
-                          label: "Първо име",
+                          label: "Име",
                           icon: Icons.person_outline,
                           color: themeColor,
                         ),
@@ -528,7 +528,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     final bool success = response['success'] ?? false;
     final String message =
-        response['message'] ?? 'Unknown response from server';
+        response['message'] ?? 'Грешка';
 
     if (success) {
       ScaffoldMessenger.of(context).showSnackBar(

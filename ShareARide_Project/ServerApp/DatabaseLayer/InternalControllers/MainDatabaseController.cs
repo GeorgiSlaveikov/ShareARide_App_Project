@@ -44,6 +44,9 @@ namespace DatabaseLayer.InternalControllers
                             FirstName = "Georgi",
                             LastName = "Slaveykov",
                             Email = "georgi.slaveykov@gmail.com",
+                            BirthDate = new DateTime(2004, 5, 6),
+                            Age = 21,
+                            Sex = Core.Others.Sex.Male,
                             Password = DatabaseUserController.HashPassword("0000"),
                             PhoneNumber = "0886586117"
 
@@ -61,6 +64,9 @@ namespace DatabaseLayer.InternalControllers
                             LastName = "Stoyanov",
                             Email = "rostislav.stoyanov@gmail.com",
                             Password = DatabaseUserController.HashPassword("0000"),
+                            BirthDate = new DateTime(2004, 3, 25),
+                            Age = 22,
+                            Sex = Core.Others.Sex.Male,
                             PhoneNumber = "0886586117"
 
                         };

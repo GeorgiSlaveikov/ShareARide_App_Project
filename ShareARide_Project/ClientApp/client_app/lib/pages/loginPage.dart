@@ -120,7 +120,7 @@ class _LoginFormState extends State<LoginForm> {
                         const SizedBox(height: 24),
                         TextFieldElement(
                           controller: _usernameController,
-                          label: "Прякор",
+                          label: "Потребителско име",
                           icon: Icons.person_outline,
                           color: themeColor,
                         ),

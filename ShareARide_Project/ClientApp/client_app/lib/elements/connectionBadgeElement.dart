@@ -31,7 +31,7 @@ Widget ConnectionBadgeElement(bool connected, {VoidCallback? onTap}) {
             ),
             const SizedBox(width: 6),
             Text(
-              connected ? "Server Connected" : "Server Disconnected",
+              connected ? "Сървърът е достъпен" : "Сървърът не е достъпен",
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.bold,

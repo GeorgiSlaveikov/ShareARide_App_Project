@@ -196,36 +196,40 @@ class _RequestsPageState extends State<RequestsPage> {
     super.initState();
     fetchBookingsForMe();
   }
-
+  
   Future<void> fetchBookingsForMe() async {
-    setState(() {
-      isLoading = true;
-    });
+  setState(() {
+    isLoading = true;
+  });
 
-    final currentUserId = await UserUtils.getCurrentUserId();
-    final bookings = await BookingUtils.getBookingsForMe(currentUserId);
+  final currentUserId = await UserUtils.getCurrentUserId();
+  final bookings = await BookingUtils.getBookingsForMe(currentUserId);
 
-    final mappedRequests = bookings.map((booking) {
+  final mappedRequests = await Future.wait(
+    bookings.map((booking) async {
+      final requester = await UserUtils.getUser(booking.requesterId);
+
       return {
         "id": booking.id,
         "requestedForId": booking.requestedForId,
         "requesterFullName": booking.requesterName,
         "requesterId": booking.requesterId,
         "offerId": booking.offerId,
-        "age": 18,
+        "age": requester!.age,
         "trip": "${booking.departureCityName} → ${booking.destinationCityName}",
         "date": booking.departureTime,
         "seats": booking.bookedSeats,
       };
-    }).toList();
+    }).toList(),
+  );
 
-    if (!mounted) return;
+  if (!mounted) return;
 
-    setState(() {
-      incomingRequests = mappedRequests;
-      isLoading = false;
-    });
-  }
+  setState(() {
+    incomingRequests = mappedRequests;
+    isLoading = false;
+  });
+}
 
   Future<void> refreshRequests() async {
     await fetchBookingsForMe();
